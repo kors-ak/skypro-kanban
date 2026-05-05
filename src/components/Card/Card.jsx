@@ -4,7 +4,7 @@ const Card = ({ groupColor = "_orange", groupName = "Web Design" }) => {
    <div className="cards__card card">
     <div className="card__group">
      <div className={"card__theme " + groupColor}>
-      <p className="_orange">{groupName}</p>
+      <p className={groupColor}>{groupName}</p>
      </div>
      <a href="#popBrowse" target="_self">
       <div className="card__btn">
