@@ -1,4 +1,5 @@
-const PopUser = ({ showPopUser }) => {
+const PopUser = ({ showPopUser, showPopExit, setShowPopExit }) => {
+
  return (
   showPopUser && (
    <div className="header__pop-user-set pop-user-set" id="user-set-target">
@@ -9,7 +10,15 @@ const PopUser = ({ showPopUser }) => {
      <input type="checkbox" className="checkbox" name="checkbox" />
     </div>
     <button type="button" className="_hover03">
-     <a href="#popExit">Выйти</a>
+     <a
+      href="#popExit"
+      onClick={(e) => {
+       e.preventDefault();
+       setShowPopExit(!showPopExit);
+      }}
+     >
+      Выйти
+     </a>
     </button>
    </div>
   )

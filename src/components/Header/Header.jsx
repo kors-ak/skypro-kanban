@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PopUser from "../popups/PopUser";
 
-const Header = () => {
+const Header = ({ showPopExit, setShowPopExit }) => {
  const [showPopUser, setShowPopUser] = useState(false);
 
  return (
@@ -10,12 +10,12 @@ const Header = () => {
     <div className="header__block">
      <div className="header__logo _show _light">
       <a href="" target="_self">
-       <img src="images/logo.png" alt="logo" />
+       <img src="/images/logo.png" alt="logo" />
       </a>
      </div>
      <div className="header__logo _dark">
       <a href="" target="_self">
-       <img src="images/logo_dark.png" alt="logo" />
+       <img src="/images/logo_dark.png" alt="logo" />
       </a>
      </div>
      <nav className="header__nav">
@@ -33,7 +33,11 @@ const Header = () => {
        Ivan Ivanov
       </a>
 
-      <PopUser showPopUser={showPopUser} />
+      <PopUser
+       showPopUser={showPopUser}
+       showPopExit={showPopExit}
+       setShowPopExit={setShowPopExit}
+      />
      </nav>
     </div>
    </div>
