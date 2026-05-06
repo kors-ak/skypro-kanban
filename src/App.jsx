@@ -9,6 +9,7 @@ import PopExit from "./components/popups/PopExit";
 function App() {
  const [showPopUser, setShowPopUser] = useState(false);
  const [showPopExit, setShowPopExit] = useState(false);
+ const [showPopNewCard, setShowPopNewCard] = useState(false);
 
  return (
   <>
@@ -18,12 +19,16 @@ function App() {
      setShowPopUser={setShowPopUser}
      showPopExit={showPopExit}
      setShowPopExit={setShowPopExit}
+     showPopNewCard={showPopNewCard}
+     setShowPopNewCard={setShowPopNewCard}
     />
     <Main />
 
     <PopExit showPopExit={showPopExit} />
-
-    <PopNewCard />
+    <PopNewCard
+     showPopNewCard={showPopNewCard}
+     setShowPopNewCard={setShowPopNewCard}
+    />
     <PopBrowse />
    </div>
 

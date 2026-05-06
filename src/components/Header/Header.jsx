@@ -1,7 +1,12 @@
 import { useState } from "react";
 import PopUser from "../popups/PopUser";
 
-const Header = ({ showPopExit, setShowPopExit }) => {
+const Header = ({
+ showPopExit,
+ setShowPopExit,
+ showPopNewCard,
+ setShowPopNewCard,
+}) => {
  const [showPopUser, setShowPopUser] = useState(false);
 
  return (
@@ -20,7 +25,15 @@ const Header = ({ showPopExit, setShowPopExit }) => {
      </div>
      <nav className="header__nav">
       <button className="header__btn-main-new _hover01" id="btnMainNew">
-       <a href="#popNewCard">Создать новую задачу</a>
+       <a
+        href="#popNewCard"
+        onClick={(e) => {
+         e.preventDefault();
+         setShowPopNewCard(!showPopNewCard);
+        }}
+       >
+        Создать новую задачу
+       </a>
       </button>
       <a
        href="#user-set-target"
