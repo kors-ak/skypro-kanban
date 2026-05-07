@@ -1,6 +1,10 @@
 import { THEME_COLORS } from "../../data";
 
-const Card = ({ theme = "Without Theme" }) => {
+const Card = ({
+ theme = "Without Theme",
+ title = "Without Title",
+ date = "01.01.1200",
+}) => {
  const themeColor = THEME_COLORS[theme] || "_grey";
 
  return (
@@ -20,7 +24,7 @@ const Card = ({ theme = "Without Theme" }) => {
     </div>
     <div className="card__content">
      <a href="" target="_blank">
-      <h3 className="card__title">Название задачи</h3>
+      <h3 className="card__title">{title}</h3>
      </a>
      <div className="card__date">
       <svg
@@ -51,7 +55,7 @@ const Card = ({ theme = "Without Theme" }) => {
         </clipPath>
        </defs>
       </svg>
-      <p>30.10.23</p>
+      <p>{date}</p>
      </div>
     </div>
    </div>

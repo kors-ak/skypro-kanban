@@ -4,6 +4,14 @@ export const THEME_COLORS = {
  Copywriting: "_purple",
 };
 
+export const columnsArr = [
+ "Без статуса",
+ "Нужно сделать",
+ "В работе",
+ "Тестирование",
+ "Готово",
+];
+
 export const cardList = [
  {
   id: 1,
