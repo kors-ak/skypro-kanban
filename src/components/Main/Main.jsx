@@ -1,5 +1,6 @@
 import Column from "../Column/Column";
 import Card from "../Card/Card";
+import { cardList } from "../../data";
 
 const Main = () => {
  return (
@@ -8,35 +9,43 @@ const Main = () => {
     <div className="main__block">
      <div className="main__content">
       <Column title="Без статуса">
-       <Card groupColor="_orange" groupName="Web Design" />
-
-       <Card groupColor="_green" groupName="Research" />
-
-       <Card groupColor="_orange" groupName="Web Design" />
-
-       <Card groupColor="_purple" groupName="Copywriting" />
-
-       <Card groupColor="_orange" groupName="Web Design" />
+       {cardList
+        .filter((card) => card.status === "Без статуса")
+        .map((card) => (
+         <Card theme={card.theme} key={card.id} />
+        ))}
       </Column>
 
       <Column title="Нужно сделать">
-       <Card groupColor="_green" groupName="Research" />
+       {cardList
+        .filter((card) => card.status === "Нужно сделать")
+        .map((card) => (
+         <Card theme={card.theme} key={card.id} />
+        ))}
       </Column>
 
       <Column title="В работе">
-       <Card groupColor="_green" groupName="Research" />
-
-       <Card groupColor="_purple" groupName="Copywriting" />
-
-       <Card groupColor="_orange" groupName="Web Design" />
+       {cardList
+        .filter((card) => card.status === "В работе")
+        .map((card) => (
+         <Card theme={card.theme} key={card.id} />
+        ))}
       </Column>
 
       <Column title="Тестирование">
-       <Card groupColor="_green" groupName="Research" />
+       {cardList
+        .filter((card) => card.status === "Тестирование")
+        .map((card) => (
+         <Card theme={card.theme} key={card.id} />
+        ))}
       </Column>
 
       <Column title="Готово">
-       <Card groupColor="_green" groupName="Research" />
+       {cardList
+        .filter((card) => card.status === "Готово")
+        .map((card) => (
+         <Card theme={card.theme} key={card.id} />
+        ))}
       </Column>
      </div>
     </div>

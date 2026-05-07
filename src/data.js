@@ -1,3 +1,9 @@
+export const THEME_COLORS = {
+ "Web Design": "_orange",
+ Research: "_green",
+ Copywriting: "_purple",
+};
+
 export const cardList = [
  {
   id: 1,

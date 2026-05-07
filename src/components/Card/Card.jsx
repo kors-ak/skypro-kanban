@@ -1,10 +1,14 @@
-const Card = ({ groupColor = "_orange", groupName = "Web Design" }) => {
+import { THEME_COLORS } from "../../data";
+
+const Card = ({ theme = "Without Theme" }) => {
+ const themeColor = THEME_COLORS[theme] || "_grey";
+
  return (
   <div className="cards__item">
    <div className="cards__card card">
     <div className="card__group">
-     <div className={"card__theme " + groupColor}>
-      <p className={groupColor}>{groupName}</p>
+     <div className={"card__theme " + themeColor}>
+      <p className={themeColor}>{theme}</p>
      </div>
      <a href="#popBrowse" target="_self">
       <div className="card__btn">
