@@ -1,10 +1,18 @@
-const Card = ({ groupColor = "_orange", groupName = "Web Design" }) => {
+import { THEME_COLORS } from "../../data";
+
+const Card = ({
+ theme = "Without Theme",
+ title = "Without Title",
+ date = "01.01.1200",
+}) => {
+ const themeColor = THEME_COLORS[theme] || "_grey";
+
  return (
   <div className="cards__item">
    <div className="cards__card card">
     <div className="card__group">
-     <div className={"card__theme " + groupColor}>
-      <p className="_orange">{groupName}</p>
+     <div className={"card__theme " + themeColor}>
+      <p className={themeColor}>{theme}</p>
      </div>
      <a href="#popBrowse" target="_self">
       <div className="card__btn">
@@ -16,7 +24,7 @@ const Card = ({ groupColor = "_orange", groupName = "Web Design" }) => {
     </div>
     <div className="card__content">
      <a href="" target="_blank">
-      <h3 className="card__title">Название задачи</h3>
+      <h3 className="card__title">{title}</h3>
      </a>
      <div className="card__date">
       <svg
@@ -47,7 +55,7 @@ const Card = ({ groupColor = "_orange", groupName = "Web Design" }) => {
         </clipPath>
        </defs>
       </svg>
-      <p>30.10.23</p>
+      <p>{date}</p>
      </div>
     </div>
    </div>
