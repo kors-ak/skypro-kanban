@@ -1,32 +1,31 @@
-import { THEME_COLORS } from "../../data";
+import { SButton, SCard, SCardGroup, SCardTheme, SContainer, SContent, SDate, SDot, STitle } from "./Card.styled";
 
 const Card = ({
  theme = "Without Theme",
  title = "Without Title",
  date = "01.01.1200",
 }) => {
- const themeColor = THEME_COLORS[theme] || "_grey";
 
  return (
-  <div className="cards__item">
-   <div className="cards__card card">
-    <div className="card__group">
-     <div className={"card__theme " + themeColor}>
-      <p className={themeColor}>{theme}</p>
-     </div>
+  <SContainer>
+   <SCard>
+    <SCardGroup>
+     <SCardTheme $cardTheme={theme}>
+      <p>{theme}</p>
+     </SCardTheme>
      <a href="#popBrowse" target="_self">
-      <div className="card__btn">
-       <div></div>
-       <div></div>
-       <div></div>
-      </div>
+      <SButton>
+       <SDot />
+       <SDot />
+       <SDot />
+      </SButton>
      </a>
-    </div>
-    <div className="card__content">
+    </SCardGroup>
+    <SContent>
      <a href="" target="_blank">
-      <h3 className="card__title">{title}</h3>
+      <STitle>{title}</STitle>
      </a>
-     <div className="card__date">
+     <SDate>
       <svg
        xmlns="http://www.w3.org/2000/svg"
        width="13"
@@ -56,10 +55,10 @@ const Card = ({
        </defs>
       </svg>
       <p>{date}</p>
-     </div>
-    </div>
-   </div>
-  </div>
+     </SDate>
+    </SContent>
+   </SCard>
+  </SContainer>
  );
 };
 
