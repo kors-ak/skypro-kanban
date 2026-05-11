@@ -1,14 +1,15 @@
 import { cardList } from "../../data";
 import Card from "../Card/Card";
 import CardLoader from "../CardLoader";
+import { SCards, SColumn, STitle } from "./Column.styled";
 
 const Column = ({ title = "Without Theme", loading }) => {
  return (
-  <div className="main__column">
-   <div className="column__title">
+  <SColumn>
+   <STitle>
     <p>{title}</p>
-   </div>
-   <div className="cards">
+   </STitle>
+   <SCards>
     {cardList
      .filter((card) => card.status === title)
      .map((card) =>
@@ -23,8 +24,8 @@ const Column = ({ title = "Without Theme", loading }) => {
        />
       ),
      )}
-   </div>
-  </div>
+   </SCards>
+  </SColumn>
  );
 };
 
