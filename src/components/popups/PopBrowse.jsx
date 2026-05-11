@@ -53,7 +53,6 @@ const PopBrowse = () => {
        </form>
 
        <Calendar
-        activeClassName="_active-day"
         dateEndText="Срок исполнения:"
         dateControl="09.09.23"
        />

@@ -50,7 +50,7 @@ const PopNewCard = ({ showPopNewCard, setShowPopNewCard }) => {
          </div>
         </form>
 
-        <Calendar />
+        <Calendar $isPopCalendar />
        </div>
        <div className="pop-new-card__categories categories">
         <p className="categories__p subttl">Категория</p>
