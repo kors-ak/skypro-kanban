@@ -1,4 +1,4 @@
-import Calendar from "../Calendar/Calendar";
+import Calendar from "../../Calendar/Calendar";
 
 const PopBrowse = () => {
  return (
@@ -52,10 +52,7 @@ const PopBrowse = () => {
         </div>
        </form>
 
-       <Calendar
-        dateEndText="Срок исполнения:"
-        dateControl="09.09.23"
-       />
+       <Calendar dateEndText="Срок исполнения:" dateControl="09.09.23" />
       </div>
       <div className="theme-down__categories theme-down">
        <p className="categories__p subttl">Категория</p>
