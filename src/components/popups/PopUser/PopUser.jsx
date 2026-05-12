@@ -1,15 +1,16 @@
-const PopUser = ({ showPopUser, showPopExit, setShowPopExit }) => {
+import { SButton, SMail, SName, SPopUser, STheme } from "./PopUser.styled";
 
+const PopUser = ({ showPopUser, showPopExit, setShowPopExit }) => {
  return (
   showPopUser && (
-   <div className="header__pop-user-set pop-user-set" id="user-set-target">
-    <p className="pop-user-set__name">Ivan Ivanov</p>
-    <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-    <div className="pop-user-set__theme">
+   <SPopUser id="user-set-target">
+    <SName>Ivan Ivanov</SName>
+    <SMail>ivan.ivanov@gmail.com</SMail>
+    <STheme>
      <p>Темная тема</p>
-     <input type="checkbox" className="checkbox" name="checkbox" />
-    </div>
-    <button type="button" className="_hover03">
+     <input type="checkbox" name="checkbox" />
+    </STheme>
+    <SButton>
      <a
       href="#popExit"
       onClick={(e) => {
@@ -19,8 +20,8 @@ const PopUser = ({ showPopUser, showPopExit, setShowPopExit }) => {
      >
       Выйти
      </a>
-    </button>
-   </div>
+    </SButton>
+   </SPopUser>
   )
  );
 };
