@@ -6,7 +6,7 @@ import {
  SForm,
  SPopExit,
  STitle,
-} from "./PopExit";
+} from "./PopExit.styled";
 
 const PopExit = ({ showPopExit }) => {
  return (

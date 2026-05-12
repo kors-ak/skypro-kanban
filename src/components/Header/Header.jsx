@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PopUser from "../popups/PopUser/PopUser";
+import PopUser from "../popups/PopUser/PopUser.jsx";
 import {
  SBlock,
  SButton,

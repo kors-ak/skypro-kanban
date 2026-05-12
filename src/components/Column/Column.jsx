@@ -1,6 +1,6 @@
 import { cardList } from "../../data";
-import Card from "../Card/Card";
-import CardLoader from "../CardLoader";
+import Card from "../Card/Card.jsx";
+import CardLoader from "../CardLoader.jsx";
 import { SCards, SColumn, STitle } from "./Column.styled";
 
 const Column = ({ title = "Without Theme", loading }) => {
