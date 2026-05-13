@@ -3,7 +3,7 @@ import Card from "../Card/Card.jsx";
 import CardLoader from "../CardLoader.jsx";
 import { SCards, SColumn, STitle } from "./Column.styled";
 
-const Column = ({ title = "Without Theme", loading }) => {
+const Column = ({ title = "Without Theme", loading , setShowPopBrowse}) => {
  return (
   <SColumn>
    <STitle>
@@ -17,10 +17,9 @@ const Column = ({ title = "Without Theme", loading }) => {
        <CardLoader key={card.id} />
       ) : (
        <Card
-        theme={card.theme}
-        title={card.title}
-        date={card.date}
+        cardData={card}
         key={card.id}
+        setShowPopBrowse={setShowPopBrowse}
        />
       ),
      )}

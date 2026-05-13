@@ -1,20 +1,27 @@
-import { SButton, SCard, SCardGroup, SCardTheme, SContainer, SContent, SDate, SDot, STitle } from "./Card.styled";
+import {
+ SButton,
+ SCard,
+ SCardGroup,
+ SCardTheme,
+ SContainer,
+ SContent,
+ SDate,
+ SDot,
+ STitle,
+} from "./Card.styled";
 
-const Card = ({
- theme = "Without Theme",
- title = "Without Title",
- date = "01.01.1200",
-}) => {
-
+const Card = ({ cardData, setShowPopBrowse }) => {
  return (
   <SContainer>
    <SCard>
     <SCardGroup>
-     <SCardTheme $cardTheme={theme}>
-      <p>{theme}</p>
+     <SCardTheme $cardTheme={cardData.theme}>
+      <p>{cardData.theme}</p>
      </SCardTheme>
      <a href="#popBrowse" target="_self">
-      <SButton>
+      <SButton
+       onClick={() => setShowPopBrowse({ isOpen: true, card: cardData })}
+      >
        <SDot />
        <SDot />
        <SDot />
@@ -23,7 +30,7 @@ const Card = ({
     </SCardGroup>
     <SContent>
      <a href="" target="_blank">
-      <STitle>{title}</STitle>
+      <STitle>{cardData.title}</STitle>
      </a>
      <SDate>
       <svg
@@ -54,7 +61,7 @@ const Card = ({
         </clipPath>
        </defs>
       </svg>
-      <p>{date}</p>
+      <p>{cardData.date}</p>
      </SDate>
     </SContent>
    </SCard>

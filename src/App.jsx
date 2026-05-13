@@ -21,6 +21,10 @@ function App() {
  const [showPopUser, setShowPopUser] = useState(false);
  const [showPopExit, setShowPopExit] = useState(false);
  const [showPopNewCard, setShowPopNewCard] = useState(false);
+ const [showPopBrowse, setShowPopBrowse] = useState({
+  isOpen: false,
+  card: null,
+ });
 
  useEffect(() => {
   setTimeout(() => {
@@ -41,7 +45,7 @@ function App() {
      setShowPopNewCard={setShowPopNewCard}
     />
 
-    <Main loading={loading} />
+    <Main loading={loading} setShowPopBrowse={setShowPopBrowse} />
 
     <PopExit showPopExit={showPopExit} />
 
@@ -50,7 +54,10 @@ function App() {
      setShowPopNewCard={setShowPopNewCard}
     />
 
-    <PopBrowse />
+    <PopBrowse
+     showPopBrowse={showPopBrowse}
+     setShowPopBrowse={setShowPopBrowse}
+    />
    </SApp>
 
    <script src="js/script.js"></script>
