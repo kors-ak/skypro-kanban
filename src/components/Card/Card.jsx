@@ -1,32 +1,38 @@
-import { THEME_COLORS } from "../../data";
+import {
+ SButton,
+ SCard,
+ SCardGroup,
+ SCardTheme,
+ SContainer,
+ SContent,
+ SDate,
+ SDot,
+ STitle,
+} from "./Card.styled";
 
-const Card = ({
- theme = "Without Theme",
- title = "Without Title",
- date = "01.01.1200",
-}) => {
- const themeColor = THEME_COLORS[theme] || "_grey";
-
+const Card = ({ cardData, setShowPopBrowse }) => {
  return (
-  <div className="cards__item">
-   <div className="cards__card card">
-    <div className="card__group">
-     <div className={"card__theme " + themeColor}>
-      <p className={themeColor}>{theme}</p>
-     </div>
+  <SContainer>
+   <SCard>
+    <SCardGroup>
+     <SCardTheme $cardTheme={cardData.theme}>
+      <p>{cardData.theme}</p>
+     </SCardTheme>
      <a href="#popBrowse" target="_self">
-      <div className="card__btn">
-       <div></div>
-       <div></div>
-       <div></div>
-      </div>
+      <SButton
+       onClick={() => setShowPopBrowse({ isOpen: true, card: cardData })}
+      >
+       <SDot />
+       <SDot />
+       <SDot />
+      </SButton>
      </a>
-    </div>
-    <div className="card__content">
+    </SCardGroup>
+    <SContent>
      <a href="" target="_blank">
-      <h3 className="card__title">{title}</h3>
+      <STitle>{cardData.title}</STitle>
      </a>
-     <div className="card__date">
+     <SDate>
       <svg
        xmlns="http://www.w3.org/2000/svg"
        width="13"
@@ -55,11 +61,11 @@ const Card = ({
         </clipPath>
        </defs>
       </svg>
-      <p>{date}</p>
-     </div>
-    </div>
-   </div>
-  </div>
+      <p>{cardData.date}</p>
+     </SDate>
+    </SContent>
+   </SCard>
+  </SContainer>
  );
 };
 

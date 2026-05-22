@@ -1,16 +1,30 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
-import PopBrowse from "./components/popups/PopBrowse";
-import PopNewCard from "./components/popups/PopNewCard";
-import PopExit from "./components/popups/PopExit";
+import Header from "./components/Header/Header.jsx";
+import Main from "./components/Main/Main.jsx";
+import PopBrowse from "./components/popups/PopBrowse/PopBrowse.jsx";
+import PopNewCard from "./components/popups/PopNewCard/PopNewCard.jsx";
+import PopExit from "./components/popups/PopExit/PopExit.jsx";
+import styled from "styled-components";
+import GlobalStyles from "./globalStyles.js";
+
+const SApp = styled.div`
+ max-width: 100%;
+ width: 100vw;
+ min-height: 100vh;
+ overflow: hidden;
+ background-color: #f1f1f1;
+`;
 
 function App() {
  const [loading, setLoading] = useState(true);
  const [showPopUser, setShowPopUser] = useState(false);
  const [showPopExit, setShowPopExit] = useState(false);
  const [showPopNewCard, setShowPopNewCard] = useState(false);
+ const [showPopBrowse, setShowPopBrowse] = useState({
+  isOpen: false,
+  card: null,
+ });
 
  useEffect(() => {
   setTimeout(() => {
@@ -20,7 +34,8 @@ function App() {
 
  return (
   <>
-   <div className="wrapper">
+   <GlobalStyles />
+   <SApp>
     <Header
      showPopUser={showPopUser}
      setShowPopUser={setShowPopUser}
@@ -30,7 +45,7 @@ function App() {
      setShowPopNewCard={setShowPopNewCard}
     />
 
-    <Main loading={loading} />
+    <Main loading={loading} setShowPopBrowse={setShowPopBrowse} />
 
     <PopExit showPopExit={showPopExit} />
 
@@ -39,8 +54,11 @@ function App() {
      setShowPopNewCard={setShowPopNewCard}
     />
 
-    <PopBrowse />
-   </div>
+    <PopBrowse
+     showPopBrowse={showPopBrowse}
+     setShowPopBrowse={setShowPopBrowse}
+    />
+   </SApp>
 
    <script src="js/script.js"></script>
   </>

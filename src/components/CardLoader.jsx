@@ -1,17 +1,65 @@
+import { SCard, SCardGroup, SContainer, SContent } from "./Card/Card.styled";
+import styled from "styled-components";
+
+const SThemeLoader = styled.div`
+ width: 82px;
+ height: 20px;
+ border-radius: 18px;
+ background: linear-gradient(
+  90deg,
+  #c1cddc -6.32%,
+  #e9eef7 46.75%,
+  #c1cddc 106.46%
+ );
+`;
+
+const SButtonLoader = styled.div`
+ width: 18px;
+ height: 4px;
+ background: linear-gradient(
+  90deg,
+  #c1cddc -6.32%,
+  #e9eef7 46.75%,
+  #c1cddc 106.46%
+ );
+`;
+
+const STitleLoader = styled.div`
+ width: 113px;
+ height: 13px;
+ background: linear-gradient(
+  90deg,
+  #c1cddc -6.32%,
+  #e9eef7 46.75%,
+  #c1cddc 106.46%
+ );
+`;
+
+const SDateLoader = styled.div`
+ width: 58px;
+ height: 13px;
+ background: linear-gradient(
+  90deg,
+  #c1cddc -6.32%,
+  #e9eef7 46.75%,
+  #c1cddc 106.46%
+ );
+`;
+
 const CardLoader = () => {
  return (
-  <div className="cards__item">
-   <div className="cards__card card">
-    <div className="card__group">
-     <div className="card__theme_loader"></div>
-     <div className="card__btn_loader"></div>
-    </div>
-    <div className="card__content">
-     <div className="card__title_loader"></div>
-     <div className="card__date_loader"></div>
-    </div>
-   </div>
-  </div>
+  <SContainer>
+   <SCard>
+    <SCardGroup>
+     <SThemeLoader />
+     <SButtonLoader />
+    </SCardGroup>
+    <SContent>
+     <STitleLoader></STitleLoader>
+     <SDateLoader></SDateLoader>
+    </SContent>
+   </SCard>
+  </SContainer>
  );
 };
 
