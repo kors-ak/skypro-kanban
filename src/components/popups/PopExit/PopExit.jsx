@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import {
   SBlock,
   SButtonNo,
@@ -20,10 +21,10 @@ const PopExit = ({ showPopExit }) => {
             <form id="formExit" action="#">
               <SForm>
                 <SButtonYes id="exitYes">
-                  <a href="/sign-in">Да, выйти</a>{' '}
+                  <Link to="/sign-in">Да, выйти</Link>
                 </SButtonYes>
                 <SButtonNo id="exitNo">
-                  <a href="/">Нет, остаться</a>{' '}
+                  <a href="/">Нет, остаться</a>
                 </SButtonNo>
               </SForm>
             </form>

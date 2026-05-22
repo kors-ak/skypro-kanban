@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom'
 import {
   SAuth,
   SBlock,
@@ -11,6 +12,12 @@ import {
 } from './AuthForm.Styled'
 
 const AuthForm = ({ IsSignUp }) => {
+  const navigate = useNavigate()
+  const handleLogin = (e) => {
+    e.preventDefault()
+    navigate('/')
+  }
+
   return (
     <SAuth>
       <SContainer>
@@ -42,20 +49,20 @@ const AuthForm = ({ IsSignUp }) => {
                 id="formpassword"
                 placeholder="Пароль"
               />
-              <SButton id="btnEnter">
+              <SButton onClick={handleLogin}>
                 {IsSignUp ? 'Зарегистрироваться' : 'Войти'}
               </SButton>
 
               {IsSignUp ? (
                 <SFooter>
                   <p>
-                    Уже есть аккаунт? <a href="/sign-in">Войдите здесь</a>
+                    Уже есть аккаунт? <Link to="/sign-in">Войдите здесь</Link>
                   </p>
                 </SFooter>
               ) : (
                 <SFooter>
                   <p>Нужно зарегистрироваться?</p>
-                  <a href="/sign-up">Регистрируйтесь здесь</a>
+                  <Link to="/sign-up">Регистрируйтесь здесь</Link>
                 </SFooter>
               )}
             </SForm>

@@ -6,7 +6,6 @@ import SignUpPage from '../pages/SignUpPage.jsx'
 
 function AppRoutes() {
   const [loading, setLoading] = useState(true)
-
   useEffect(() => {
     setTimeout(() => {
       setLoading(false)
