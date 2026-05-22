@@ -1,5 +1,3 @@
-import { useState } from 'react'
-import PopUser from '../popups/PopUser/PopUser.jsx'
 import {
   SBlock,
   SButton,
@@ -9,57 +7,30 @@ import {
   SNav,
   SUser,
 } from './Header.styled'
+import { Link } from 'react-router-dom'
 
-const Header = ({
-  showPopExit,
-  setShowPopExit,
-  showPopNewCard,
-  setShowPopNewCard,
-}) => {
-  const [showPopUser, setShowPopUser] = useState(false)
-
+const Header = () => {
   return (
     <SHeader>
       <SContainer>
         <SBlock>
           <SLogo $isVisible>
-            <a href="" target="_self">
+            <Link to="/">
               <img src="/images/logo.png" alt="logo" />
-            </a>
+            </Link>
           </SLogo>
           <SLogo>
-            <a href="" target="_self">
+            <Link to="/">
               <img src="/images/logo_dark.png" alt="logo" />
-            </a>
+            </Link>
           </SLogo>
           <SNav>
             <SButton id="btnMainNew">
-              <a
-                href="#popNewCard"
-                onClick={(e) => {
-                  e.preventDefault()
-                  setShowPopNewCard(!showPopNewCard)
-                }}
-              >
-                Создать новую задачу
-              </a>
+              <Link to="/card/add">Создать новую задачу</Link>
             </SButton>
-            <SUser
-              href="#user-set-target"
-              className="header__user _hover02"
-              onClick={(e) => {
-                e.preventDefault()
-                setShowPopUser(!showPopUser)
-              }}
-            >
-              Ivan Ivanov
+            <SUser>
+              <Link to="/user">Ivan Ivanov</Link>
             </SUser>
-
-            <PopUser
-              showPopUser={showPopUser}
-              showPopExit={showPopExit}
-              setShowPopExit={setShowPopExit}
-            />
           </SNav>
         </SBlock>
       </SContainer>

@@ -9,29 +9,27 @@ import {
   STitle,
 } from './PopExit.styled'
 
-const PopExit = ({ showPopExit }) => {
+const PopExit = () => {
   return (
-    showPopExit && (
-      <SPopExit id="popExit">
-        <SContainer>
-          <SBlock>
-            <STitle>
-              <h2>Выйти из аккаунта?</h2>
-            </STitle>
-            <form id="formExit" action="#">
-              <SForm>
-                <SButtonYes id="exitYes">
-                  <Link to="/sign-in">Да, выйти</Link>
-                </SButtonYes>
-                <SButtonNo id="exitNo">
-                  <a href="/">Нет, остаться</a>
-                </SButtonNo>
-              </SForm>
-            </form>
-          </SBlock>
-        </SContainer>
-      </SPopExit>
-    )
+    <SPopExit id="popExit">
+      <SContainer>
+        <SBlock>
+          <STitle>
+            <h2>Выйти из аккаунта?</h2>
+          </STitle>
+          <form id="formExit" action="#">
+            <SForm>
+              <SButtonYes id="exitYes">
+                <Link to="/sign-in">Да, выйти</Link>
+              </SButtonYes>
+              <SButtonNo id="exitNo">
+                <Link to="/">Нет, остаться</Link>
+              </SButtonNo>
+            </SForm>
+          </form>
+        </SBlock>
+      </SContainer>
+    </SPopExit>
   )
 }
 

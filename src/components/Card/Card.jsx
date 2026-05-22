@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import {
   SButton,
   SCard,
@@ -10,27 +11,25 @@ import {
   STitle,
 } from './Card.styled'
 
-const Card = ({ cardData, setShowPopBrowse }) => {
+const Card = ({ card }) => {
   return (
     <SContainer>
       <SCard>
         <SCardGroup>
-          <SCardTheme $cardTheme={cardData.theme}>
-            <p>{cardData.theme}</p>
+          <SCardTheme $cardTheme={card.theme}>
+            <p>{card.theme}</p>
           </SCardTheme>
-          <a href="#popBrowse" target="_self">
-            <SButton
-              onClick={() => setShowPopBrowse({ isOpen: true, card: cardData })}
-            >
+          <Link to={'/card/' + card?.id}>
+            <SButton>
               <SDot />
               <SDot />
               <SDot />
             </SButton>
-          </a>
+          </Link>
         </SCardGroup>
         <SContent>
           <a href="" target="_blank">
-            <STitle>{cardData.title}</STitle>
+            <STitle>{card.title}</STitle>
           </a>
           <SDate>
             <svg
@@ -61,7 +60,7 @@ const Card = ({ cardData, setShowPopBrowse }) => {
                 </clipPath>
               </defs>
             </svg>
-            <p>{cardData.date}</p>
+            <p>{card.date}</p>
           </SDate>
         </SContent>
       </SCard>
