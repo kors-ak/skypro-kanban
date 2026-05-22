@@ -17,6 +17,7 @@ const GlobalStyles = createGlobalStyle`
   a:visited {
   text-decoration: none;
   cursor: pointer;
+  transition: background-color 0.3s ease;
   }
 
   button,

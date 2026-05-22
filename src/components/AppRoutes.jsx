@@ -7,6 +7,7 @@ import ExitPage from '../pages/ExitPage.jsx'
 import UserPage from '../pages/UserPage.jsx'
 import NewCardPage from '../pages/NewCardPage.jsx'
 import CardPage from '../pages/CardPage.jsx'
+import NotFoundPage from '../pages/NotFoundPage.jsx'
 
 function AppRoutes() {
   const [loading, setLoading] = useState(true)
@@ -27,6 +28,8 @@ function AppRoutes() {
 
       <Route path="/sign-in" element={<SignInPage />} />
       <Route path="/sign-up" element={<SignUpPage />} />
+
+      <Route path="/*" element={<NotFoundPage />} />
     </Routes>
   )
 }
