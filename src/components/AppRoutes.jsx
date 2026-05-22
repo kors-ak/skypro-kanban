@@ -8,8 +8,10 @@ import UserPage from '../pages/UserPage.jsx'
 import NewCardPage from '../pages/NewCardPage.jsx'
 import CardPage from '../pages/CardPage.jsx'
 import NotFoundPage from '../pages/NotFoundPage.jsx'
+import PrivateRoute from '../components/PrivateRoute.jsx'
 
 function AppRoutes() {
+  const [isAuth, setIsAuth] = useState(false)
   const [loading, setLoading] = useState(true)
   useEffect(() => {
     setTimeout(() => {
@@ -19,15 +21,17 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route path="/" element={<MainPage loading={loading} />}>
-        <Route path="/user" element={<UserPage />} />
-        <Route path="/exit" element={<ExitPage />} />
-        <Route path="/card/add" element={<NewCardPage />} />
-        <Route path="/card/:id" element={<CardPage />} />
+      <Route element={<PrivateRoute isAuth={isAuth} />}>
+        <Route path="/" element={<MainPage loading={loading} />}>
+          <Route path="/user" element={<UserPage />} />
+          <Route path="/exit" element={<ExitPage setIsAuth={setIsAuth} />} />
+          <Route path="/card/add" element={<NewCardPage />} />
+          <Route path="/card/:id" element={<CardPage />} />
+        </Route>
       </Route>
 
-      <Route path="/sign-in" element={<SignInPage />} />
-      <Route path="/sign-up" element={<SignUpPage />} />
+      <Route path="/sign-in" element={<SignInPage setIsAuth={setIsAuth} />} />
+      <Route path="/sign-up" element={<SignUpPage setIsAuth={setIsAuth} />} />
 
       <Route path="/*" element={<NotFoundPage />} />
     </Routes>

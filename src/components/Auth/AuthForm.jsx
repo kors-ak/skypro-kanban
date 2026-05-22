@@ -11,10 +11,11 @@ import {
   STitle,
 } from './AuthForm.Styled'
 
-const AuthForm = ({ IsSignUp }) => {
+const AuthForm = ({ IsSignUp, setIsAuth }) => {
   const navigate = useNavigate()
   const handleLogin = (e) => {
     e.preventDefault()
+    setIsAuth(true)
     navigate('/')
   }
 

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   SBlock,
   SButtonNo,
@@ -9,7 +9,15 @@ import {
   STitle,
 } from './PopExit.styled'
 
-const PopExit = () => {
+const PopExit = ({ setIsAuth }) => {
+  const navigate = useNavigate()
+
+  function handleLogout(e) {
+    e.preventDefault()
+    setIsAuth(false)
+    navigate('/sign-in')
+  }
+
   return (
     <SPopExit id="popExit">
       <SContainer>
@@ -19,10 +27,10 @@ const PopExit = () => {
           </STitle>
           <form id="formExit" action="#">
             <SForm>
-              <SButtonYes id="exitYes">
+              <SButtonYes onClick={handleLogout}>
                 <Link to="/sign-in">Да, выйти</Link>
               </SButtonYes>
-              <SButtonNo id="exitNo">
+              <SButtonNo>
                 <Link to="/">Нет, остаться</Link>
               </SButtonNo>
             </SForm>
