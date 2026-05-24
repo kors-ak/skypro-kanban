@@ -28,9 +28,9 @@ const Card = ({ card }) => {
           </Link>
         </SCardGroup>
         <SContent>
-          <a href="" target="_blank">
+          <Link to={'/card/' + card?.id}>
             <STitle>{card.title}</STitle>
-          </a>
+          </Link>
           <SDate>
             <svg
               xmlns="http://www.w3.org/2000/svg"
