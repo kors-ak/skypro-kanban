@@ -11,15 +11,15 @@ import {
   STitle,
 } from './Card.styled'
 
-const Card = ({ card }) => {
+const Card = ({ task }) => {
   return (
     <SContainer>
       <SCard>
         <SCardGroup>
-          <SCardTheme $cardTheme={card.theme}>
-            <p>{card.theme}</p>
+          <SCardTheme $cardTheme={task.topic}>
+            <p>{task.topic}</p>
           </SCardTheme>
-          <Link to={'/card/' + card?.id}>
+          <Link to={'/task/' + task?._id}>
             <SButton>
               <SDot />
               <SDot />
@@ -28,8 +28,8 @@ const Card = ({ card }) => {
           </Link>
         </SCardGroup>
         <SContent>
-          <Link to={'/card/' + card?.id}>
-            <STitle>{card.title}</STitle>
+          <Link to={'/task/' + task?._id}>
+            <STitle>{task.title}</STitle>
           </Link>
           <SDate>
             <svg
@@ -60,7 +60,7 @@ const Card = ({ card }) => {
                 </clipPath>
               </defs>
             </svg>
-            <p>{card.date}</p>
+            <p>{task.date}</p>
           </SDate>
         </SContent>
       </SCard>

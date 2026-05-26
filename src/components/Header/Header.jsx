@@ -26,7 +26,7 @@ const Header = () => {
           </SLogo>
           <SNav>
             <SButton id="btnMainNew">
-              <Link to="/card/add">Создать новую задачу</Link>
+              <Link to="/task/add">Создать новую задачу</Link>
             </SButton>
             <SUser>
               <Link to="/user">Ivan Ivanov</Link>

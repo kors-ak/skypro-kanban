@@ -1,13 +1,35 @@
 import { Link, useParams } from 'react-router-dom'
 import Calendar from '../../Calendar/Calendar.jsx'
-import { cardList } from '../../../data.js'
+import { getTaskById } from '../../../services/api.js'
+import { useState, useEffect } from 'react'
 
 const PopBrowse = () => {
   const { id } = useParams()
-  const card = cardList.find((card) => card.id === id)
 
-  const getThemeClass = (theme) => {
-    switch (theme) {
+  const [task, setTask] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    const getTask = async () => {
+      try {
+        setLoading(true)
+        const data = await getTaskById({
+          token: 'bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck',
+          id: id,
+        })
+        setTask(data)
+      } catch (err) {
+        setError(err.message)
+      } finally {
+        setLoading(false)
+      }
+    }
+    getTask()
+  }, [id])
+
+  const getThemeClass = (topic) => {
+    switch (topic) {
       case 'Web Design':
         return '_orange'
       case 'Research':
@@ -19,17 +41,20 @@ const PopBrowse = () => {
     }
   }
 
+  if (loading) return <div>Загрузка задачи...</div>
+  if (error) return <div>Ошибка: {error}</div>
+
   return (
     <div className="pop-browse" id="popBrowse">
       <div className="pop-browse__container">
         <div className="pop-browse__block">
           <div className="pop-browse__content">
             <div className="pop-browse__top-block">
-              <h3 className="pop-browse__ttl">{card.title}</h3>
+              <h3 className="pop-browse__ttl">{task.title}</h3>
               <div
-                className={`categories__theme theme-top ${getThemeClass(card.theme)} _active-category`}
+                className={`categories__theme theme-top ${getThemeClass(task.topic)} _active-category`}
               >
-                <p className={getThemeClass(card.theme)}>{card.theme}</p>
+                <p className={getThemeClass(task.topic)}>{task.topic}</p>
               </div>
             </div>
             <div className="pop-browse__status status">
@@ -39,7 +64,7 @@ const PopBrowse = () => {
                   <p>Без статуса</p>
                 </div>
                 <div className="status__theme _gray">
-                  <p className="_gray">{card.status}</p>
+                  <p className="_gray">{task.status}</p>
                 </div>
                 <div className="status__theme _hide">
                   <p>В работе</p>
@@ -67,20 +92,20 @@ const PopBrowse = () => {
                     name="text"
                     id="textArea01"
                     readOnly
-                    placeholder="Введите описание задачи..."
+                    placeholder={task.description}
                   ></textarea>
                 </div>
               </form>
 
               <Calendar
                 dateEndText="Срок исполнения:"
-                dateControl={card.date}
+                dateControl={task.date}
               />
             </div>
             <div className="theme-down__categories theme-down">
               <p className="categories__p subttl">Категория</p>
               <div className="categories__theme _orange _active-category">
-                <p className="_orange">{card.theme}</p>
+                <p className="_orange">{task.topic}</p>
               </div>
             </div>
             <div className="pop-browse__btn-browse ">
