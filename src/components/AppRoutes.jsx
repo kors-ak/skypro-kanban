@@ -12,15 +12,16 @@ import PrivateRoute from '../components/PrivateRoute.jsx'
 
 function AppRoutes() {
   const [isAuth, setIsAuth] = useState(false)
+  const [tasks, setTasks] = useState([])
 
   return (
     <Routes>
       <Route element={<PrivateRoute isAuth={isAuth} />}>
-        <Route path="/" element={<MainPage />}>
+        <Route path="/" element={<MainPage tasks={tasks} setTasks={setTasks}/>}>
           <Route path="/user" element={<UserPage />} />
           <Route path="/exit" element={<ExitPage setIsAuth={setIsAuth} />} />
           <Route path="/task/add" element={<NewCardPage />} />
-          <Route path="/task/:id" element={<CardPage />} />
+          <Route path="/task/:id" element={<CardPage setTasks={setTasks}/>} />
         </Route>
       </Route>
 

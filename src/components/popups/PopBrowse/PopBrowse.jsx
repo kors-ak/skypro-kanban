@@ -1,9 +1,9 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import Calendar from '../../Calendar/Calendar.jsx'
-import { getTaskById } from '../../../services/api.js'
+import { deleteTask, getTaskById } from '../../../services/api.js'
 import { useState, useEffect } from 'react'
 
-const PopBrowse = () => {
+const PopBrowse = ({ setTasks }) => {
   const { id } = useParams()
 
   const [task, setTask] = useState(null)
@@ -41,8 +41,38 @@ const PopBrowse = () => {
     }
   }
 
-  if (loading) return <div>Загрузка задачи...</div>
-  if (error) return <div>Ошибка: {error}</div>
+  const navigate = useNavigate()
+  const handleDeleteTask = async (e) => {
+    e.preventDefault()
+    const updatedTasks = await deleteTask({
+      token: 'bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck',
+      id: id,
+    })
+    setTasks(updatedTasks)
+    navigate('/')
+  }
+
+  if (loading || error)
+    return (
+      <div className="pop-browse">
+        <div className="pop-browse__container">
+          <div className="pop-browse__block">
+            <div className="pop-browse__content">
+              <h3 className="pop-browse__ttl">
+                {error ? `Ошибка: ${error}` : `Загрузка задачи...`}
+              </h3>
+              {error && (
+                <div className="pop-browse__btn-browse ">
+                  <button className="btn-browse__close _btn-bg _hover01">
+                    <Link to="/">Закрыть</Link>
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
 
   return (
     <div className="pop-browse" id="popBrowse">
@@ -113,8 +143,11 @@ const PopBrowse = () => {
                 <button className="btn-browse__edit _btn-bor _hover03">
                   <a href="#">Редактировать задачу</a>
                 </button>
-                <button className="btn-browse__delete _btn-bor _hover03">
-                  <a href="#">Удалить задачу</a>
+                <button
+                  onClick={handleDeleteTask}
+                  className="btn-browse__delete _btn-bor _hover03"
+                >
+                  Удалить задачу
                 </button>
               </div>
               <button className="btn-browse__close _btn-bg _hover01">

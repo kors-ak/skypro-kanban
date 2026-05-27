@@ -13,9 +13,9 @@ const SPage = styled.div`
   background-color: #f1f1f1;
 `
 
-function MainPage() {
+function MainPage({ tasks, setTasks }) {
   const [loading, setLoading] = useState(false)
-  const [tasks, setTasks] = useState([])
+
   const [err, setErr] = useState('')
 
   const getTasks = useCallback(async () => {
@@ -31,7 +31,7 @@ function MainPage() {
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [setTasks])
 
   useEffect(() => {
     const loadTasks = async () => {

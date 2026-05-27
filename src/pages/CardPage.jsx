@@ -1,5 +1,5 @@
 import PopBrowse from '../components/popups/PopBrowse/PopBrowse'
 
-const CardPage = ({tasks}) => <PopBrowse tasks={tasks}/>
+const CardPage = ({setTasks}) => <PopBrowse setTasks={setTasks}/>
 
 export default CardPage
