@@ -16,11 +16,10 @@ import {
   STitle,
 } from './Calendar.Styled'
 
-const Calendar = ({
-  dateControl = '',
-  onDateSelect, // callback для передачи выбранной даты родительскому компоненту
-}) => {
-  const [currentDate, setCurrentDate] = useState(new Date())
+const Calendar = ({ dateControl = '', disable }) => {
+  const [currentDate, setCurrentDate] = useState(
+    dateControl ? new Date(dateControl) : new Date(),
+  )
   const [selectedDate, setSelectedDate] = useState(
     dateControl ? new Date(dateControl) : null,
   )
@@ -65,7 +64,7 @@ const Calendar = ({
           date,
         })
       }
-      
+
       setDays(daysArray)
     }
     generateCalendar()
@@ -84,12 +83,9 @@ const Calendar = ({
   }
 
   const handleDayClick = (dayData) => {
-    if (dayData.isOtherMonth) return
+    if (disable || dayData.isOtherMonth) return
 
     setSelectedDate(dayData.date)
-    if (onDateSelect) {
-      onDateSelect(dayData.date) // передаём выбранную дату родительскому компоненту
-    }
   }
 
   return (

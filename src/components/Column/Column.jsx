@@ -9,15 +9,13 @@ const Column = ({ title, loading, tasks }) => {
         <p>{title}</p>
       </STitle>
       <SCards>
-        {tasks
-          .filter((task) => task.status === title)
-          .map((task) =>
-            loading ? (
-              <CardLoader key={task._id} />
-            ) : (
-              <Card task={task} key={task._id} />
-            ),
-          )}
+        {loading ? (
+          <CardLoader />
+        ) : (
+          tasks
+            .filter((task) => task.status === title)
+            .map((task) => <Card task={task} key={task._id} />)
+        )}
       </SCards>
     </SColumn>
   )

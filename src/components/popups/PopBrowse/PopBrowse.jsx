@@ -122,14 +122,12 @@ const PopBrowse = ({ setTasks }) => {
                     name="text"
                     id="textArea01"
                     readOnly
-                    placeholder={task.description}
+                    value={task.description}
                   ></textarea>
                 </div>
               </form>
 
-              <Calendar
-                dateControl={task.date}
-              />
+              <Calendar disable dateControl={task.date} />
             </div>
             <div className="theme-down__categories theme-down">
               <p className="categories__p subttl">Категория</p>
