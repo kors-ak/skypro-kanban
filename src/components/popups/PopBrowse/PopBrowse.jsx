@@ -128,7 +128,6 @@ const PopBrowse = ({ setTasks }) => {
               </form>
 
               <Calendar
-                dateEndText="Срок исполнения:"
                 dateControl={task.date}
               />
             </div>

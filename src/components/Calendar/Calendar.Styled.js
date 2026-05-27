@@ -100,9 +100,9 @@ export const SDayName = styled.div`
 
 export const SCells = styled.div`
   width: 182px;
-  height: 126px;
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: -4px;
 
   @media screen and (max-width: 660px) {
     width: 344px;
@@ -128,6 +128,11 @@ export const SCell = styled.div`
   letter-spacing: -0.2px;
   cursor: pointer;
 
+  &:hover {
+    color: #94a6be;
+    background-color: #eaeef6;
+  }
+
   @media screen and (max-width: 660px) {
     width: 42px;
     height: 42px;
@@ -140,28 +145,19 @@ export const SCell = styled.div`
     opacity: 0;
   `}
 
-  ${({ $isCellDay }) =>
-    $isCellDay &&
-    `
-    &:hover {
-      color: #94a6be;
-      background-color: #eaeef6;
-      }
-  `}
-
   ${({ $isWeekend }) =>
     $isWeekend &&
     `
   `}
 
-  ${({ $isCurrentDay }) =>
-    $isCurrentDay &&
+  ${({ $isToday }) =>
+    $isToday &&
     `
     font-weight: 700;
   `}
 
-  ${({ $isActiveDay }) =>
-    $isActiveDay &&
+  ${({ $isSelected }) =>
+    $isSelected &&
     `
     background-color: #94a6be;
     color: #ffffff;
