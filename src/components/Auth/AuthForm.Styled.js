@@ -83,6 +83,8 @@ export const SInput = styled.input`
     letter-spacing: -0.28px;
     color: #94a6be;
   }
+
+  ${({ $error }) => $error && `border: 0.7px solid rgba(248, 77, 77, 1)`}
 `
 export const SButton = styled.button`
   width: 100%;
@@ -102,6 +104,12 @@ export const SButton = styled.button`
   letter-spacing: -0.14px;
   color: #ffffff;
 
+  ${({ disabled }) =>
+    disabled &&
+    `background-color: rgb(148, 166, 190);
+    cursor: not-allowed;
+`}
+
   a {
     width: 100%;
     height: 100%;
@@ -111,7 +119,7 @@ export const SButton = styled.button`
     justify-content: center;
   }
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: #33399b;
   }
 
@@ -134,4 +142,13 @@ export const SFooter = styled.div`
   a {
     text-decoration: underline;
   }
+`
+export const SErrorP = styled.p`
+  font-family: Arial;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 150%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: rgb(248, 77, 77);
 `

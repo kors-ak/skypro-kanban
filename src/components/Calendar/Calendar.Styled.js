@@ -91,8 +91,6 @@ export const SDayName = styled.div`
   line-height: normal;
   letter-spacing: -0.2px;
 
-  ${({ $isWeekend }) => $isWeekend && ``}
-
   @media screen and (max-width: 660px) {
     font-size: 14px;
   }

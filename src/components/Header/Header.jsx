@@ -1,3 +1,4 @@
+import { user } from '../../services/api'
 import {
   SBlock,
   SButton,
@@ -29,7 +30,7 @@ const Header = () => {
               <Link to="/task/add">Создать новую задачу</Link>
             </SButton>
             <SUser>
-              <Link to="/user">Ivan Ivanov</Link>
+              <Link to="/user">{user.name}</Link>
             </SUser>
           </SNav>
         </SBlock>
