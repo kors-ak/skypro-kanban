@@ -1,5 +1,5 @@
 import PopUser from '../components/popups/PopUser/PopUser'
 
-const UserPage = () => <PopUser />
+const UserPage = ({ user }) => <PopUser user={user} />
 
 export default UserPage

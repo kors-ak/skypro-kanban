@@ -13,7 +13,7 @@ const SPage = styled.div`
   background-color: #f1f1f1;
 `
 
-function MainPage({ tasks, setTasks }) {
+function MainPage({ user, tasks, setTasks }) {
   const [loading, setLoading] = useState(false)
   const [err, setErr] = useState('')
 
@@ -21,14 +21,14 @@ function MainPage({ tasks, setTasks }) {
     try {
       setLoading(true)
 
-      const data = await fetchTasks()
+      const data = await fetchTasks({ token: user.token })
       data && setTasks(data)
     } catch (error) {
       setErr(error.message)
     } finally {
       setLoading(false)
     }
-  }, [setTasks])
+  }, [setTasks, user.token])
 
   useEffect(() => {
     const loadTasks = async () => {
@@ -40,7 +40,7 @@ function MainPage({ tasks, setTasks }) {
   return (
     <>
       <SPage>
-        <Header />
+        <Header user={user} />
         <Main loading={loading} tasks={tasks} err={err} />
 
         <Outlet />

@@ -9,13 +9,13 @@ import {
   STitle,
 } from './PopExit.styled'
 
-const PopExit = ({ setIsAuth }) => {
+const PopExit = ({ setUser }) => {
   const navigate = useNavigate()
 
   function handleLogout(e) {
     e.preventDefault()
-    localStorage.clear()
-    setIsAuth(false)
+    localStorage.removeItem('user')
+    setUser(null)
     navigate('/sign-in')
   }
 

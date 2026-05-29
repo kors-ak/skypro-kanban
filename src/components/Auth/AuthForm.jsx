@@ -13,10 +13,12 @@ import {
   STitle,
   SErrorP,
 } from './AuthForm.Styled'
-import { updateToken, user } from '../../services/api'
+import { sanitizeInput } from '../../utils'
 
-const AuthForm = ({ IsSignUp, setIsAuth }) => {
+const AuthForm = ({ IsSignUp, setUser }) => {
   const navigate = useNavigate()
+
+  const [loading, setLoading] = useState(false)
 
   const [formData, setFormData] = useState({
     name: '',
@@ -65,7 +67,7 @@ const AuthForm = ({ IsSignUp, setIsAuth }) => {
     const { name, value } = e.target
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: sanitizeInput(value),
     })
     setErrors({ ...errors, [name]: false })
     setError('')
@@ -73,10 +75,10 @@ const AuthForm = ({ IsSignUp, setIsAuth }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
     if (!validateForm()) {
       return
     }
+    setLoading(true)
 
     try {
       const data = IsSignUp
@@ -84,19 +86,32 @@ const AuthForm = ({ IsSignUp, setIsAuth }) => {
         : await signIn({ login: formData.login, password: formData.password })
 
       if (data) {
-        setIsAuth(true)
-        localStorage.setItem('user', JSON.stringify(data))
-        updateToken(user.token)
-        navigate('/')
+        if (IsSignUp) {
+          navigate('/sign-in')
+        } else {
+          localStorage.setItem('user', JSON.stringify(data))
+          setUser(data)
+          navigate('/')
+        }
       }
     } catch (error) {
-      setError(
-        error && IsSignUp
-          ? 'Введенные вами данные некорректны. Чтобы завершить регистрацию, введите данные корректно и повторите попытку.'
-          : 'Введенные вами данные не распознаны. Проверьте свой логин и пароль и повторите попытку входа.',
-      )
+      console.error('Ошибка авторизации:', error)
+
+      if (error.response.status === 400 && IsSignUp) {
+        setError('Пользователь с таким логином уже существует.')
+      } else if (error.response?.status === 400) {
+        setError(
+          'Введенные вами данные не распознаны. Проверьте свой логин и пароль и повторите попытку входа.',
+        )
+      } else if (error.response.status === 500) {
+        setError('Сервер временно недоступен.')
+      } else {
+        setError('Произошла непредвиденная ошибка. Попробуйте позже.')
+      }
 
       !IsSignUp && setErrors({ login: true, password: true })
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -109,7 +124,7 @@ const AuthForm = ({ IsSignUp, setIsAuth }) => {
               <h2>{IsSignUp ? 'Регистрация' : 'Вход'}</h2>
             </STitle>
 
-            <SForm>
+            <SForm disabled={loading}>
               {IsSignUp && (
                 <SInput
                   type="text"
@@ -141,7 +156,7 @@ const AuthForm = ({ IsSignUp, setIsAuth }) => {
                 $error={errors.password}
               />
               <SErrorP>{error}</SErrorP>
-              <SButton disabled={!!error} onClick={handleSubmit}>
+              <SButton disabled={!!error || loading} onClick={handleSubmit}>
                 {IsSignUp ? 'Зарегистрироваться' : 'Войти'}
               </SButton>
 

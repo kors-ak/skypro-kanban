@@ -1,4 +1,4 @@
-import { user } from '../../services/api'
+import { sanitizeHtml } from '../../utils.js'
 import {
   SBlock,
   SButton,
@@ -10,7 +10,7 @@ import {
 } from './Header.styled'
 import { Link } from 'react-router-dom'
 
-const Header = () => {
+const Header = ({ user }) => {
   return (
     <SHeader>
       <SContainer>
@@ -30,7 +30,7 @@ const Header = () => {
               <Link to="/task/add">Создать новую задачу</Link>
             </SButton>
             <SUser>
-              <Link to="/user">{user.name}</Link>
+              <Link to="/user">{sanitizeHtml(user.name)}</Link>
             </SUser>
           </SNav>
         </SBlock>

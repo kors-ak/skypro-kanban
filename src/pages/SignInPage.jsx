@@ -1,7 +1,7 @@
 import SignIn from '../components/SignIn/SignIn.jsx'
 
-function SignInPage({setIsAuth}) {
-  return <SignIn setIsAuth={setIsAuth}/>
+function SignInPage({setUser}) {
+  return <SignIn setUser={setUser}/>
 }
 
 export default SignInPage

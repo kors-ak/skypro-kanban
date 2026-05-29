@@ -11,25 +11,27 @@ import NotFoundPage from '../pages/NotFoundPage.jsx'
 import PrivateRoute from '../components/PrivateRoute.jsx'
 
 function AppRoutes() {
-  const [isAuth, setIsAuth] = useState(!!localStorage.getItem('user'))
+  const [user, setUser] = useState(
+    localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
+  );
   const [tasks, setTasks] = useState([])
 
   return (
     <Routes>
-      <Route element={<PrivateRoute isAuth={isAuth} />}>
+      <Route element={<PrivateRoute isAuth={!!user} />}>
         <Route
           path="/"
-          element={<MainPage tasks={tasks} setTasks={setTasks} />}
+          element={<MainPage tasks={tasks} setTasks={setTasks} user={user}/>}
         >
-          <Route path="/user" element={<UserPage />} />
-          <Route path="/exit" element={<ExitPage setIsAuth={setIsAuth} />} />
-          <Route path="/task/add" element={<NewCardPage />} />
-          <Route path="/task/:id" element={<CardPage setTasks={setTasks} />} />
+          <Route path="/user" element={<UserPage user={user}/>} />
+          <Route path="/exit" element={<ExitPage setUser={setUser} />} />
+          <Route path="/task/add" element={<NewCardPage user={user}/>} />
+          <Route path="/task/:id" element={<CardPage setTasks={setTasks} user={user}/>} />
         </Route>
       </Route>
 
-      <Route path="/sign-in" element={<SignInPage setIsAuth={setIsAuth} />} />
-      <Route path="/sign-up" element={<SignUpPage setIsAuth={setIsAuth} />} />
+      <Route path="/sign-in" element={<SignInPage setUser={setUser} />} />
+      <Route path="/sign-up" element={<SignUpPage setUser={setUser} />} />
 
       <Route path="/*" element={<NotFoundPage />} />
     </Routes>

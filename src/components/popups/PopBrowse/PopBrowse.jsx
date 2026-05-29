@@ -2,8 +2,9 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import Calendar from '../../Calendar/Calendar.jsx'
 import { deleteTask, getTaskById } from '../../../services/api.js'
 import { useState, useEffect } from 'react'
+import { formatDate, sanitizeHtml } from '../../../utils.js'
 
-const PopBrowse = ({ setTasks }) => {
+const PopBrowse = ({ setTasks, user }) => {
   const { id } = useParams()
 
   const [task, setTask] = useState(null)
@@ -14,9 +15,7 @@ const PopBrowse = ({ setTasks }) => {
     const getTask = async () => {
       try {
         setLoading(true)
-        const data = await getTaskById({
-          id: id,
-        })
+        const data = await getTaskById({ token: user.token, id: id })
         setTask(data)
       } catch (err) {
         setError(err.message)
@@ -25,7 +24,7 @@ const PopBrowse = ({ setTasks }) => {
       }
     }
     getTask()
-  }, [id])
+  }, [id, user])
 
   const getThemeClass = (topic) => {
     switch (topic) {
@@ -83,11 +82,13 @@ const PopBrowse = ({ setTasks }) => {
         <div className="pop-browse__block">
           <div className="pop-browse__content">
             <div className="pop-browse__top-block">
-              <h3 className="pop-browse__ttl">{task.title}</h3>
+              <h3 className="pop-browse__ttl">{sanitizeHtml(task.title)}</h3>
               <div
                 className={`categories__theme theme-top ${getThemeClass(task.topic)} _active-category`}
               >
-                <p className={getThemeClass(task.topic)}>{task.topic}</p>
+                <p className={getThemeClass(task.topic)}>
+                  {sanitizeHtml(task.topic)}
+                </p>
               </div>
             </div>
             <div className="pop-browse__status status">
@@ -125,12 +126,12 @@ const PopBrowse = ({ setTasks }) => {
                     name="text"
                     id="textArea01"
                     readOnly
-                    value={task.description}
+                    value={sanitizeHtml(task.description)}
                   ></textarea>
                 </div>
               </form>
 
-              <Calendar disable dateControl={task.date} />
+              <Calendar disable dateControl={formatDate(task.date)} />
             </div>
             <div className="theme-down__categories theme-down">
               <p className="categories__p subttl">Категория</p>

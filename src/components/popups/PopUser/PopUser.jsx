@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 import { SButton, SMail, SName, SPopUser, STheme } from './PopUser.styled'
 
-const PopUser = () => {
+const PopUser = ({ user }) => {
   return (
     <SPopUser id="user-set-target">
-      <SName>Ivan Ivanov</SName>
-      <SMail>ivan.ivanov@gmail.com</SMail>
+      <SName>{user.name}</SName>
+      <SMail>{user.login}</SMail>
       <STheme>
         <p>Темная тема</p>
         <input type="checkbox" name="checkbox" />
