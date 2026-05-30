@@ -13,6 +13,7 @@ export const SPopExit = styled.div`
 `
 
 export const SContainer = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
   min-height: 100vh;
@@ -34,6 +35,7 @@ export const SBlock = styled.div`
   border-radius: 10px;
   border: 0.7px solid #d4dbe5;
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
+  z-index: 6;
 
   @media only screen and (max-width: 375px) {
     padding: 50px 20px;

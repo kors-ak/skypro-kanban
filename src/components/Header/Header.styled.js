@@ -45,6 +45,7 @@ export const SLogo = styled.div`
 `
 
 export const SNav = styled.nav`
+  position: relative;
   max-width: 290px;
   padding: 0;
   display: flex;
@@ -86,7 +87,7 @@ export const SButton = styled.button`
 `
 
 export const SUser = styled.div`
-  a {
+  p {
     height: 20px;
     display: flex;
     flex-wrap: nowrap;
@@ -95,6 +96,7 @@ export const SUser = styled.div`
     font-size: 14px;
     line-height: 20px;
     color: #565eef;
+    cursor: pointer;
 
     &::after {
       content: '';
@@ -118,4 +120,12 @@ export const SUser = styled.div`
       }
     }
   }
+`
+export const SOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1; 
 `

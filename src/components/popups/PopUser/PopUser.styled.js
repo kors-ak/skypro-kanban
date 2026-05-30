@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const SPopUser = styled.div`
   display: block;
   position: absolute;
-  top: 61px;
+  top: 41px;
   right: 0;
   width: 213px;
   height: 205px;

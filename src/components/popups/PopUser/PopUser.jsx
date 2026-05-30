@@ -3,7 +3,7 @@ import { SButton, SMail, SName, SPopUser, STheme } from './PopUser.styled'
 
 const PopUser = ({ user }) => {
   return (
-    <SPopUser id="user-set-target">
+    <SPopUser onClick={(e) => e.stopPropagation()}>
       <SName>{user.name}</SName>
       <SMail>{user.login}</SMail>
       <STheme>

@@ -44,13 +44,11 @@ const PopBrowse = ({ setTasks, user }) => {
     e.preventDefault()
 
     try {
-      const updatedTasks = await deleteTask({
-        id: id,
-      })
+      const updatedTasks = await deleteTask({ token: user.token, id: id })
       setTasks(updatedTasks)
       navigate('/')
     } catch (error) {
-      alert(error.message)
+      setError(error.message)
     }
   }
 
@@ -61,7 +59,7 @@ const PopBrowse = ({ setTasks, user }) => {
           <div className="pop-browse__block">
             <div className="pop-browse__content">
               <h3 className="pop-browse__ttl">
-                {error ? `Ошибка: ${error}` : `Загрузка задачи...`}
+                {error ? `${error}` : `Загрузка задачи...`}
               </h3>
               {error && (
                 <div className="pop-browse__btn-browse ">
