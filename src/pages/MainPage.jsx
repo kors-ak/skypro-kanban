@@ -20,11 +20,31 @@ function MainPage({ user, tasks, setTasks }) {
   const getTasks = useCallback(async () => {
     try {
       setLoading(true)
+      let retryCount = 0
 
-      const data = await fetchTasks({ token: user.token })
-      data && setTasks(data)
+      while (retryCount < 3) {
+        const data = await fetchTasks({ token: user.token })
+
+        if (data.status !== 500) {
+          if (data.status === 200) {
+            setTasks(data.data.tasks)
+            return
+          }
+          throw new Error('Что-то пошло не так, попробуйте позже.')
+        }
+
+        retryCount++
+        console.warn(`Попытка \${retryCount} неудачна, повторяем запрос...`)
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+      }
+
+      throw new Error('Сервер недоступен, попробуйте позже.')
     } catch (error) {
-      setErr(error.message)
+      setErr(
+        error.message === 'Failed to fetch' || error.message === 'Network Error'
+          ? 'Кажется, у вас пропал интернет, попробуйте позже.'
+          : 'Что-то пошло не так. \nОбновите страницу или попробуйте позже.',
+      )
     } finally {
       setLoading(false)
     }

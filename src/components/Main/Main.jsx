@@ -9,7 +9,7 @@ const Main = ({ loading, tasks, err }) => {
         <SBlock>
           <SContent>
             {err ? (
-              <h2>{err}</h2>
+              <h2 style={{ whiteSpace: 'pre-wrap' }}>{err}</h2>
             ) : (
               columnsArr.map((column, i) => (
                 <Column

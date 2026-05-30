@@ -11,20 +11,34 @@ const PopBrowse = ({ setTasks, user }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
+  const navigate = useNavigate()
+
   useEffect(() => {
     const getTask = async () => {
       try {
         setLoading(true)
-        const data = await getTaskById({ token: user.token, id: id })
-        setTask(data)
+        const data = await getTaskById({
+          token: user.token,
+          id: id,
+        })
+        setTask(data.data.task)
       } catch (err) {
-        setError(err.message)
+        if (err.status === 404) {
+          setError('Задача не найдена.')
+        } else if (
+          err.message === 'Failed to fetch' ||
+          err.message === 'Network Error'
+        ) {
+          setError('Кажется, у вас пропал интернет, попробуйте позже.')
+        } else {
+          setError('Что-то пошло не так, попробуйте позже.')
+        }
       } finally {
         setLoading(false)
       }
     }
     getTask()
-  }, [id, user])
+  }, [id, navigate, user])
 
   const getThemeClass = (topic) => {
     switch (topic) {
@@ -39,16 +53,22 @@ const PopBrowse = ({ setTasks, user }) => {
     }
   }
 
-  const navigate = useNavigate()
   const handleDeleteTask = async (e) => {
     e.preventDefault()
 
     try {
       const updatedTasks = await deleteTask({ token: user.token, id: id })
-      setTasks(updatedTasks)
+      setTasks(updatedTasks.data.tasks)
       navigate('/')
-    } catch (error) {
-      setError(error.message)
+    } catch (err) {
+      if (
+        err.message === 'Failed to fetch' ||
+        err.message === 'Network Error'
+      ) {
+        setError('Кажется, у вас пропал интернет, попробуйте позже.')
+      } else {
+        setError('Что-то пошло не так, попробуйте позже.')
+      }
     }
   }
 
