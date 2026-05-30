@@ -1,24 +1,21 @@
-import { cardList } from '../../data'
 import Card from '../Card/Card.jsx'
 import CardLoader from '../CardLoader.jsx'
 import { SCards, SColumn, STitle } from './Column.styled'
 
-const Column = ({ title = 'Without Theme', loading }) => {
+const Column = ({ title, loading, tasks }) => {
   return (
     <SColumn>
       <STitle>
         <p>{title}</p>
       </STitle>
       <SCards>
-        {cardList
-          .filter((card) => card.status === title)
-          .map((card) =>
-            loading ? (
-              <CardLoader key={card.id} />
-            ) : (
-              <Card card={card} key={card.id} />
-            ),
-          )}
+        {loading ? (
+          <CardLoader />
+        ) : (
+          tasks
+            .filter((task) => task.status === title)
+            .map((task) => <Card task={task} key={task._id} />)
+        )}
       </SCards>
     </SColumn>
   )

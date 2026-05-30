@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import {
   SBlock,
   SCalendar,
@@ -15,18 +16,91 @@ import {
   STitle,
 } from './Calendar.Styled'
 
-const Calendar = ({
-  dateEndText = 'Выберите срок исполнения',
-  dateControl = '',
-}) => {
+const Calendar = ({ dateControl = '', disable }) => {
+  const [currentDate, setCurrentDate] = useState(
+    dateControl ? new Date(dateControl) : new Date(),
+  )
+  const [selectedDate, setSelectedDate] = useState(
+    dateControl ? new Date(dateControl) : null,
+  )
+  const [days, setDays] = useState([])
+
+  const isSameDay = (date1, date2) => {
+    return (
+      date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate()
+    )
+  }
+  useEffect(() => {
+    const generateCalendar = () => {
+      const year = currentDate.getFullYear()
+      const month = currentDate.getMonth()
+      const firstDay = new Date(year, month, 1)
+      const lastDay = new Date(year, month + 1, 0)
+
+      const startDayOfWeek = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1
+
+      const daysArray = []
+
+      // Добавляем дни предыдущего месяца
+      const prevMonthLastDay = new Date(year, month, 0).getDate()
+      for (let i = startDayOfWeek - 1; i >= 0; i--) {
+        daysArray.push({
+          day: prevMonthLastDay - i,
+          isOtherMonth: true,
+          date: new Date(year, month - 1, prevMonthLastDay - i),
+        })
+      }
+
+      // Добавляем дни текущего месяца
+      for (let i = 1; i <= lastDay.getDate(); i++) {
+        const date = new Date(year, month, i)
+        daysArray.push({
+          day: i,
+          isCurrentMonth: true,
+          isToday: isSameDay(date, new Date()),
+          isSelected: selectedDate && isSameDay(date, selectedDate),
+          date,
+        })
+      }
+
+      setDays(daysArray)
+    }
+    generateCalendar()
+  }, [currentDate, selectedDate])
+
+  const handlePrevMonth = () => {
+    setCurrentDate(
+      new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1),
+    )
+  }
+
+  const handleNextMonth = () => {
+    setCurrentDate(
+      new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1),
+    )
+  }
+
+  const handleDayClick = (dayData) => {
+    if (disable || dayData.isOtherMonth) return
+
+    setSelectedDate(dayData.date)
+  }
+
   return (
     <SCalendar>
       <STitle>Даты</STitle>
       <SBlock>
         <SNav>
-          <SMonth>Сентябрь 2023</SMonth>
+          <SMonth>
+            {currentDate.toLocaleString('ru', {
+              month: 'long',
+              year: 'numeric',
+            })}
+          </SMonth>
           <SNavActions>
-            <SNavAction data-action="prev">
+            <SNavAction data-action="prev" onClick={handlePrevMonth}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="6"
@@ -36,7 +110,7 @@ const Calendar = ({
                 <path d="M5.72945 1.95273C6.09018 1.62041 6.09018 1.0833 5.72945 0.750969C5.36622 0.416344 4.7754 0.416344 4.41218 0.750969L0.528487 4.32883C-0.176162 4.97799 -0.176162 6.02201 0.528487 6.67117L4.41217 10.249C4.7754 10.5837 5.36622 10.5837 5.72945 10.249C6.09018 9.9167 6.09018 9.37959 5.72945 9.04727L1.87897 5.5L5.72945 1.95273Z" />
               </svg>
             </SNavAction>
-            <SNavAction data-action="next">
+            <SNavAction data-action="next" onClick={handleNextMonth}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="6"
@@ -59,50 +133,48 @@ const Calendar = ({
             <SDayName $isWeekend>вс</SDayName>
           </SDaysNames>
           <SCells>
-            <SCell $isOtherMonth>28</SCell>
-            <SCell $isOtherMonth>29</SCell>
-            <SCell $isOtherMonth>30</SCell>
-            <SCell>31</SCell>
-            <SCell>1</SCell>
-            <SCell $isWeekend>2</SCell>
-            <SCell $isWeekend>3</SCell>
-            <SCell>4</SCell>
-            <SCell>5</SCell>
-            <SCell>6</SCell>
-            <SCell>7</SCell>
-            <SCell $isCurrentDay>8</SCell>
-            <SCell $isActiveDay>9</SCell>
-            <SCell $isWeekend>10</SCell>
-            <SCell>11</SCell>
-            <SCell>12</SCell>
-            <SCell>13</SCell>
-            <SCell>14</SCell>
-            <SCell>15</SCell>
-            <SCell $isWeekend>16</SCell>
-            <SCell $isWeekend>17</SCell>
-            <SCell>18</SCell>
-            <SCell>19</SCell>
-            <SCell>20</SCell>
-            <SCell>21</SCell>
-            <SCell>22</SCell>
-            <SCell $isWeekend>23</SCell>
-            <SCell $isWeekend>24</SCell>
-            <SCell>25</SCell>
-            <SCell>26</SCell>
-            <SCell>27</SCell>
-            <SCell>28</SCell>
-            <SCell>29</SCell>
-            <SCell $isWeekend>30</SCell>
-            <SCell $isWeekend $isOtherMonth>
-              1
-            </SCell>
+            {days.map((day, index) => (
+              <SCell
+                key={index}
+                $isOtherMonth={day.isOtherMonth}
+                $isToday={day.isToday}
+                $isSelected={day.isSelected}
+                onClick={() => handleDayClick(day)}
+                style={{ cursor: day.isOtherMonth ? 'default' : 'pointer' }}
+              >
+                {day.day}
+              </SCell>
+            ))}
           </SCells>
         </SContent>
 
-        <input type="hidden" id="datepick_value" value="08.09.2023" />
+        <input
+          type="hidden"
+          id="datepick_value"
+          value={
+            selectedDate
+              ? selectedDate
+                  .toLocaleDateString('ru-RU', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                  })
+                  .replace(/\./g, '.')
+              : ''
+          }
+        />
         <SPeriod>
           <SText>
-            {dateEndText} <span>{dateControl}</span>
+            {selectedDate ? 'Срок исполнения: ' : `Выберите срок исполнения.`}
+            <span>
+              {selectedDate
+                ? selectedDate.toLocaleDateString('ru-RU', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                  })
+                : ''}
+            </span>
           </SText>
         </SPeriod>
       </SBlock>

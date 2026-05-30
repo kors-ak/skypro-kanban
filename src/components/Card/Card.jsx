@@ -10,16 +10,17 @@ import {
   SDot,
   STitle,
 } from './Card.styled'
+import { formatDate, sanitizeHtml } from '../../utils'
 
-const Card = ({ card }) => {
+const Card = ({ task }) => {
   return (
     <SContainer>
       <SCard>
         <SCardGroup>
-          <SCardTheme $cardTheme={card.theme}>
-            <p>{card.theme}</p>
+          <SCardTheme $cardTheme={task.topic}>
+            <p>{sanitizeHtml(task.topic)}</p>
           </SCardTheme>
-          <Link to={'/card/' + card?.id}>
+          <Link to={'/task/' + task?._id}>
             <SButton>
               <SDot />
               <SDot />
@@ -28,8 +29,8 @@ const Card = ({ card }) => {
           </Link>
         </SCardGroup>
         <SContent>
-          <Link to={'/card/' + card?.id}>
-            <STitle>{card.title}</STitle>
+          <Link to={'/task/' + task?._id}>
+            <STitle>{sanitizeHtml(task.title)}</STitle>
           </Link>
           <SDate>
             <svg
@@ -60,7 +61,7 @@ const Card = ({ card }) => {
                 </clipPath>
               </defs>
             </svg>
-            <p>{card.date}</p>
+            <p>{formatDate(task.date)}</p>
           </SDate>
         </SContent>
       </SCard>

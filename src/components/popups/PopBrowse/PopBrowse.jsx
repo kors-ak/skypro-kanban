@@ -1,13 +1,47 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import Calendar from '../../Calendar/Calendar.jsx'
-import { cardList } from '../../../data.js'
+import { deleteTask, getTaskById } from '../../../services/api.js'
+import { useState, useEffect } from 'react'
+import { formatDate, sanitizeHtml } from '../../../utils.js'
 
-const PopBrowse = () => {
+const PopBrowse = ({ setTasks, user }) => {
   const { id } = useParams()
-  const card = cardList.find((card) => card.id === id)
 
-  const getThemeClass = (theme) => {
-    switch (theme) {
+  const [task, setTask] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const getTask = async () => {
+      try {
+        setLoading(true)
+        const data = await getTaskById({
+          token: user.token,
+          id: id,
+        })
+        setTask(data.data.task)
+      } catch (err) {
+        if (err.status === 404) {
+          setError('Задача не найдена.')
+        } else if (
+          err.message === 'Failed to fetch' ||
+          err.message === 'Network Error'
+        ) {
+          setError('Кажется, у вас пропал интернет, попробуйте позже.')
+        } else {
+          setError('Что-то пошло не так, попробуйте позже.')
+        }
+      } finally {
+        setLoading(false)
+      }
+    }
+    getTask()
+  }, [id, navigate, user])
+
+  const getThemeClass = (topic) => {
+    switch (topic) {
       case 'Web Design':
         return '_orange'
       case 'Research':
@@ -19,17 +53,60 @@ const PopBrowse = () => {
     }
   }
 
+  const handleDeleteTask = async (e) => {
+    e.preventDefault()
+
+    try {
+      const updatedTasks = await deleteTask({ token: user.token, id: id })
+      setTasks(updatedTasks.data.tasks)
+      navigate('/')
+    } catch (err) {
+      if (
+        err.message === 'Failed to fetch' ||
+        err.message === 'Network Error'
+      ) {
+        setError('Кажется, у вас пропал интернет, попробуйте позже.')
+      } else {
+        setError('Что-то пошло не так, попробуйте позже.')
+      }
+    }
+  }
+
+  if (loading || error)
+    return (
+      <div className="pop-browse">
+        <div className="pop-browse__container">
+          <div className="pop-browse__block">
+            <div className="pop-browse__content">
+              <h3 className="pop-browse__ttl">
+                {error ? `${error}` : `Загрузка задачи...`}
+              </h3>
+              {error && (
+                <div className="pop-browse__btn-browse ">
+                  <button className="btn-browse__close _btn-bg _hover01">
+                    <Link to="/">Закрыть</Link>
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+
   return (
     <div className="pop-browse" id="popBrowse">
       <div className="pop-browse__container">
         <div className="pop-browse__block">
           <div className="pop-browse__content">
             <div className="pop-browse__top-block">
-              <h3 className="pop-browse__ttl">{card.title}</h3>
+              <h3 className="pop-browse__ttl">{sanitizeHtml(task.title)}</h3>
               <div
-                className={`categories__theme theme-top ${getThemeClass(card.theme)} _active-category`}
+                className={`categories__theme theme-top ${getThemeClass(task.topic)} _active-category`}
               >
-                <p className={getThemeClass(card.theme)}>{card.theme}</p>
+                <p className={getThemeClass(task.topic)}>
+                  {sanitizeHtml(task.topic)}
+                </p>
               </div>
             </div>
             <div className="pop-browse__status status">
@@ -39,7 +116,7 @@ const PopBrowse = () => {
                   <p>Без статуса</p>
                 </div>
                 <div className="status__theme _gray">
-                  <p className="_gray">{card.status}</p>
+                  <p className="_gray">{task.status}</p>
                 </div>
                 <div className="status__theme _hide">
                   <p>В работе</p>
@@ -67,20 +144,17 @@ const PopBrowse = () => {
                     name="text"
                     id="textArea01"
                     readOnly
-                    placeholder="Введите описание задачи..."
+                    value={sanitizeHtml(task.description)}
                   ></textarea>
                 </div>
               </form>
 
-              <Calendar
-                dateEndText="Срок исполнения:"
-                dateControl={card.date}
-              />
+              <Calendar disable dateControl={formatDate(task.date)} />
             </div>
             <div className="theme-down__categories theme-down">
               <p className="categories__p subttl">Категория</p>
               <div className="categories__theme _orange _active-category">
-                <p className="_orange">{card.theme}</p>
+                <p className="_orange">{task.topic}</p>
               </div>
             </div>
             <div className="pop-browse__btn-browse ">
@@ -88,8 +162,11 @@ const PopBrowse = () => {
                 <button className="btn-browse__edit _btn-bor _hover03">
                   <a href="#">Редактировать задачу</a>
                 </button>
-                <button className="btn-browse__delete _btn-bor _hover03">
-                  <a href="#">Удалить задачу</a>
+                <button
+                  onClick={handleDeleteTask}
+                  className="btn-browse__delete _btn-bor _hover03"
+                >
+                  Удалить задачу
                 </button>
               </div>
               <button className="btn-browse__close _btn-bg _hover01">

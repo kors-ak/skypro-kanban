@@ -1,7 +1,13 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Calendar from '../../Calendar/Calendar.jsx'
 
 const PopNewCard = () => {
+  const navigate = useNavigate()
+  const handlePostTask = (e) => {
+    e.preventDefault()
+    navigate('/')
+  }
+
   return (
     <div className="pop-new-card" id="popNewCard">
       <div className="pop-new-card__container">
@@ -59,7 +65,10 @@ const PopNewCard = () => {
                 </div>
               </div>
             </div>
-            <button className="form-new__create _hover01" id="btnCreate">
+            <button
+              className="form-new__create _hover01"
+              onClick={handlePostTask}
+            >
               Создать задачу
             </button>
           </div>

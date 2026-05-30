@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
 import { SButton, SMail, SName, SPopUser, STheme } from './PopUser.styled'
+import {sanitizeHtml} from '../../../utils.js'
 
-const PopUser = () => {
+const PopUser = ({ user }) => {
   return (
-    <SPopUser id="user-set-target">
-      <SName>Ivan Ivanov</SName>
-      <SMail>ivan.ivanov@gmail.com</SMail>
+    <SPopUser onClick={(e) => e.stopPropagation()}>
+      <SName>{sanitizeHtml(user.name)}</SName>
+      <SMail>{sanitizeHtml(user.login)}</SMail>
       <STheme>
         <p>Темная тема</p>
         <input type="checkbox" name="checkbox" />

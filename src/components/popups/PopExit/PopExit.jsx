@@ -8,36 +8,40 @@ import {
   SPopExit,
   STitle,
 } from './PopExit.styled'
+import { SOverlay } from '../../Header/Header.styled'
 
-const PopExit = ({ setIsAuth }) => {
+const PopExit = ({ setUser }) => {
   const navigate = useNavigate()
 
   function handleLogout(e) {
     e.preventDefault()
-    setIsAuth(false)
+    localStorage.removeItem('user')
+    setUser(null)
     navigate('/sign-in')
   }
 
   return (
-    <SPopExit id="popExit">
-      <SContainer>
-        <SBlock>
-          <STitle>
-            <h2>Выйти из аккаунта?</h2>
-          </STitle>
-          <form id="formExit" action="#">
-            <SForm>
-              <SButtonYes onClick={handleLogout}>
-                <Link to="/sign-in">Да, выйти</Link>
-              </SButtonYes>
-              <SButtonNo>
-                <Link to="/">Нет, остаться</Link>
-              </SButtonNo>
-            </SForm>
-          </form>
-        </SBlock>
-      </SContainer>
-    </SPopExit>
+    <SOverlay onClick={() => navigate('/')}>
+      <SPopExit>
+        <SContainer>
+          <SBlock onClick={(e) => e.stopPropagation()}>
+            <STitle>
+              <h2>Выйти из аккаунта?</h2>
+            </STitle>
+            <form id="formExit" action="#">
+              <SForm>
+                <SButtonYes onClick={handleLogout}>
+                  <Link to="/sign-in">Да, выйти</Link>
+                </SButtonYes>
+                <SButtonNo>
+                  <Link to="/">Нет, остаться</Link>
+                </SButtonNo>
+              </SForm>
+            </form>
+          </SBlock>
+        </SContainer>
+      </SPopExit>
+    </SOverlay>
   )
 }
 

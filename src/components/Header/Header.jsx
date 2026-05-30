@@ -1,3 +1,4 @@
+import { sanitizeHtml } from '../../utils.js'
 import {
   SBlock,
   SButton,
@@ -6,10 +7,15 @@ import {
   SLogo,
   SNav,
   SUser,
+  SOverlay,
 } from './Header.styled'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import PopUser from '../popups/PopUser/PopUser.jsx'
 
-const Header = () => {
+const Header = ({ user }) => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false)
+
   return (
     <SHeader>
       <SContainer>
@@ -26,14 +32,18 @@ const Header = () => {
           </SLogo>
           <SNav>
             <SButton id="btnMainNew">
-              <Link to="/card/add">Создать новую задачу</Link>
+              <Link to="/task/add">Создать новую задачу</Link>
             </SButton>
-            <SUser>
-              <Link to="/user">Ivan Ivanov</Link>
+            <SUser onClick={() => setIsPopupOpen(true)} role="button">
+              <p>{sanitizeHtml(user.name)}</p>
             </SUser>
+            {isPopupOpen && (
+              <PopUser user={user} onClose={() => setIsPopupOpen(false)} />
+            )}
           </SNav>
         </SBlock>
       </SContainer>
+      {isPopupOpen && <SOverlay onClick={() => setIsPopupOpen(false)} />}
     </SHeader>
   )
 }
