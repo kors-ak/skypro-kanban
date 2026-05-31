@@ -95,8 +95,6 @@ const AuthForm = ({ IsSignUp, setUser }) => {
         }
       }
     } catch (error) {
-      console.error('Ошибка авторизации:', error)
-
       if (error.response.status === 400 && IsSignUp) {
         setError('Пользователь с таким логином уже существует.')
       } else if (error.response?.status === 400) {

@@ -34,7 +34,7 @@ function AppRoutes() {
       </Route>
 
       <Route path="/sign-in" element={<SignInPage setUser={setUser} />} />
-      <Route path="/sign-up" element={<SignUpPage setUser={setUser} />} />
+      <Route path="/sign-up" element={<SignUpPage />} />
 
       <Route path="/*" element={<NotFoundPage />} />
     </Routes>

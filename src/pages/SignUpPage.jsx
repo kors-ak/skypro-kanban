@@ -1,7 +1,7 @@
-import SignUp from '../components/SignUp/SignUp.jsx'
+import AuthForm from '../components/Auth/AuthForm'
 
-function SignUpPage({ setUser }) {
-  return <SignUp setIsAuth={setUser} />
+function SignUpPage() {
+  return <AuthForm IsSignUp />
 }
 
 export default SignUpPage
