@@ -143,11 +143,6 @@ export const SCell = styled.div`
     opacity: 0;
   `}
 
-  ${({ $isWeekend }) =>
-    $isWeekend &&
-    `
-  `}
-
   ${({ $isToday }) =>
     $isToday &&
     `

@@ -13,7 +13,7 @@ const Main = ({ loading, tasks, err }) => {
             ) : (
               columnsArr.map((column, i) => (
                 <Column
-                  title={column}
+                  column={column}
                   loading={loading}
                   tasks={tasks}
                   key={i}

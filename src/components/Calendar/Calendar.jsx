@@ -43,7 +43,6 @@ const Calendar = ({ dateControl = '', disable }) => {
 
       const daysArray = []
 
-      // Добавляем дни предыдущего месяца
       const prevMonthLastDay = new Date(year, month, 0).getDate()
       for (let i = startDayOfWeek - 1; i >= 0; i--) {
         daysArray.push({
@@ -53,7 +52,6 @@ const Calendar = ({ dateControl = '', disable }) => {
         })
       }
 
-      // Добавляем дни текущего месяца
       for (let i = 1; i <= lastDay.getDate(); i++) {
         const date = new Date(year, month, i)
         daysArray.push({
@@ -129,8 +127,8 @@ const Calendar = ({ dateControl = '', disable }) => {
             <SDayName>ср</SDayName>
             <SDayName>чт</SDayName>
             <SDayName>пт</SDayName>
-            <SDayName $isWeekend>сб</SDayName>
-            <SDayName $isWeekend>вс</SDayName>
+            <SDayName>сб</SDayName>
+            <SDayName>вс</SDayName>
           </SDaysNames>
           <SCells>
             {days.map((day, index) => (

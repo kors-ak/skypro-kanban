@@ -2,7 +2,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import Calendar from '../../Calendar/Calendar.jsx'
 import { deleteTask, getTaskById } from '../../../services/api.js'
 import { useState, useEffect } from 'react'
-import { formatDate, sanitizeHtml } from '../../../utils.js'
+import { sanitizeHtml } from '../../../utils.js'
 
 const PopBrowse = ({ setTasks, user }) => {
   const { id } = useParams()
@@ -38,7 +38,7 @@ const PopBrowse = ({ setTasks, user }) => {
       }
     }
     getTask()
-  }, [id, navigate, user])
+  }, [id, user])
 
   const getThemeClass = (topic) => {
     switch (topic) {
@@ -149,7 +149,7 @@ const PopBrowse = ({ setTasks, user }) => {
                 </div>
               </form>
 
-              <Calendar disable dateControl={formatDate(task.date)} />
+              <Calendar disable dateControl={task.date} />
             </div>
             <div className="theme-down__categories theme-down">
               <p className="categories__p subttl">Категория</p>
