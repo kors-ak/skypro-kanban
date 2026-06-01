@@ -1,6 +1,4 @@
-import { createContext } from "react"
-
-const TasksContext = createContext()
+import { TasksContext } from './ContextApi'
 
 const TasksContextProvider = ({ children }) => {
   return <TasksContext.Provider value={{}}>{children}</TasksContext.Provider>

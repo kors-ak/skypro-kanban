@@ -1,6 +1,5 @@
-import { createContext, useState } from 'react'
-
-const ThemeContext = createContext()
+import { useState } from 'react'
+import { ThemeContext } from 'styled-components'
 
 const ThemeContextProvider = ({ children }) => {
   const [theme, setTheme] = useState(

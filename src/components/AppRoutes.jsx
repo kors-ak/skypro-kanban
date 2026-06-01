@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import MainPage from '../pages/MainPage.jsx'
 import SignInPage from '../pages/SignInPage.jsx'
 import SignUpPage from '../pages/SignUpPage.jsx'
@@ -8,13 +8,11 @@ import NewCardPage from '../pages/NewCardPage.jsx'
 import CardPage from '../pages/CardPage.jsx'
 import NotFoundPage from '../pages/NotFoundPage.jsx'
 import PrivateRoute from '../components/PrivateRoute.jsx'
+import { AuthContext } from '../context/ContextApi.js'
 
 function AppRoutes() {
-  const [user, setUser] = useState(
-    localStorage.getItem('user')
-      ? JSON.parse(localStorage.getItem('user'))
-      : null,
-  )
+  const { user, setUser} = useContext(AuthContext)
+
   const [tasks, setTasks] = useState([])
 
   return (
