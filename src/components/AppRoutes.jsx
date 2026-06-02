@@ -11,7 +11,7 @@ import PrivateRoute from '../components/PrivateRoute.jsx'
 import { AuthContext } from '../context/ContextApi.js'
 
 function AppRoutes() {
-  const { user, setUser} = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
   const [tasks, setTasks] = useState([])
 
@@ -20,18 +20,15 @@ function AppRoutes() {
       <Route element={<PrivateRoute isAuth={!!user} />}>
         <Route
           path="/"
-          element={<MainPage tasks={tasks} setTasks={setTasks} user={user} />}
+          element={<MainPage tasks={tasks} setTasks={setTasks} />}
         >
-          <Route path="/exit" element={<ExitPage setUser={setUser} />} />
-          <Route path="/task/add" element={<NewCardPage user={user} />} />
-          <Route
-            path="/task/:id"
-            element={<CardPage setTasks={setTasks} user={user} />}
-          />
+          <Route path="/exit" element={<ExitPage />} />
+          <Route path="/task/add" element={<NewCardPage />} />
+          <Route path="/task/:id" element={<CardPage setTasks={setTasks} />} />
         </Route>
       </Route>
 
-      <Route path="/sign-in" element={<SignInPage setUser={setUser} />} />
+      <Route path="/sign-in" element={<SignInPage />} />
       <Route path="/sign-up" element={<SignUpPage />} />
 
       <Route path="/*" element={<NotFoundPage />} />

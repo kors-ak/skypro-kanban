@@ -1,10 +1,12 @@
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import Calendar from '../../Calendar/Calendar.jsx'
 import { deleteTask, getTaskById } from '../../../services/api.js'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { sanitizeHtml } from '../../../utils.js'
+import { AuthContext } from '../../../context/ContextApi.js'
 
-const PopBrowse = ({ setTasks, user }) => {
+const PopBrowse = ({ setTasks }) => {
+  const { user } = useContext(AuthContext)
   const { id } = useParams()
 
   const [task, setTask] = useState(null)

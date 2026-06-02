@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom'
 import { SButton, SMail, SName, SPopUser, STheme } from './PopUser.styled'
-import {sanitizeHtml} from '../../../utils.js'
+import { sanitizeHtml } from '../../../utils.js'
+import { useContext } from 'react'
+import { AuthContext } from '../../../context/ContextApi.js'
 
-const PopUser = ({ user }) => {
+const PopUser = () => {
+  const { user } = useContext(AuthContext)
+
   return (
     <SPopUser onClick={(e) => e.stopPropagation()}>
       <SName>{sanitizeHtml(user.name)}</SName>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { AuthContext } from '../../context/ContextApi'
 import {
   SAuth,
@@ -22,16 +22,8 @@ const AuthForm = ({ IsSignUp }) => {
     errors,
     error,
     handleSubmit,
-    setFormData,
+    clearForm,
   } = useContext(AuthContext)
-
-  useEffect(() => {
-    setFormData({
-      name: '',
-      login: '',
-      password: '',
-    })
-  }, [setFormData])
 
   return (
     <SAuth>
@@ -84,13 +76,18 @@ const AuthForm = ({ IsSignUp }) => {
               {IsSignUp ? (
                 <SFooter>
                   <p>
-                    Уже есть аккаунт? <Link to="/sign-in">Войдите здесь</Link>
+                    Уже есть аккаунт?{' '}
+                    <Link onClick={clearForm} to="/sign-in">
+                      Войдите здесь
+                    </Link>
                   </p>
                 </SFooter>
               ) : (
                 <SFooter>
                   <p>Нужно зарегистрироваться?</p>
-                  <Link to="/sign-up">Регистрируйтесь здесь</Link>
+                  <Link onClick={clearForm} to="/sign-up">
+                    Регистрируйтесь здесь
+                  </Link>
                 </SFooter>
               )}
             </SForm>

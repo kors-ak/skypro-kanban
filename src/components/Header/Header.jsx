@@ -10,11 +10,13 @@ import {
   SOverlay,
 } from './Header.styled'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import PopUser from '../popups/PopUser/PopUser.jsx'
+import { AuthContext } from '../../context/ContextApi.js'
 
-const Header = ({ user }) => {
+const Header = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
+  const { user } = useContext(AuthContext)
 
   return (
     <SHeader>
@@ -38,7 +40,7 @@ const Header = ({ user }) => {
               <p>{sanitizeHtml(user.name)}</p>
             </SUser>
             {isPopupOpen && (
-              <PopUser user={user} onClose={() => setIsPopupOpen(false)} />
+              <PopUser onClose={() => setIsPopupOpen(false)} />
             )}
           </SNav>
         </SBlock>

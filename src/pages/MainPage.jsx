@@ -1,9 +1,10 @@
 import styled from 'styled-components'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useContext } from 'react'
 import Header from '../components/Header/Header.jsx'
 import Main from '../components/Main/Main.jsx'
 import { Outlet } from 'react-router-dom'
 import { fetchTasks } from '../services/api.js'
+import { AuthContext } from '../context/ContextApi.js'
 
 const SPage = styled.div`
   max-width: 100%;
@@ -13,9 +14,10 @@ const SPage = styled.div`
   background-color: #eaeef6;
 `
 
-function MainPage({ user, tasks, setTasks }) {
+function MainPage({ tasks, setTasks }) {
   const [loading, setLoading] = useState(false)
   const [err, setErr] = useState('')
+  const { user } = useContext(AuthContext)
 
   const getTasks = useCallback(async () => {
     try {
@@ -60,9 +62,8 @@ function MainPage({ user, tasks, setTasks }) {
   return (
     <>
       <SPage>
-        <Header user={user} />
+        <Header />
         <Main loading={loading} tasks={tasks} err={err} />
-
         <Outlet />
       </SPage>
     </>

@@ -1,9 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom'
 import Calendar from '../../Calendar/Calendar.jsx'
+import { useContext } from 'react'
+import { AuthContext } from '../../../context/ContextApi.js'
+import { postTask } from '../../../services/api.js'
 
 const PopNewCard = () => {
   const navigate = useNavigate()
+  const { user } = useContext(AuthContext)
+  const task = {}
+
   const handlePostTask = (e) => {
+    postTask({token: user.token, task: task})
     e.preventDefault()
     navigate('/')
   }

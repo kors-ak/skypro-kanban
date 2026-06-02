@@ -68,6 +68,20 @@ const AuthContextProvider = ({ children }) => {
     setError('')
   }
 
+  const clearForm = () => {
+    setFormData({
+      name: '',
+      login: '',
+      password: '',
+    })
+    setErrors({
+      name: '',
+      login: '',
+      password: '',
+    })
+    setError('')
+  }
+
   const handleSubmit = async (e, IsSignUp) => {
     e.preventDefault()
     if (!validateForm(IsSignUp)) {
@@ -89,11 +103,7 @@ const AuthContextProvider = ({ children }) => {
           navigate('/')
         }
 
-        setFormData({
-          name: '',
-          login: '',
-          password: '',
-        })
+        clearForm()
       }
     } catch (error) {
       if (error.response.status === 400 && IsSignUp) {
@@ -130,7 +140,7 @@ const AuthContextProvider = ({ children }) => {
         error,
         handleSubmit,
         handleLogout,
-        setFormData,
+        clearForm,
       }}
     >
       {children}
