@@ -10,10 +10,11 @@ import {
 } from './PopExit.styled'
 import { SOverlay } from '../../Header/Header.styled'
 import { useContext } from 'react'
-import { AuthContext } from '../../../context/ContextApi'
+import { AuthContext, TasksContext } from '../../../context/ContextApi'
 
 const PopExit = () => {
   const { handleLogout } = useContext(AuthContext)
+  const { clearTasks } = useContext(TasksContext)
   const navigate = useNavigate()
 
   return (
@@ -26,7 +27,12 @@ const PopExit = () => {
             </STitle>
             <form id="formExit" action="#">
               <SForm>
-                <SButtonYes onClick={(e) => handleLogout(e)}>
+                <SButtonYes
+                  onClick={(e) => {
+                    handleLogout(e)
+                    clearTasks()
+                  }}
+                >
                   <Link to="/sign-in">Да, выйти</Link>
                 </SButtonYes>
                 <SButtonNo>

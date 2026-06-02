@@ -1,18 +1,44 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Calendar from '../../Calendar/Calendar.jsx'
-import { useContext } from 'react'
-import { AuthContext } from '../../../context/ContextApi.js'
-import { postTask } from '../../../services/api.js'
+import { useContext, useState, useEffect } from 'react'
+import { TasksContext } from '../../../context/ContextApi.js'
 
 const PopNewCard = () => {
-  const navigate = useNavigate()
-  const { user } = useContext(AuthContext)
-  const task = {}
+  const { handlePostTask, posting } = useContext(TasksContext)
 
-  const handlePostTask = (e) => {
-    postTask({token: user.token, task: task})
-    e.preventDefault()
-    navigate('/')
+  const categories = [
+    { name: 'Web Design', color: 'orange' },
+    { name: 'Research', color: 'green' },
+    { name: 'Copywriting', color: 'purple' },
+  ]
+
+  const [task, setTask] = useState({
+    title: '',
+    description: '',
+    topic: '',
+    date: '',
+  })
+
+  useEffect(() => {
+    console.log('task после обновления:', task)
+  }, [task])
+
+  const handleDateSelect = (selectedDate) => {
+    setTask((prev) => ({ ...prev, date: selectedDate }))
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setTask((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const clearForm = () => {
+    setTask({
+      title: '',
+      description: '',
+      topic: '',
+      date: '',
+    })
   }
 
   return (
@@ -25,11 +51,7 @@ const PopNewCard = () => {
               &#10006;
             </Link>
             <div className="pop-new-card__wrap">
-              <form
-                className="pop-new-card__form form-new"
-                id="formNewCard"
-                action="#"
-              >
+              <form disabled={posting} className="pop-new-card__form form-new">
                 <div className="form-new__block">
                   <label htmlFor="formTitle" className="subttl">
                     Название задачи
@@ -37,10 +59,12 @@ const PopNewCard = () => {
                   <input
                     className="form-new__input"
                     type="text"
-                    name="name"
+                    name="title"
                     id="formTitle"
                     placeholder="Введите название задачи..."
                     autoFocus
+                    onChange={(e) => handleChange(e)}
+                    value={task.title}
                   />
                 </div>
                 <div className="form-new__block">
@@ -49,32 +73,38 @@ const PopNewCard = () => {
                   </label>
                   <textarea
                     className="form-new__area"
-                    name="text"
+                    name="description"
                     id="textArea"
                     placeholder="Введите описание задачи..."
+                    onChange={(e) => handleChange(e)}
+                    value={task.description}
                   ></textarea>
                 </div>
               </form>
 
-              <Calendar $isPopCalendar />
+              <Calendar $isPopCalendar onDateSelect={handleDateSelect} />
             </div>
             <div className="pop-new-card__categories categories">
               <p className="categories__p subttl">Категория</p>
-              <div className="categories__themes">
-                <div className="categories__theme _orange _active-category">
-                  <p className="_orange">Web Design</p>
+              {categories.map((cat) => (
+                <div
+                  key={cat.name}
+                  className={`categories__theme _${cat.color} ${task.topic === cat.name ? '_active-category' : ''}`}
+                  onClick={() =>
+                    setTask((prev) => ({ ...prev, topic: cat.name }))
+                  }
+                  style={{ cursor: 'pointer' }}
+                >
+                  <p className={`_${cat.color}`}>{cat.name}</p>
                 </div>
-                <div className="categories__theme _green">
-                  <p className="_green">Research</p>
-                </div>
-                <div className="categories__theme _purple">
-                  <p className="_purple">Copywriting</p>
-                </div>
-              </div>
+              ))}
             </div>
             <button
               className="form-new__create _hover01"
-              onClick={handlePostTask}
+              onClick={(e) => {
+                handlePostTask(e, task)
+                clearForm()
+              }}
             >
               Создать задачу
             </button>

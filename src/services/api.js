@@ -21,12 +21,21 @@ export async function getTaskById({ token, id }) {
 }
 
 export async function postTask({ token, task }) {
-  const data = await axios.post(API_URL, task, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': '',
+  const data = await axios.post(
+    API_URL,
+    {
+      ...(task.title ? { title: task.title } : {}),
+      ...(task.description ? { description: task.description } : {}),
+      ...(task.topic ? { topic: task.topic } : {}),
+      ...(task.date ? { date: task.date } : {}),
     },
-  })
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': '',
+      },
+    },
+  )
   return data
 }
 

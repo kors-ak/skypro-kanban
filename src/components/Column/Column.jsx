@@ -1,8 +1,11 @@
+import { useContext } from 'react'
 import Card from '../Card/Card.jsx'
 import CardLoader from '../CardLoader.jsx'
 import { SCards, SColumn, STitle } from './Column.styled'
+import { TasksContext } from '../../context/ContextApi.js'
 
-const Column = ({ column, loading, tasks }) => {
+const Column = ({ column }) => {
+  const { tasks, loading } = useContext(TasksContext)
   return (
     <SColumn>
       <STitle>

@@ -1,19 +1,18 @@
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Calendar from '../../Calendar/Calendar.jsx'
-import { deleteTask, getTaskById } from '../../../services/api.js'
+import { getTaskById } from '../../../services/api.js'
 import { useState, useEffect, useContext } from 'react'
 import { sanitizeHtml } from '../../../utils.js'
-import { AuthContext } from '../../../context/ContextApi.js'
+import { AuthContext, TasksContext } from '../../../context/ContextApi.js'
 
-const PopBrowse = ({ setTasks }) => {
+const PopBrowse = () => {
   const { user } = useContext(AuthContext)
+  const { handleDeleteTask } = useContext(TasksContext)
   const { id } = useParams()
 
   const [task, setTask] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-
-  const navigate = useNavigate()
 
   useEffect(() => {
     const getTask = async () => {
@@ -52,25 +51,6 @@ const PopBrowse = ({ setTasks }) => {
         return '_purple'
       default:
         return '_gray'
-    }
-  }
-
-  const handleDeleteTask = async (e) => {
-    e.preventDefault()
-
-    try {
-      const updatedTasks = await deleteTask({ token: user.token, id: id })
-      setTasks(updatedTasks.data.tasks)
-      navigate('/')
-    } catch (err) {
-      if (
-        err.message === 'Failed to fetch' ||
-        err.message === 'Network Error'
-      ) {
-        setError('Кажется, у вас пропал интернет, попробуйте позже.')
-      } else {
-        setError('Что-то пошло не так, попробуйте позже.')
-      }
     }
   }
 
@@ -165,7 +145,7 @@ const PopBrowse = ({ setTasks }) => {
                   <a href="#">Редактировать задачу</a>
                 </button>
                 <button
-                  onClick={handleDeleteTask}
+                  onClick={(e) => handleDeleteTask(e, id, setError)}
                   className="btn-browse__delete _btn-bor _hover03"
                 >
                   Удалить задачу

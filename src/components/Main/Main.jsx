@@ -1,23 +1,30 @@
 import Column from '../Column/Column'
 import { columnsArr } from '../../data'
 import { SMain, SContainer, SBlock, SContent } from './Main.styled'
+import { useContext, useEffect } from 'react'
+import { TasksContext } from '../../context/ContextApi'
 
-const Main = ({ loading, tasks, err }) => {
+const Main = () => {
+  const { getTasks, loadingErr } = useContext(TasksContext)
+
+  useEffect(() => {
+    async function fetchData() {
+      await getTasks()
+    }
+    fetchData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <SMain>
       <SContainer>
         <SBlock>
           <SContent>
-            {err ? (
-              <h2 style={{ whiteSpace: 'pre-wrap' }}>{err}</h2>
+            {loadingErr ? (
+              <h2 style={{ whiteSpace: 'pre-wrap' }}>{loadingErr}</h2>
             ) : (
               columnsArr.map((column, i) => (
-                <Column
-                  column={column}
-                  loading={loading}
-                  tasks={tasks}
-                  key={i}
-                ></Column>
+                <Column column={column} key={i}></Column>
               ))
             )}
           </SContent>

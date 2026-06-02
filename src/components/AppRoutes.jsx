@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import MainPage from '../pages/MainPage.jsx'
 import SignInPage from '../pages/SignInPage.jsx'
 import SignUpPage from '../pages/SignUpPage.jsx'
@@ -13,18 +13,13 @@ import { AuthContext } from '../context/ContextApi.js'
 function AppRoutes() {
   const { user } = useContext(AuthContext)
 
-  const [tasks, setTasks] = useState([])
-
   return (
     <Routes>
       <Route element={<PrivateRoute isAuth={!!user} />}>
-        <Route
-          path="/"
-          element={<MainPage tasks={tasks} setTasks={setTasks} />}
-        >
+        <Route path="/" element={<MainPage />}>
           <Route path="/exit" element={<ExitPage />} />
           <Route path="/task/add" element={<NewCardPage />} />
-          <Route path="/task/:id" element={<CardPage setTasks={setTasks} />} />
+          <Route path="/task/:id" element={<CardPage />} />
         </Route>
       </Route>
 

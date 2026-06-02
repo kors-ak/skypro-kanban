@@ -16,7 +16,7 @@ import {
   STitle,
 } from './Calendar.Styled'
 
-const Calendar = ({ dateControl = '', disable }) => {
+const Calendar = ({ dateControl = '', disable, onDateSelect }) => {
   const [currentDate, setCurrentDate] = useState(
     dateControl ? new Date(dateControl) : new Date(),
   )
@@ -84,6 +84,11 @@ const Calendar = ({ dateControl = '', disable }) => {
     if (disable || dayData.isOtherMonth) return
 
     setSelectedDate(dayData.date)
+
+    if (onDateSelect) {
+      const formattedDate = dayData.date
+      onDateSelect(formattedDate)
+    }
   }
 
   return (
