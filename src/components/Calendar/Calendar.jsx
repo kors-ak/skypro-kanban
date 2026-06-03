@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import {
   SBlock,
   SCalendar,
@@ -20,9 +20,12 @@ const Calendar = ({ dateControl = '', disable, onDateSelect }) => {
   const [currentDate, setCurrentDate] = useState(
     dateControl ? new Date(dateControl) : new Date(),
   )
-  const [selectedDate, setSelectedDate] = useState(
-    dateControl ? new Date(dateControl) : null,
+
+  const selectedDate = useMemo(
+    () => (dateControl ? new Date(dateControl) : null),
+    [dateControl],
   )
+
   const [days, setDays] = useState([])
 
   const isSameDay = (date1, date2) => {
@@ -58,7 +61,6 @@ const Calendar = ({ dateControl = '', disable, onDateSelect }) => {
           day: i,
           isCurrentMonth: true,
           isToday: isSameDay(date, new Date()),
-          isSelected: selectedDate && isSameDay(date, selectedDate),
           date,
         })
       }
@@ -82,8 +84,6 @@ const Calendar = ({ dateControl = '', disable, onDateSelect }) => {
 
   const handleDayClick = (dayData) => {
     if (disable || dayData.isOtherMonth) return
-
-    setSelectedDate(dayData.date)
 
     if (onDateSelect) {
       const formattedDate = dayData.date
@@ -141,7 +141,9 @@ const Calendar = ({ dateControl = '', disable, onDateSelect }) => {
                 key={index}
                 $isOtherMonth={day.isOtherMonth}
                 $isToday={day.isToday}
-                $isSelected={day.isSelected}
+                $isSelected={
+                  selectedDate !== null && isSameDay(day.date, selectedDate)
+                }
                 onClick={() => handleDayClick(day)}
                 style={{ cursor: day.isOtherMonth ? 'default' : 'pointer' }}
               >

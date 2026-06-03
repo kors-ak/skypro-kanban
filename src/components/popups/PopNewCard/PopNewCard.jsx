@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import Calendar from '../../Calendar/Calendar.jsx'
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState } from 'react'
 import { TasksContext } from '../../../context/ContextApi.js'
 
 const PopNewCard = () => {
@@ -18,10 +18,6 @@ const PopNewCard = () => {
     topic: '',
     date: '',
   })
-
-  useEffect(() => {
-    console.log('task после обновления:', task)
-  }, [task])
 
   const handleDateSelect = (selectedDate) => {
     setTask((prev) => ({ ...prev, date: selectedDate }))
@@ -82,7 +78,7 @@ const PopNewCard = () => {
                 </div>
               </form>
 
-              <Calendar $isPopCalendar onDateSelect={handleDateSelect} />
+              <Calendar $isPopCalendar dateControl={task.date} onDateSelect={handleDateSelect} />
             </div>
             <div className="pop-new-card__categories categories">
               <p className="categories__p subttl">Категория</p>

@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import { AuthContext, TasksContext } from './ContextApi'
-import { deleteTask, fetchTasks, postTask } from '../services/api'
+import { deleteTask, editTask, fetchTasks, postTask } from '../services/api'
 import { useNavigate } from 'react-router-dom'
 
 const TasksContextProvider = ({ children }) => {
@@ -82,6 +82,26 @@ const TasksContextProvider = ({ children }) => {
     }
   }
 
+  const handleEditTask = async (e, id, task) => {
+    try {
+      e.preventDefault()
+      setPosting(true)
+      const updatedTasks = await editTask({
+        token: user.token,
+        id: id,
+        task: task,
+      })
+      if (updatedTasks) {
+        setTasks(updatedTasks.data.tasks)
+        navigate('/task/' + id)
+      }
+    } catch {
+      alert('Произошла непредвиденная ошибка. Попробуйте позже.')
+    } finally {
+      setPosting(false)
+    }
+  }
+
   return (
     <TasksContext.Provider
       value={{
@@ -93,6 +113,7 @@ const TasksContextProvider = ({ children }) => {
         clearTasks,
         handlePostTask,
         handleDeleteTask,
+        handleEditTask,
       }}
     >
       {children}

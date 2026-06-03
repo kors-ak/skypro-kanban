@@ -40,12 +40,22 @@ export async function postTask({ token, task }) {
 }
 
 export async function editTask({ token, id, task }) {
-  const data = await axios.put(API_URL + id, task, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': '',
+  const data = await axios.put(
+    API_URL + id,
+    {
+      ...(task.title ? { title: task.title } : {}),
+      ...(task.status ? { status: task.status } : {}),
+      ...(task.topic ? { topic: task.topic } : {}),
+      ...(task.description ? { description: task.description } : {}),
+      ...(task.date ? { date: task.date } : {}),
     },
-  })
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': '',
+      },
+    },
+  )
   return data
 }
 
