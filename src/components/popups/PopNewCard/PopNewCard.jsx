@@ -38,12 +38,12 @@ const PopNewCard = () => {
   }
 
   useEffect(() => {
-  document.body.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden'
 
-  return () => {
-    document.body.style.overflow = ''
-  }
-}, [])
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [])
 
   return (
     <div className="pop-new-card" id="popNewCard">
@@ -86,22 +86,28 @@ const PopNewCard = () => {
                 </div>
               </form>
 
-              <Calendar $isPopCalendar dateControl={task.date} onDateSelect={handleDateSelect} />
+              <Calendar
+                $isPopCalendar
+                dateControl={task.date}
+                onDateSelect={handleDateSelect}
+              />
             </div>
             <div className="pop-new-card__categories categories">
               <p className="categories__p subttl">Категория</p>
-              {categories.map((cat) => (
-                <div
-                  key={cat.name}
-                  className={`categories__theme _${cat.color} ${task.topic === cat.name ? '_active-category' : ''}`}
-                  onClick={() =>
-                    setTask((prev) => ({ ...prev, topic: cat.name }))
-                  }
-                  style={{ cursor: 'pointer' }}
-                >
-                  <p className={`_${cat.color}`}>{cat.name}</p>
-                </div>
-              ))}
+              <div className="categories__themes">
+                {categories.map((cat) => (
+                  <div
+                    key={cat.name}
+                    className={`categories__theme _${cat.color} ${task.topic === cat.name ? '_active-category' : ''}`}
+                    onClick={() =>
+                      setTask((prev) => ({ ...prev, topic: cat.name }))
+                    }
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <p className={`_${cat.color}`}>{cat.name}</p>
+                  </div>
+                ))}
+              </div>
             </div>
             <button
               className="form-new__create _hover01"

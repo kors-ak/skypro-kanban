@@ -65,6 +65,20 @@ const Calendar = ({ dateControl = '', disable, onDateSelect }) => {
         })
       }
 
+      const totalCells = daysArray.length
+      const remainder = totalCells % 7
+      const missingCells = remainder === 0 ? 0 : 7 - remainder
+
+      if (missingCells > 0) {
+        for (let i = 1; i <= missingCells; i++) {
+          daysArray.push({
+            day: i,
+            isOtherMonth: true,
+            date: new Date(year, month + 1, i),
+          })
+        }
+      }
+
       setDays(daysArray)
     }
     generateCalendar()
