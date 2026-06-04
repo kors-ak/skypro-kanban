@@ -18,7 +18,7 @@ const Card = ({ task }) => {
       <SCard>
         <SCardGroup>
           <SCardTheme $cardTheme={task.topic}>
-            <p>{sanitizeHtml(task.topic)}</p>
+            <p>{task.topic}</p>
           </SCardTheme>
           <Link to={'/task/' + task?._id}>
             <SButton>

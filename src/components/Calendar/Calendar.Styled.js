@@ -175,6 +175,13 @@ export const SText = styled.p`
     color: #000000;
   }
 
+    ${({ $error }) =>
+    $error &&
+    `
+    border-bottom: 0.7px solid rgba(248, 77, 77, 1);
+  `}
+
+
   @media screen and (max-width: 660px) {
     font-size: 14px;
   }

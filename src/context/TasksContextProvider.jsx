@@ -47,7 +47,54 @@ const TasksContextProvider = ({ children }) => {
 
   const clearTasks = () => setTasks([])
 
+  const [task, setTask] = useState({
+    title: '',
+    description: '',
+    topic: '',
+    date: '',
+  })
+
+  const [errors, setErrors] = useState({
+    title: '',
+    description: '',
+    topic: '',
+    date: '',
+  })
+
+  const validateForm = () => {
+    const newErrors = { title: '', description: '', topic: '', date: '' }
+    let isValid = true
+
+    if (!task.title.trim()) {
+      newErrors.title = true
+      isValid = false
+    }
+
+    if (!task.description.trim()) {
+      newErrors.description = true
+      isValid = false
+    }
+
+    if (!task.topic) {
+      newErrors.topic = true
+      isValid = false
+    }
+
+    if (!task.date) {
+      newErrors.date = true
+      isValid = false
+    }
+
+    setErrors(newErrors)
+    return isValid
+  }
+
   const handlePostTask = async (e, task) => {
+    if (!validateForm()) {
+      alert('Все поля должны быть заполнены')
+      return
+    }
+
     try {
       e.preventDefault()
       setPosting(true)
@@ -55,6 +102,18 @@ const TasksContextProvider = ({ children }) => {
       if (updatedTasks) {
         setTasks(updatedTasks.data.tasks)
         navigate('/')
+        setTask({
+          title: '',
+          description: '',
+          topic: '',
+          date: '',
+        })
+        setErrors({
+          title: '',
+          description: '',
+          topic: '',
+          date: '',
+        })
       }
     } catch {
       alert('Произошла непредвиденная ошибка. Попробуйте позже.')
@@ -94,6 +153,13 @@ const TasksContextProvider = ({ children }) => {
       if (updatedTasks) {
         setTasks(updatedTasks.data.tasks)
         navigate('/task/' + id)
+
+        setErrors({
+          title: '',
+          description: '',
+          topic: '',
+          date: '',
+        })
       }
     } catch {
       alert('Произошла непредвиденная ошибка. Попробуйте позже.')
@@ -109,11 +175,16 @@ const TasksContextProvider = ({ children }) => {
         loading,
         posting,
         loadingErr,
+        task,
+        setTask,
         getTasks,
         clearTasks,
         handlePostTask,
         handleDeleteTask,
         handleEditTask,
+        validateForm,
+        errors,
+        setErrors,
       }}
     >
       {children}

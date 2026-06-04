@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
 import Calendar from '../../Calendar/Calendar.jsx'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { TasksContext } from '../../../context/ContextApi.js'
 
 const PopNewCard = () => {
-  const { handlePostTask, posting } = useContext(TasksContext)
+  const { handlePostTask, posting, task, setTask, errors, setErrors } =
+    useContext(TasksContext)
 
   const categories = [
     { name: 'Web Design', color: 'orange' },
@@ -12,29 +13,15 @@ const PopNewCard = () => {
     { name: 'Copywriting', color: 'purple' },
   ]
 
-  const [task, setTask] = useState({
-    title: '',
-    description: '',
-    topic: '',
-    date: '',
-  })
-
   const handleDateSelect = (selectedDate) => {
     setTask((prev) => ({ ...prev, date: selectedDate }))
+    setErrors({ ...errors, date: false })
   }
 
   const handleChange = (e) => {
     const { name, value } = e.target
     setTask((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const clearForm = () => {
-    setTask({
-      title: '',
-      description: '',
-      topic: '',
-      date: '',
-    })
+    setErrors({ ...errors, [name]: false })
   }
 
   useEffect(() => {
@@ -51,7 +38,24 @@ const PopNewCard = () => {
         <div className="pop-new-card__block">
           <div className="pop-new-card__content">
             <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <Link to="/" className="pop-new-card__close">
+            <Link
+              to="/"
+              className="pop-new-card__close"
+              onClick={() => {
+                setErrors({
+                  title: '',
+                  description: '',
+                  topic: '',
+                  date: '',
+                })
+                setTask({
+                  title: '',
+                  description: '',
+                  topic: '',
+                  date: '',
+                })
+              }}
+            >
               &#10006;
             </Link>
             <div className="pop-new-card__wrap">
@@ -69,6 +73,12 @@ const PopNewCard = () => {
                     autoFocus
                     onChange={(e) => handleChange(e)}
                     value={task.title}
+                    style={
+                      errors.title
+                        ? { border: '0.7px solid rgba(248, 77, 77, 1)' }
+                        : {}
+                    }
+                    onChange={(e) => handleChange(e)}
                   />
                 </div>
                 <div className="form-new__block">
@@ -82,6 +92,11 @@ const PopNewCard = () => {
                     placeholder="Введите описание задачи..."
                     onChange={(e) => handleChange(e)}
                     value={task.description}
+                    style={
+                      errors.description
+                        ? { border: '0.7px solid rgba(248, 77, 77, 1)' }
+                        : {}
+                    }
                   ></textarea>
                 </div>
               </form>
@@ -90,18 +105,30 @@ const PopNewCard = () => {
                 $isPopCalendar
                 dateControl={task.date}
                 onDateSelect={handleDateSelect}
+                $error={errors.date}
               />
             </div>
             <div className="pop-new-card__categories categories">
               <p className="categories__p subttl">Категория</p>
-              <div className="categories__themes">
+              <div
+                className="categories__themes"
+                style={
+                  errors.topic
+                    ? {
+                        border: '0.7px solid rgba(248, 77, 77, 1)',
+                        borderRadius: '16px',
+                      }
+                    : {}
+                }
+              >
                 {categories.map((cat) => (
                   <div
                     key={cat.name}
                     className={`categories__theme _${cat.color} ${task.topic === cat.name ? '_active-category' : ''}`}
-                    onClick={() =>
+                    onClick={() => {
                       setTask((prev) => ({ ...prev, topic: cat.name }))
-                    }
+                      setErrors({ ...errors, topic: false })
+                    }}
                     style={{ cursor: 'pointer' }}
                   >
                     <p className={`_${cat.color}`}>{cat.name}</p>
@@ -113,7 +140,6 @@ const PopNewCard = () => {
               className="form-new__create _hover01"
               onClick={(e) => {
                 handlePostTask(e, task)
-                clearForm()
               }}
             >
               Создать задачу

@@ -7,10 +7,10 @@ import { AuthContext, TasksContext } from '../../../context/ContextApi.js'
 
 const PopBrowse = () => {
   const { user } = useContext(AuthContext)
-  const { handleDeleteTask, handleEditTask } = useContext(TasksContext)
+  const { handleDeleteTask, handleEditTask, task, setTask } =
+    useContext(TasksContext)
   const { id } = useParams()
 
-  const [task, setTask] = useState(null)
   const [newTask, setNewTask] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -53,7 +53,7 @@ const PopBrowse = () => {
       }
     }
     getTask()
-  }, [id, user])
+  }, [id, setTask, user])
 
   const getThemeClass = (topic) => {
     switch (topic) {
@@ -214,7 +214,19 @@ const PopBrowse = () => {
                   </button>
                 </div>
                 <button className="btn-edit__close _btn-bg _hover01">
-                  <Link to="/">Закрыть</Link>
+                  <Link
+                    to="/"
+                    onClick={() =>
+                      setTask({
+                        title: '',
+                        description: '',
+                        topic: '',
+                        date: '',
+                      })
+                    }
+                  >
+                    Закрыть
+                  </Link>
                 </button>
               </div>
             ) : (

@@ -144,6 +144,7 @@
   margin-bottom: 20px;
 }
 .categories__themes {
+  width: fit-content;
   display: flex;
   flex-wrap: nowrap;
   align-items: flex-start;
@@ -158,8 +159,10 @@
   height: 30px;
   padding: 8px 20px;
   border-radius: 24px;
-  margin-right: 7px;
   opacity: 0.4;
+}
+.categories__theme:not(:last-child) {
+  margin-right: 7px;
 }
 .categories__theme p {
   font-size: 14px;

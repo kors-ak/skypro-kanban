@@ -16,7 +16,7 @@ import {
   STitle,
 } from './Calendar.Styled'
 
-const Calendar = ({ dateControl = '', disable, onDateSelect }) => {
+const Calendar = ({ dateControl = '', disable, onDateSelect, $error }) => {
   const [currentDate, setCurrentDate] = useState(
     dateControl ? new Date(dateControl) : new Date(),
   )
@@ -183,7 +183,7 @@ const Calendar = ({ dateControl = '', disable, onDateSelect }) => {
           }
         />
         <SPeriod>
-          <SText>
+          <SText $error={$error}>
             {selectedDate ? 'Срок исполнения: ' : `Выберите срок исполнения.`}
             <span>
               {selectedDate
