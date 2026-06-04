@@ -98,7 +98,13 @@ const AuthContextProvider = ({ children }) => {
         if (IsSignUp) {
           navigate('/sign-in')
         } else {
-          localStorage.setItem('user', JSON.stringify(data))
+          const userToSave = {
+            _id: data._id,
+            name: data.name,
+            login: data.login,
+            token: data.token,
+          }
+          localStorage.setItem('user', JSON.stringify(userToSave))
           setUser(data)
           navigate('/')
         }

@@ -128,6 +128,12 @@ const TasksContextProvider = ({ children }) => {
     try {
       const updatedTasks = await deleteTask({ token: user.token, id: id })
       setTasks(updatedTasks.data.tasks)
+      setTask({
+        title: '',
+        description: '',
+        topic: '',
+        date: '',
+      })
       navigate('/')
     } catch (err) {
       if (
