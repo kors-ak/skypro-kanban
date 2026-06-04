@@ -10,7 +10,7 @@ import {
   SDot,
   STitle,
 } from './Card.styled'
-import { formatDate, sanitizeHtml } from '../../utils'
+import { formatDate } from '../../utils'
 
 const Card = ({ task }) => {
   return (
@@ -30,7 +30,7 @@ const Card = ({ task }) => {
         </SCardGroup>
         <SContent>
           <Link to={'/task/' + task?._id}>
-            <STitle>{sanitizeHtml(task.title)}</STitle>
+            <STitle>{task.title}</STitle>
           </Link>
           <SDate>
             <svg

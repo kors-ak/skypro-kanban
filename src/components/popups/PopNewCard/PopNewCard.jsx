@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import Calendar from '../../Calendar/Calendar.jsx'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { TasksContext } from '../../../context/ContextApi.js'
 
 const PopNewCard = () => {
@@ -23,14 +23,6 @@ const PopNewCard = () => {
     setTask((prev) => ({ ...prev, [name]: value }))
     setErrors({ ...errors, [name]: false })
   }
-
-  useEffect(() => {
-    document.body.style.overflow = 'hidden'
-
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [])
 
   return (
     <div className="pop-new-card" id="popNewCard">

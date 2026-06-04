@@ -2,7 +2,6 @@ import { Link, useParams } from 'react-router-dom'
 import Calendar from '../../Calendar/Calendar.jsx'
 import { getTaskById } from '../../../services/api.js'
 import { useState, useEffect, useContext } from 'react'
-import { sanitizeHtml } from '../../../utils.js'
 import { AuthContext, TasksContext } from '../../../context/ContextApi.js'
 
 const PopBrowse = () => {
@@ -19,14 +18,6 @@ const PopBrowse = () => {
   const handleDateSelect = (selectedDate) => {
     setNewTask((prev) => ({ ...prev, date: selectedDate }))
   }
-
-  useEffect(() => {
-    document.body.style.overflow = 'hidden'
-
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [])
 
   useEffect(() => {
     const getTask = async () => {
@@ -96,13 +87,11 @@ const PopBrowse = () => {
         <div className="pop-browse__block">
           <div className="pop-browse__content">
             <div className="pop-browse__top-block">
-              <h3 className="pop-browse__ttl">{sanitizeHtml(task.title)}</h3>
+              <h3 className="pop-browse__ttl">{task.title}</h3>
               <div
                 className={`categories__theme theme-top ${getThemeClass(task.topic)} _active-category`}
               >
-                <p className={getThemeClass(task.topic)}>
-                  {sanitizeHtml(task.topic)}
-                </p>
+                <p className={getThemeClass(task.topic)}>{task.topic}</p>
               </div>
             </div>
             <div className="pop-browse__status status">
@@ -159,11 +148,7 @@ const PopBrowse = () => {
                         description: e.target.value,
                       }))
                     }
-                    value={
-                      edit
-                        ? sanitizeHtml(newTask.description)
-                        : sanitizeHtml(task.description)
-                    }
+                    value={edit ? newTask.description : task.description}
                   ></textarea>
                 </div>
               </form>
@@ -250,7 +235,19 @@ const PopBrowse = () => {
                   </button>
                 </div>
                 <button className="btn-browse__close _btn-bg _hover01">
-                  <Link to="/">Закрыть</Link>
+                  <Link
+                    to="/"
+                    onClick={() =>
+                      setTask({
+                        title: '',
+                        description: '',
+                        topic: '',
+                        date: '',
+                      })
+                    }
+                  >
+                    Закрыть
+                  </Link>
                 </button>
               </div>
             )}

@@ -1,4 +1,3 @@
-import { sanitizeHtml } from '../../utils.js'
 import {
   SBlock,
   SButton,
@@ -37,7 +36,7 @@ const Header = () => {
               <Link to="/task/add">Создать новую задачу</Link>
             </SButton>
             <SUser onClick={() => setIsPopupOpen(true)} role="button">
-              <p>{sanitizeHtml(user.name)}</p>
+              <p>{user.name}</p>
             </SUser>
             {isPopupOpen && (
               <PopUser

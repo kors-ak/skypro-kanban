@@ -1,10 +1,3 @@
-export function sanitizeHtml(text) {
-  return String(text)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-}
-
 export function sanitizeInput(text) {
   return String(text)
     .replaceAll('&', '')
