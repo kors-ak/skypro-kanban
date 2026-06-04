@@ -105,9 +105,8 @@ export const SCells = styled.div`
   @media screen and (max-width: 660px) {
     width: 344px;
     height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-self: self-start;
   }
 `
 

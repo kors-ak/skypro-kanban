@@ -4,7 +4,7 @@ import { sanitizeHtml } from '../../../utils.js'
 import { useContext } from 'react'
 import { AuthContext } from '../../../context/ContextApi.js'
 
-const PopUser = () => {
+const PopUser = ({ setIsPopupOpen }) => {
   const { user } = useContext(AuthContext)
 
   return (
@@ -15,7 +15,7 @@ const PopUser = () => {
         <p>Темная тема</p>
         <input type="checkbox" name="checkbox" />
       </STheme>
-      <SButton>
+      <SButton onClick={() => setIsPopupOpen(false)}>
         <Link to="/exit">Выйти</Link>
       </SButton>
     </SPopUser>

@@ -7,7 +7,7 @@ const SPage = styled.div`
   max-width: 100%;
   width: 100vw;
   min-height: 100vh;
-  overflow: hidden;
+  flex-direction: column;
   background-color: #eaeef6;
 `
 

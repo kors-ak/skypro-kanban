@@ -4,6 +4,12 @@ export const SHeader = styled.header`
   width: 100%;
   margin: 0 auto;
   background-color: #ffffff;
+
+  @media screen and (max-width: 660px) {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
 `
 
 export const SContainer = styled.div`
@@ -127,5 +133,5 @@ export const SOverlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1; 
+  z-index: 1;
 `

@@ -40,7 +40,10 @@ const Header = () => {
               <p>{sanitizeHtml(user.name)}</p>
             </SUser>
             {isPopupOpen && (
-              <PopUser onClose={() => setIsPopupOpen(false)} />
+              <PopUser
+                setIsPopupOpen={setIsPopupOpen}
+                onClose={() => setIsPopupOpen(false)}
+              />
             )}
           </SNav>
         </SBlock>

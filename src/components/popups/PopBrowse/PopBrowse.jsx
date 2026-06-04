@@ -21,6 +21,14 @@ const PopBrowse = () => {
   }
 
   useEffect(() => {
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [])
+
+  useEffect(() => {
     const getTask = async () => {
       try {
         setLoading(true)
