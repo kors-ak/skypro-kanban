@@ -2,17 +2,16 @@ import styled from 'styled-components'
 
 export const SMain = styled.main`
   width: 100%;
-  background-color: #eaeef6;
 `
 
 export const SContainer = styled.div`
   max-width: 1260px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 30px;
+  padding: 0 0 0 30px;
 
   @media screen and (max-width: 495px) {
-    padding: 0 16px;
+    padding: 0 0 0 16px;
   }
 `
 

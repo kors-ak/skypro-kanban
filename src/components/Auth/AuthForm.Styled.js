@@ -106,7 +106,7 @@ export const SButton = styled.button`
 
   ${({ disabled }) =>
     disabled &&
-    `background-color: rgb(148, 166, 190);
+    `background-color: #94a6be;
     cursor: not-allowed;
 `}
 

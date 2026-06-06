@@ -1,6 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { signUp, signIn } from '../../services/auth'
-import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useContext } from 'react'
+import { AuthContext } from '../../context/ContextApi'
 import {
   SAuth,
   SBlock,
@@ -13,105 +13,17 @@ import {
   STitle,
   SErrorP,
 } from './AuthForm.Styled'
-import { sanitizeInput } from '../../utils'
 
-const AuthForm = ({ IsSignUp, setUser }) => {
-  const navigate = useNavigate()
-
-  const [loading, setLoading] = useState(false)
-
-  const [formData, setFormData] = useState({
-    name: '',
-    login: '',
-    password: '',
-  })
-
-  const [errors, setErrors] = useState({
-    name: '',
-    login: '',
-    password: '',
-  })
-
-  const [error, setError] = useState('')
-
-  const validateForm = () => {
-    const newErrors = { name: '', login: '', password: '' }
-    let isValid = true
-    const errorText = IsSignUp
-      ? 'Введенные вами данные некорректны. Чтобы завершить регистрацию, заполните все поля в форме.'
-      : 'Введенные вами данные некорректны. Чтобы войти, заполните все поля в форме.'
-
-    if (IsSignUp && !formData.name.trim()) {
-      newErrors.name = true
-      setError(errorText)
-      isValid = false
-    }
-
-    if (!formData.login.trim()) {
-      newErrors.login = true
-      setError(errorText)
-      isValid = false
-    }
-
-    if (!formData.password.trim()) {
-      newErrors.password = true
-      setError(errorText)
-      isValid = false
-    }
-
-    setErrors(newErrors)
-    return isValid
-  }
-
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData({
-      ...formData,
-      [name]: sanitizeInput(value),
-    })
-    setErrors({ ...errors, [name]: false })
-    setError('')
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!validateForm()) {
-      return
-    }
-    setLoading(true)
-
-    try {
-      const data = IsSignUp
-        ? await signUp(formData)
-        : await signIn({ login: formData.login, password: formData.password })
-
-      if (data) {
-        if (IsSignUp) {
-          navigate('/sign-in')
-        } else {
-          localStorage.setItem('user', JSON.stringify(data))
-          setUser(data)
-          navigate('/')
-        }
-      }
-    } catch (error) {
-      console.error('Ошибка авторизации:', error)
-
-      if (error.response.status === 400 && IsSignUp) {
-        setError('Пользователь с таким логином уже существует.')
-      } else if (error.response?.status === 400) {
-        setError(
-          'Введенные вами данные не распознаны. Проверьте свой логин и пароль и повторите попытку входа.',
-        )
-      } else {
-        setError('Произошла непредвиденная ошибка. Попробуйте позже.')
-      }
-
-      !IsSignUp && setErrors({ login: true, password: true })
-    } finally {
-      setLoading(false)
-    }
-  }
+const AuthForm = ({ IsSignUp }) => {
+  const {
+    loading,
+    handleChange,
+    formData,
+    errors,
+    error,
+    handleSubmit,
+    clearForm,
+  } = useContext(AuthContext)
 
   return (
     <SAuth>
@@ -129,7 +41,7 @@ const AuthForm = ({ IsSignUp, setUser }) => {
                   name="name"
                   id="name"
                   placeholder="Имя"
-                  onChange={handleChange}
+                  onChange={(e) => handleChange(e)}
                   value={formData.name}
                   $error={errors.name}
                 />
@@ -139,7 +51,7 @@ const AuthForm = ({ IsSignUp, setUser }) => {
                 name="login"
                 id="formlogin"
                 placeholder="Эл. почта"
-                onChange={handleChange}
+                onChange={(e) => handleChange(e)}
                 value={formData.login}
                 $error={errors.login}
               />
@@ -149,25 +61,33 @@ const AuthForm = ({ IsSignUp, setUser }) => {
                 name="password"
                 id="formpassword"
                 placeholder="Пароль"
-                onChange={handleChange}
+                onChange={(e) => handleChange(e)}
                 value={formData.password}
                 $error={errors.password}
               />
               <SErrorP>{error}</SErrorP>
-              <SButton disabled={!!error || loading} onClick={handleSubmit}>
+              <SButton
+                disabled={!!error || loading}
+                onClick={(e) => handleSubmit(e, IsSignUp)}
+              >
                 {IsSignUp ? 'Зарегистрироваться' : 'Войти'}
               </SButton>
 
               {IsSignUp ? (
                 <SFooter>
                   <p>
-                    Уже есть аккаунт? <Link to="/sign-in">Войдите здесь</Link>
+                    Уже есть аккаунт?{' '}
+                    <Link onClick={clearForm} to="/sign-in">
+                      Войдите здесь
+                    </Link>
                   </p>
                 </SFooter>
               ) : (
                 <SFooter>
                   <p>Нужно зарегистрироваться?</p>
-                  <Link to="/sign-up">Регистрируйтесь здесь</Link>
+                  <Link onClick={clearForm} to="/sign-up">
+                    Регистрируйтесь здесь
+                  </Link>
                 </SFooter>
               )}
             </SForm>

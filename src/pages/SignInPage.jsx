@@ -1,7 +1,5 @@
-import SignIn from '../components/SignIn/SignIn.jsx'
+import AuthForm from '../components/Auth/AuthForm.jsx'
 
-function SignInPage({setUser}) {
-  return <SignIn setUser={setUser}/>
-}
+const SignInPage = () => <AuthForm IsSignUp={false} />
 
 export default SignInPage

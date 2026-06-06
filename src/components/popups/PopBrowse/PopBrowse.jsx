@@ -1,17 +1,23 @@
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Calendar from '../../Calendar/Calendar.jsx'
-import { deleteTask, getTaskById } from '../../../services/api.js'
-import { useState, useEffect } from 'react'
-import { formatDate, sanitizeHtml } from '../../../utils.js'
+import { getTaskById } from '../../../services/api.js'
+import { useState, useEffect, useContext } from 'react'
+import { AuthContext, TasksContext } from '../../../context/ContextApi.js'
 
-const PopBrowse = ({ setTasks, user }) => {
+const PopBrowse = () => {
+  const { user } = useContext(AuthContext)
+  const { handleDeleteTask, handleEditTask, task, setTask } =
+    useContext(TasksContext)
   const { id } = useParams()
 
-  const [task, setTask] = useState(null)
+  const [newTask, setNewTask] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [edit, setEdit] = useState(false)
 
-  const navigate = useNavigate()
+  const handleDateSelect = (selectedDate) => {
+    setNewTask((prev) => ({ ...prev, date: selectedDate }))
+  }
 
   useEffect(() => {
     const getTask = async () => {
@@ -38,7 +44,7 @@ const PopBrowse = ({ setTasks, user }) => {
       }
     }
     getTask()
-  }, [id, navigate, user])
+  }, [id, setTask, user])
 
   const getThemeClass = (topic) => {
     switch (topic) {
@@ -50,25 +56,6 @@ const PopBrowse = ({ setTasks, user }) => {
         return '_purple'
       default:
         return '_gray'
-    }
-  }
-
-  const handleDeleteTask = async (e) => {
-    e.preventDefault()
-
-    try {
-      const updatedTasks = await deleteTask({ token: user.token, id: id })
-      setTasks(updatedTasks.data.tasks)
-      navigate('/')
-    } catch (err) {
-      if (
-        err.message === 'Failed to fetch' ||
-        err.message === 'Network Error'
-      ) {
-        setError('Кажется, у вас пропал интернет, попробуйте позже.')
-      } else {
-        setError('Что-то пошло не так, попробуйте позже.')
-      }
     }
   }
 
@@ -100,34 +87,45 @@ const PopBrowse = ({ setTasks, user }) => {
         <div className="pop-browse__block">
           <div className="pop-browse__content">
             <div className="pop-browse__top-block">
-              <h3 className="pop-browse__ttl">{sanitizeHtml(task.title)}</h3>
+              <h3 className="pop-browse__ttl">{task.title}</h3>
               <div
                 className={`categories__theme theme-top ${getThemeClass(task.topic)} _active-category`}
               >
-                <p className={getThemeClass(task.topic)}>
-                  {sanitizeHtml(task.topic)}
-                </p>
+                <p className={getThemeClass(task.topic)}>{task.topic}</p>
               </div>
             </div>
             <div className="pop-browse__status status">
               <p className="status__p subttl">Статус</p>
-              <div className="status__themes">
-                <div className="status__theme _hide">
-                  <p>Без статуса</p>
+              {edit ? (
+                <div className="status__themes">
+                  {[
+                    'Без статуса',
+                    'Нужно сделать',
+                    'В работе',
+                    'Тестирование',
+                    'Готово',
+                  ].map((status) => (
+                    <div
+                      key={status}
+                      className={`status__theme ${newTask.status === status ? '_gray' : ''}`}
+                      onClick={() =>
+                        setNewTask((prev) => ({ ...prev, status }))
+                      }
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <p className={newTask.status === status ? '_gray' : ''}>
+                        {status}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-                <div className="status__theme _gray">
-                  <p className="_gray">{task.status}</p>
+              ) : (
+                <div className="status__themes">
+                  <div className="status__theme _gray">
+                    <p className="_gray">{task.status}</p>
+                  </div>
                 </div>
-                <div className="status__theme _hide">
-                  <p>В работе</p>
-                </div>
-                <div className="status__theme _hide">
-                  <p>Тестирование</p>
-                </div>
-                <div className="status__theme _hide">
-                  <p>Готово</p>
-                </div>
-              </div>
+              )}
             </div>
             <div className="pop-browse__wrap">
               <form
@@ -143,13 +141,23 @@ const PopBrowse = ({ setTasks, user }) => {
                     className="form-browse__area"
                     name="text"
                     id="textArea01"
-                    readOnly
-                    value={sanitizeHtml(task.description)}
+                    readOnly={!edit}
+                    onChange={(e) =>
+                      setNewTask((prev) => ({
+                        ...prev,
+                        description: e.target.value,
+                      }))
+                    }
+                    value={edit ? newTask.description : task.description}
                   ></textarea>
                 </div>
               </form>
 
-              <Calendar disable dateControl={formatDate(task.date)} />
+              <Calendar
+                dateControl={edit ? newTask.date : task.date}
+                onDateSelect={handleDateSelect}
+                disable={!edit}
+              />
             </div>
             <div className="theme-down__categories theme-down">
               <p className="categories__p subttl">Категория</p>
@@ -157,41 +165,92 @@ const PopBrowse = ({ setTasks, user }) => {
                 <p className="_orange">{task.topic}</p>
               </div>
             </div>
-            <div className="pop-browse__btn-browse ">
-              <div className="btn-group">
-                <button className="btn-browse__edit _btn-bor _hover03">
-                  <a href="#">Редактировать задачу</a>
-                </button>
-                <button
-                  onClick={handleDeleteTask}
-                  className="btn-browse__delete _btn-bor _hover03"
-                >
-                  Удалить задачу
+            {edit ? (
+              <div className="pop-browse__btn-edit">
+                <div className="btn-group">
+                  <button className="btn-edit__edit _btn-bg _hover01">
+                    <a
+                      onClick={(e) => {
+                        setEdit(false)
+                        setTask(newTask)
+                        handleEditTask(e, id, newTask)
+                      }}
+                    >
+                      Сохранить
+                    </a>
+                  </button>
+                  <button className="btn-edit__edit _btn-bor _hover03">
+                    <a
+                      onClick={() => {
+                        setNewTask({ ...task })
+                        setEdit(false)
+                      }}
+                    >
+                      Отменить
+                    </a>
+                  </button>
+                  <button
+                    className="btn-edit__delete _btn-bor _hover03"
+                    id="btnDelete"
+                  >
+                    <a onClick={(e) => handleDeleteTask(e, id, setError)}>
+                      Удалить задачу
+                    </a>
+                  </button>
+                </div>
+                <button className="btn-edit__close _btn-bg _hover01">
+                  <Link
+                    to="/"
+                    onClick={() =>
+                      setTask({
+                        title: '',
+                        description: '',
+                        topic: '',
+                        date: '',
+                      })
+                    }
+                  >
+                    Закрыть
+                  </Link>
                 </button>
               </div>
-              <button className="btn-browse__close _btn-bg _hover01">
-                <Link to="/">Закрыть</Link>
-              </button>
-            </div>
-            <div className="pop-browse__btn-edit _hide">
-              <div className="btn-group">
-                <button className="btn-edit__edit _btn-bg _hover01">
-                  <a href="#">Сохранить</a>
-                </button>
-                <button className="btn-edit__edit _btn-bor _hover03">
-                  <a href="#">Отменить</a>
-                </button>
-                <button
-                  className="btn-edit__delete _btn-bor _hover03"
-                  id="btnDelete"
-                >
-                  <a href="#">Удалить задачу</a>
+            ) : (
+              <div className="pop-browse__btn-browse ">
+                <div className="btn-group">
+                  <button className="btn-browse__edit _btn-bor _hover03">
+                    <a
+                      onClick={() => {
+                        setEdit(true)
+                        setNewTask({ ...task })
+                      }}
+                    >
+                      Редактировать задачу
+                    </a>
+                  </button>
+                  <button
+                    onClick={(e) => handleDeleteTask(e, id, setError)}
+                    className="btn-browse__delete _btn-bor _hover03"
+                  >
+                    Удалить задачу
+                  </button>
+                </div>
+                <button className="btn-browse__close _btn-bg _hover01">
+                  <Link
+                    to="/"
+                    onClick={() =>
+                      setTask({
+                        title: '',
+                        description: '',
+                        topic: '',
+                        date: '',
+                      })
+                    }
+                  >
+                    Закрыть
+                  </Link>
                 </button>
               </div>
-              <button className="btn-edit__close _btn-bg _hover01">
-                <a href="#">Закрыть</a>
-              </button>
-            </div>
+            )}
           </div>
         </div>
       </div>

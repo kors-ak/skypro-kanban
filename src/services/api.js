@@ -21,22 +21,41 @@ export async function getTaskById({ token, id }) {
 }
 
 export async function postTask({ token, task }) {
-  const data = await axios.post(API_URL, task, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': '',
+  const data = await axios.post(
+    API_URL,
+    {
+      ...(task.title ? { title: task.title } : {}),
+      ...(task.description ? { description: task.description } : {}),
+      ...(task.topic ? { topic: task.topic } : {}),
+      ...(task.date ? { date: task.date } : {}),
     },
-  })
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': '',
+      },
+    },
+  )
   return data
 }
 
 export async function editTask({ token, id, task }) {
-  const data = await axios.put(API_URL + id, task, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': '',
+  const data = await axios.put(
+    API_URL + id,
+    {
+      ...(task.title ? { title: task.title } : {}),
+      ...(task.status ? { status: task.status } : {}),
+      ...(task.topic ? { topic: task.topic } : {}),
+      ...(task.description ? { description: task.description } : {}),
+      ...(task.date ? { date: task.date } : {}),
     },
-  })
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': '',
+      },
+    },
+  )
   return data
 }
 

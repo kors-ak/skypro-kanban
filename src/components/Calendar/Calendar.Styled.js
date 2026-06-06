@@ -103,11 +103,10 @@ export const SCells = styled.div`
   margin-bottom: -4px;
 
   @media screen and (max-width: 660px) {
-    width: 344px;
+    width: 100%;
     height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-self: self-start;
   }
 `
 
@@ -132,8 +131,10 @@ export const SCell = styled.div`
   }
 
   @media screen and (max-width: 660px) {
-    width: 42px;
-    height: 42px;
+    width: 12%;
+    height: 0;
+    padding-top: 6%;
+    padding-bottom: 6%;
     font-size: 14px;
   }
 
@@ -141,11 +142,6 @@ export const SCell = styled.div`
     $isOtherMonth &&
     `
     opacity: 0;
-  `}
-
-  ${({ $isWeekend }) =>
-    $isWeekend &&
-    `
   `}
 
   ${({ $isToday }) =>
@@ -178,6 +174,13 @@ export const SText = styled.p`
   span {
     color: #000000;
   }
+
+    ${({ $error }) =>
+    $error &&
+    `
+    border-bottom: 0.7px solid rgba(248, 77, 77, 1);
+  `}
+
 
   @media screen and (max-width: 660px) {
     font-size: 14px;

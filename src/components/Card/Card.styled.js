@@ -111,6 +111,7 @@ export const SDate = styled.h3`
     margin-left: 6px;
     font-size: 10px;
     line-height: 13px;
+    font-weight: 400;
     color: #94a6be;
     letter-spacing: 0.2px;
   }

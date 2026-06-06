@@ -1,4 +1,3 @@
-import { sanitizeHtml } from '../../utils.js'
 import {
   SBlock,
   SButton,
@@ -10,11 +9,13 @@ import {
   SOverlay,
 } from './Header.styled'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import PopUser from '../popups/PopUser/PopUser.jsx'
+import { AuthContext } from '../../context/ContextApi.js'
 
-const Header = ({ user }) => {
+const Header = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
+  const { user } = useContext(AuthContext)
 
   return (
     <SHeader>
@@ -35,10 +36,13 @@ const Header = ({ user }) => {
               <Link to="/task/add">Создать новую задачу</Link>
             </SButton>
             <SUser onClick={() => setIsPopupOpen(true)} role="button">
-              <p>{sanitizeHtml(user.name)}</p>
+              <p>{user.name}</p>
             </SUser>
             {isPopupOpen && (
-              <PopUser user={user} onClose={() => setIsPopupOpen(false)} />
+              <PopUser
+                setIsPopupOpen={setIsPopupOpen}
+                onClose={() => setIsPopupOpen(false)}
+              />
             )}
           </SNav>
         </SBlock>

@@ -1,11 +1,27 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Calendar from '../../Calendar/Calendar.jsx'
+import { useContext } from 'react'
+import { TasksContext } from '../../../context/ContextApi.js'
 
 const PopNewCard = () => {
-  const navigate = useNavigate()
-  const handlePostTask = (e) => {
-    e.preventDefault()
-    navigate('/')
+  const { handlePostTask, posting, task, setTask, errors, setErrors } =
+    useContext(TasksContext)
+
+  const categories = [
+    { name: 'Web Design', color: 'orange' },
+    { name: 'Research', color: 'green' },
+    { name: 'Copywriting', color: 'purple' },
+  ]
+
+  const handleDateSelect = (selectedDate) => {
+    setTask((prev) => ({ ...prev, date: selectedDate }))
+    setErrors({ ...errors, date: false })
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setTask((prev) => ({ ...prev, [name]: value }))
+    setErrors({ ...errors, [name]: false })
   }
 
   return (
@@ -14,15 +30,28 @@ const PopNewCard = () => {
         <div className="pop-new-card__block">
           <div className="pop-new-card__content">
             <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <Link to="/" className="pop-new-card__close">
+            <Link
+              to="/"
+              className="pop-new-card__close"
+              onClick={() => {
+                setErrors({
+                  title: '',
+                  description: '',
+                  topic: '',
+                  date: '',
+                })
+                setTask({
+                  title: '',
+                  description: '',
+                  topic: '',
+                  date: '',
+                })
+              }}
+            >
               &#10006;
             </Link>
             <div className="pop-new-card__wrap">
-              <form
-                className="pop-new-card__form form-new"
-                id="formNewCard"
-                action="#"
-              >
+              <form disabled={posting} className="pop-new-card__form form-new">
                 <div className="form-new__block">
                   <label htmlFor="formTitle" className="subttl">
                     Название задачи
@@ -30,10 +59,18 @@ const PopNewCard = () => {
                   <input
                     className="form-new__input"
                     type="text"
-                    name="name"
+                    name="title"
                     id="formTitle"
                     placeholder="Введите название задачи..."
                     autoFocus
+                    onChange={(e) => handleChange(e)}
+                    value={task.title}
+                    style={
+                      errors.title
+                        ? { border: '0.7px solid rgba(248, 77, 77, 1)' }
+                        : {}
+                    }
+                    onChange={(e) => handleChange(e)}
                   />
                 </div>
                 <div className="form-new__block">
@@ -42,32 +79,60 @@ const PopNewCard = () => {
                   </label>
                   <textarea
                     className="form-new__area"
-                    name="text"
+                    name="description"
                     id="textArea"
                     placeholder="Введите описание задачи..."
+                    onChange={(e) => handleChange(e)}
+                    value={task.description}
+                    style={
+                      errors.description
+                        ? { border: '0.7px solid rgba(248, 77, 77, 1)' }
+                        : {}
+                    }
                   ></textarea>
                 </div>
               </form>
 
-              <Calendar $isPopCalendar />
+              <Calendar
+                $isPopCalendar
+                dateControl={task.date}
+                onDateSelect={handleDateSelect}
+                $error={errors.date}
+              />
             </div>
             <div className="pop-new-card__categories categories">
               <p className="categories__p subttl">Категория</p>
-              <div className="categories__themes">
-                <div className="categories__theme _orange _active-category">
-                  <p className="_orange">Web Design</p>
-                </div>
-                <div className="categories__theme _green">
-                  <p className="_green">Research</p>
-                </div>
-                <div className="categories__theme _purple">
-                  <p className="_purple">Copywriting</p>
-                </div>
+              <div
+                className="categories__themes"
+                style={
+                  errors.topic
+                    ? {
+                        border: '0.7px solid rgba(248, 77, 77, 1)',
+                        borderRadius: '16px',
+                      }
+                    : {}
+                }
+              >
+                {categories.map((cat) => (
+                  <div
+                    key={cat.name}
+                    className={`categories__theme _${cat.color} ${task.topic === cat.name ? '_active-category' : ''}`}
+                    onClick={() => {
+                      setTask((prev) => ({ ...prev, topic: cat.name }))
+                      setErrors({ ...errors, topic: false })
+                    }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <p className={`_${cat.color}`}>{cat.name}</p>
+                  </div>
+                ))}
               </div>
             </div>
             <button
               className="form-new__create _hover01"
-              onClick={handlePostTask}
+              onClick={(e) => {
+                handlePostTask(e, task)
+              }}
             >
               Создать задачу
             </button>

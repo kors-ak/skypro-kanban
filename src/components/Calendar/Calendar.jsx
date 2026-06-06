@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import {
   SBlock,
   SCalendar,
@@ -16,13 +16,16 @@ import {
   STitle,
 } from './Calendar.Styled'
 
-const Calendar = ({ dateControl = '', disable }) => {
+const Calendar = ({ dateControl = '', disable, onDateSelect, $error }) => {
   const [currentDate, setCurrentDate] = useState(
     dateControl ? new Date(dateControl) : new Date(),
   )
-  const [selectedDate, setSelectedDate] = useState(
-    dateControl ? new Date(dateControl) : null,
+
+  const selectedDate = useMemo(
+    () => (dateControl ? new Date(dateControl) : null),
+    [dateControl],
   )
+
   const [days, setDays] = useState([])
 
   const isSameDay = (date1, date2) => {
@@ -43,7 +46,6 @@ const Calendar = ({ dateControl = '', disable }) => {
 
       const daysArray = []
 
-      // Добавляем дни предыдущего месяца
       const prevMonthLastDay = new Date(year, month, 0).getDate()
       for (let i = startDayOfWeek - 1; i >= 0; i--) {
         daysArray.push({
@@ -53,16 +55,28 @@ const Calendar = ({ dateControl = '', disable }) => {
         })
       }
 
-      // Добавляем дни текущего месяца
       for (let i = 1; i <= lastDay.getDate(); i++) {
         const date = new Date(year, month, i)
         daysArray.push({
           day: i,
           isCurrentMonth: true,
           isToday: isSameDay(date, new Date()),
-          isSelected: selectedDate && isSameDay(date, selectedDate),
           date,
         })
+      }
+
+      const totalCells = daysArray.length
+      const remainder = totalCells % 7
+      const missingCells = remainder === 0 ? 0 : 7 - remainder
+
+      if (missingCells > 0) {
+        for (let i = 1; i <= missingCells; i++) {
+          daysArray.push({
+            day: i,
+            isOtherMonth: true,
+            date: new Date(year, month + 1, i),
+          })
+        }
       }
 
       setDays(daysArray)
@@ -85,7 +99,10 @@ const Calendar = ({ dateControl = '', disable }) => {
   const handleDayClick = (dayData) => {
     if (disable || dayData.isOtherMonth) return
 
-    setSelectedDate(dayData.date)
+    if (onDateSelect) {
+      const formattedDate = dayData.date
+      onDateSelect(formattedDate)
+    }
   }
 
   return (
@@ -129,8 +146,8 @@ const Calendar = ({ dateControl = '', disable }) => {
             <SDayName>ср</SDayName>
             <SDayName>чт</SDayName>
             <SDayName>пт</SDayName>
-            <SDayName $isWeekend>сб</SDayName>
-            <SDayName $isWeekend>вс</SDayName>
+            <SDayName>сб</SDayName>
+            <SDayName>вс</SDayName>
           </SDaysNames>
           <SCells>
             {days.map((day, index) => (
@@ -138,7 +155,9 @@ const Calendar = ({ dateControl = '', disable }) => {
                 key={index}
                 $isOtherMonth={day.isOtherMonth}
                 $isToday={day.isToday}
-                $isSelected={day.isSelected}
+                $isSelected={
+                  selectedDate !== null && isSameDay(day.date, selectedDate)
+                }
                 onClick={() => handleDayClick(day)}
                 style={{ cursor: day.isOtherMonth ? 'default' : 'pointer' }}
               >
@@ -164,7 +183,7 @@ const Calendar = ({ dateControl = '', disable }) => {
           }
         />
         <SPeriod>
-          <SText>
+          <SText $error={$error}>
             {selectedDate ? 'Срок исполнения: ' : `Выберите срок исполнения.`}
             <span>
               {selectedDate
