@@ -3,6 +3,31 @@ import Calendar from '../../Calendar/Calendar.jsx'
 import { getTaskById } from '../../../services/api.js'
 import { useState, useEffect, useContext } from 'react'
 import { AuthContext, TasksContext } from '../../../context/ContextApi.js'
+import {
+  SBlock,
+  SBtnBg,
+  SBtnBor,
+  SBtnContainer,
+  SBtnGroup,
+  SContainer,
+  SContent,
+  SForm,
+  SFormBlock,
+  SFormLabel,
+  SPopBrowse,
+  SStatus,
+  SStatusPar,
+  SStatusTheme,
+  SStatusThemes,
+  STextarea,
+  SThemeBlock,
+  SThemeDown,
+  SThemePar,
+  SThemeTop,
+  STitle,
+  STopBlock,
+  SWrap,
+} from './PopBrowse.styled.js'
 
 const PopBrowse = () => {
   const { user } = useContext(AuthContext)
@@ -46,73 +71,54 @@ const PopBrowse = () => {
     getTask()
   }, [id, setTask, user])
 
-  const getThemeClass = (topic) => {
-    switch (topic) {
-      case 'Web Design':
-        return '_orange'
-      case 'Research':
-        return '_green'
-      case 'Copywriting':
-        return '_purple'
-      default:
-        return '_gray'
-    }
-  }
-
   if (loading || error)
     return (
-      <div className="pop-browse">
-        <div className="pop-browse__container">
-          <div className="pop-browse__block">
-            <div className="pop-browse__content">
-              <h3 className="pop-browse__ttl">
-                {error ? `${error}` : `Загружаем задачу...`}
-              </h3>
+      <SPopBrowse>
+        <SContainer>
+          <SBlock>
+            <SContent>
+              <STitle>{error ? `${error}` : `Загружаем задачу...`}</STitle>
               {error && (
-                <div className="pop-browse__btn-browse ">
-                  <button className="btn-browse__close _btn-bg _hover01">
+                <SBtnContainer>
+                  <SBtnBg>
                     <Link to="/">Закрыть</Link>
-                  </button>
-                </div>
+                  </SBtnBg>
+                </SBtnContainer>
               )}
-            </div>
-          </div>
-        </div>
-      </div>
+            </SContent>
+          </SBlock>
+        </SContainer>
+      </SPopBrowse>
     )
 
   if (posting)
     return (
-      <div className="pop-browse">
-        <div className="pop-browse__container">
-          <div className="pop-browse__block">
-            <div className="pop-browse__content">
-              <h3 className="pop-browse__ttl">
-                Сохраняем изменения...
-              </h3>
-            </div>
-          </div>
-        </div>
-      </div>
+      <SPopBrowse>
+        <SContainer>
+          <SBlock>
+            <SContent>
+              <STitle>Сохраняем изменения...</STitle>
+            </SContent>
+          </SBlock>
+        </SContainer>
+      </SPopBrowse>
     )
 
   return (
-    <div className="pop-browse" id="popBrowse">
-      <div className="pop-browse__container">
-        <div className="pop-browse__block">
-          <div className="pop-browse__content">
-            <div className="pop-browse__top-block">
-              <h3 className="pop-browse__ttl">{task.title}</h3>
-              <div
-                className={`categories__theme theme-top ${getThemeClass(task.topic)} _active-category`}
-              >
-                <p className={getThemeClass(task.topic)}>{task.topic}</p>
-              </div>
-            </div>
-            <div className="pop-browse__status status">
-              <p className="status__p subttl">Статус</p>
+    <SPopBrowse>
+      <SContainer>
+        <SBlock>
+          <SContent>
+            <STopBlock>
+              <STitle>{task.title}</STitle>
+              <SThemeTop $cardTheme={task.topic || 'default'}>
+                <p>{task.topic}</p>
+              </SThemeTop>
+            </STopBlock>
+            <SStatus>
+              <SStatusPar>Статус</SStatusPar>
               {edit ? (
-                <div className="status__themes">
+                <SStatusThemes>
                   {[
                     'Без статуса',
                     'Нужно сделать',
@@ -120,40 +126,30 @@ const PopBrowse = () => {
                     'Тестирование',
                     'Готово',
                   ].map((status) => (
-                    <div
+                    <SStatusTheme
                       key={status}
-                      className={`status__theme ${newTask.status === status ? '_gray' : ''}`}
+                      $selected={newTask.status === status}
                       onClick={() =>
                         setNewTask((prev) => ({ ...prev, status }))
                       }
-                      style={{ cursor: 'pointer' }}
                     >
-                      <p className={newTask.status === status ? '_gray' : ''}>
-                        {status}
-                      </p>
-                    </div>
+                      <p>{status}</p>
+                    </SStatusTheme>
                   ))}
-                </div>
+                </SStatusThemes>
               ) : (
-                <div className="status__themes">
-                  <div className="status__theme _gray">
-                    <p className="_gray">{task.status}</p>
-                  </div>
-                </div>
+                <SStatusThemes>
+                  <SStatusTheme $selected>
+                    <p>{task.status}</p>
+                  </SStatusTheme>
+                </SStatusThemes>
               )}
-            </div>
-            <div className="pop-browse__wrap">
-              <form
-                className="pop-browse__form form-browse"
-                id="formBrowseCard"
-                action="#"
-              >
-                <div className="form-browse__block">
-                  <label htmlFor="textArea01" className="subttl">
-                    Описание задачи
-                  </label>
-                  <textarea
-                    className="form-browse__area"
+            </SStatus>
+            <SWrap>
+              <SForm>
+                <SFormBlock>
+                  <SFormLabel htmlFor="textArea01">Описание задачи</SFormLabel>
+                  <STextarea
                     name="text"
                     id="textArea01"
                     readOnly={!edit}
@@ -164,26 +160,26 @@ const PopBrowse = () => {
                       }))
                     }
                     value={edit ? newTask.description : task.description}
-                  ></textarea>
-                </div>
-              </form>
+                  />
+                </SFormBlock>
+              </SForm>
 
               <Calendar
                 dateControl={edit ? newTask.date : task.date}
                 onDateSelect={handleDateSelect}
                 disable={!edit}
               />
-            </div>
-            <div className="theme-down__categories theme-down">
-              <p className="categories__p subttl">Категория</p>
-              <div className="categories__theme _orange _active-category">
-                <p className="_orange">{task.topic}</p>
-              </div>
-            </div>
+            </SWrap>
+            <SThemeDown>
+              <SThemePar>Категория</SThemePar>
+              <SThemeBlock $cardTheme={task.topic || 'default'}>
+                <p>{task.topic}</p>
+              </SThemeBlock>
+            </SThemeDown>
             {edit ? (
-              <div className="pop-browse__btn-edit">
-                <div className="btn-group">
-                  <button className="btn-edit__edit _btn-bg _hover01">
+              <SBtnContainer>
+                <SBtnGroup>
+                  <SBtnBg>
                     <a
                       onClick={(e) => {
                         setEdit(false)
@@ -193,8 +189,8 @@ const PopBrowse = () => {
                     >
                       Сохранить
                     </a>
-                  </button>
-                  <button className="btn-edit__edit _btn-bor _hover03">
+                  </SBtnBg>
+                  <SBtnBor>
                     <a
                       onClick={() => {
                         setNewTask({ ...task })
@@ -203,17 +199,14 @@ const PopBrowse = () => {
                     >
                       Отменить
                     </a>
-                  </button>
-                  <button
-                    className="btn-edit__delete _btn-bor _hover03"
-                    id="btnDelete"
-                  >
+                  </SBtnBor>
+                  <SBtnBor>
                     <a onClick={(e) => handleDeleteTask(e, id, setError)}>
                       Удалить задачу
                     </a>
-                  </button>
-                </div>
-                <button className="btn-edit__close _btn-bg _hover01">
+                  </SBtnBor>
+                </SBtnGroup>
+                <SBtnBg>
                   <Link
                     to="/"
                     onClick={() =>
@@ -227,12 +220,12 @@ const PopBrowse = () => {
                   >
                     Закрыть
                   </Link>
-                </button>
-              </div>
+                </SBtnBg>
+              </SBtnContainer>
             ) : (
-              <div className="pop-browse__btn-browse ">
-                <div className="btn-group">
-                  <button className="btn-browse__edit _btn-bor _hover03">
+              <SBtnContainer>
+                <SBtnGroup>
+                  <SBtnBor>
                     <a
                       onClick={() => {
                         setEdit(true)
@@ -241,15 +234,12 @@ const PopBrowse = () => {
                     >
                       Редактировать задачу
                     </a>
-                  </button>
-                  <button
-                    onClick={(e) => handleDeleteTask(e, id, setError)}
-                    className="btn-browse__delete _btn-bor _hover03"
-                  >
+                  </SBtnBor>
+                  <SBtnBor onClick={(e) => handleDeleteTask(e, id, setError)}>
                     Удалить задачу
-                  </button>
-                </div>
-                <button className="btn-browse__close _btn-bg _hover01">
+                  </SBtnBor>
+                </SBtnGroup>
+                <SBtnBg>
                   <Link
                     to="/"
                     onClick={() =>
@@ -263,13 +253,13 @@ const PopBrowse = () => {
                   >
                     Закрыть
                   </Link>
-                </button>
-              </div>
+                </SBtnBg>
+              </SBtnContainer>
             )}
-          </div>
-        </div>
-      </div>
-    </div>
+          </SContent>
+        </SBlock>
+      </SContainer>
+    </SPopBrowse>
   )
 }
 
