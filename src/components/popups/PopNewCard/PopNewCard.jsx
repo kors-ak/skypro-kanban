@@ -1,7 +1,25 @@
-import { Link } from 'react-router-dom'
 import Calendar from '../../Calendar/Calendar.jsx'
 import { useContext } from 'react'
 import { TasksContext } from '../../../context/ContextApi.js'
+import {
+  SBlock,
+  SButton,
+  SCategories,
+  SCatText,
+  SContainer,
+  SContent,
+  SForm,
+  SFormBlock,
+  SInput,
+  SLabel,
+  SLink,
+  SPopNewCard,
+  STextarea,
+  STheme,
+  SThemes,
+  STitle,
+  SWrap,
+} from './PopNewCard.styled.js'
 
 const PopNewCard = () => {
   const { handlePostTask, posting, task, setTask, errors, setErrors } =
@@ -25,14 +43,13 @@ const PopNewCard = () => {
   }
 
   return (
-    <div className="pop-new-card" id="popNewCard">
-      <div className="pop-new-card__container">
-        <div className="pop-new-card__block">
-          <div className="pop-new-card__content">
-            <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <Link
+    <SPopNewCard>
+      <SContainer>
+        <SBlock>
+          <SContent>
+            <STitle>Создание задачи</STitle>
+            <SLink
               to="/"
-              className="pop-new-card__close"
               onClick={() => {
                 setErrors({
                   title: '',
@@ -49,15 +66,12 @@ const PopNewCard = () => {
               }}
             >
               &#10006;
-            </Link>
-            <div className="pop-new-card__wrap">
-              <form disabled={posting} className="pop-new-card__form form-new">
-                <div className="form-new__block">
-                  <label htmlFor="formTitle" className="subttl">
-                    Название задачи
-                  </label>
-                  <input
-                    className="form-new__input"
+            </SLink>
+            <SWrap>
+              <SForm disabled={posting}>
+                <SFormBlock>
+                  <SLabel htmlFor="formTitle">Название задачи</SLabel>
+                  <SInput
                     type="text"
                     name="title"
                     id="formTitle"
@@ -72,13 +86,10 @@ const PopNewCard = () => {
                     }
                     onChange={(e) => handleChange(e)}
                   />
-                </div>
-                <div className="form-new__block">
-                  <label htmlFor="textArea" className="subttl">
-                    Описание задачи
-                  </label>
-                  <textarea
-                    className="form-new__area"
+                </SFormBlock>
+                <SFormBlock>
+                  <SLabel htmlFor="textArea">Описание задачи</SLabel>
+                  <STextarea
                     name="description"
                     id="textArea"
                     placeholder="Введите описание задачи..."
@@ -89,9 +100,9 @@ const PopNewCard = () => {
                         ? { border: '0.7px solid rgba(248, 77, 77, 1)' }
                         : {}
                     }
-                  ></textarea>
-                </div>
-              </form>
+                  ></STextarea>
+                </SFormBlock>
+              </SForm>
 
               <Calendar
                 $isPopCalendar
@@ -99,11 +110,10 @@ const PopNewCard = () => {
                 onDateSelect={handleDateSelect}
                 $error={errors.date}
               />
-            </div>
-            <div className="pop-new-card__categories categories">
-              <p className="categories__p subttl">Категория</p>
-              <div
-                className="categories__themes"
+            </SWrap>
+            <SCategories>
+              <SCatText>Категория</SCatText>
+              <SThemes
                 style={
                   errors.topic
                     ? {
@@ -114,32 +124,32 @@ const PopNewCard = () => {
                 }
               >
                 {categories.map((cat) => (
-                  <div
+                  <STheme
                     key={cat.name}
-                    className={`categories__theme _${cat.color} ${task.topic === cat.name ? '_active-category' : ''}`}
+                    $cardTheme={cat.name}
+                    $active={task.topic === cat.name}
                     onClick={() => {
                       setTask((prev) => ({ ...prev, topic: cat.name }))
                       setErrors({ ...errors, topic: false })
                     }}
                     style={{ cursor: 'pointer' }}
                   >
-                    <p className={`_${cat.color}`}>{cat.name}</p>
-                  </div>
+                    <p>{cat.name}</p>
+                  </STheme>
                 ))}
-              </div>
-            </div>
-            <button
-              className="form-new__create _hover01"
+              </SThemes>
+            </SCategories>
+            <SButton
               onClick={(e) => {
                 handlePostTask(e, task)
               }}
             >
               Создать задачу
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+            </SButton>
+          </SContent>
+        </SBlock>
+      </SContainer>
+    </SPopNewCard>
   )
 }
 
