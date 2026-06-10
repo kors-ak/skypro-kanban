@@ -6,7 +6,7 @@ import { AuthContext, TasksContext } from '../../../context/ContextApi.js'
 
 const PopBrowse = () => {
   const { user } = useContext(AuthContext)
-  const { handleDeleteTask, handleEditTask, task, setTask } =
+  const { handleDeleteTask, handleEditTask, task, setTask, posting } =
     useContext(TasksContext)
   const { id } = useParams()
 
@@ -66,7 +66,7 @@ const PopBrowse = () => {
           <div className="pop-browse__block">
             <div className="pop-browse__content">
               <h3 className="pop-browse__ttl">
-                {error ? `${error}` : `Загрузка задачи...`}
+                {error ? `${error}` : `Загружаем задачу...`}
               </h3>
               {error && (
                 <div className="pop-browse__btn-browse ">
@@ -75,6 +75,21 @@ const PopBrowse = () => {
                   </button>
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+
+  if (posting)
+    return (
+      <div className="pop-browse">
+        <div className="pop-browse__container">
+          <div className="pop-browse__block">
+            <div className="pop-browse__content">
+              <h3 className="pop-browse__ttl">
+                Сохраняем изменения...
+              </h3>
             </div>
           </div>
         </div>
