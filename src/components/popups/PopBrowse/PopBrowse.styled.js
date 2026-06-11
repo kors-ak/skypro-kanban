@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { cardThemes } from '../../../data'
 
 export const SPopBrowse = styled.div`
   width: 100%;
@@ -36,7 +35,7 @@ export const SContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.4);
+  background: ${({ theme }) => theme.overlay};
 
   @media screen and (max-width: 660px) {
     max-width: 100vw;
@@ -49,12 +48,12 @@ export const SContainer = styled.div`
 export const SBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: rgb(255, 255, 255);
+  background-color: ${({ theme }) => theme.secondaryBg};
   max-width: 630px;
   width: 100%;
   padding: 40px 30px 38px;
   border-radius: 10px;
-  border: 0.7px solid rgb(212, 219, 229);
+  border: 0.7px solid ${({ theme }) => theme.border};
   position: relative;
 
   @media screen and (max-width: 660px) {
@@ -76,7 +75,7 @@ export const STopBlock = styled.div`
   margin-bottom: 18px;
 `
 export const STitle = styled.h3`
-  color: rgb(0, 0, 0);
+  color: ${({ theme }) => theme.primaryText};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -88,8 +87,8 @@ export const SThemeTop = styled.div`
   padding: 8px 20px;
   border-radius: 24px;
   opacity: 1;
-  background-color: ${({ $cardTheme }) =>
-    cardThemes[$cardTheme].bg || cardThemes.default.bg};
+  background-color: ${({ theme, $cardTheme }) =>
+    theme.cardThemes[$cardTheme].bg || theme.cardThemes.default.bg};
 
   &:not(:last-child) {
     margin-right: 7px;
@@ -100,8 +99,8 @@ export const SThemeTop = styled.div`
     font-weight: 600;
     line-height: 14px;
     white-space: nowrap;
-    color: ${({ $cardTheme }) =>
-      cardThemes[$cardTheme].text || cardThemes.default.text};
+    color: ${({ theme, $cardTheme }) =>
+      theme.cardThemes[$cardTheme].text || theme.cardThemes.default.text};
   }
 
   @media screen and (max-width: 495px) {
@@ -113,7 +112,7 @@ export const SStatus = styled.div`
 `
 export const SStatusPar = styled.div`
   margin-bottom: 14px;
-  color: rgb(0, 0, 0);
+  color: ${({ theme }) => theme.primaryText};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -137,14 +136,20 @@ export const SStatusTheme = styled.div`
     font-size: 14px;
     line-height: 1;
     letter-spacing: -0.14px;
-    ${({ $selected }) => $selected && `color: rgb(255, 255, 255);`};
+    ${({ theme, selected }) =>
+      selected &&
+      `
+      color: ${theme.secondaryBg};
+    `}
   }
 
-  ${({ $selected }) =>
+  ${({ theme, $selected }) =>
     $selected &&
     `background: rgb(148, 166, 190);
+    color: ${theme.secondaryBg};
   `};
 `
+
 export const SWrap = styled.div`
   display: flex;
   align-items: flex-start;
@@ -169,7 +174,7 @@ export const SFormBlock = styled.div`
   flex-direction: column;
 `
 export const SFormLabel = styled.label`
-  color: rgb(0, 0, 0);
+  color: ${({ theme }) => theme.primaryText};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -179,7 +184,7 @@ export const STextarea = styled.textarea`
   width: 100%;
   outline: none;
   padding: 14px;
-  background: rgb(234, 238, 246);
+  background: ${({ theme }) => theme.primaryBg};
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
@@ -215,7 +220,7 @@ export const SThemeDown = styled.div`
 `
 export const SThemePar = styled.p`
   margin-bottom: 14px;
-  color: rgb(0, 0, 0);
+  color: ${({ theme }) => theme.primaryText};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -227,8 +232,8 @@ export const SThemeBlock = styled.div`
   padding: 8px 20px;
   border-radius: 24px;
   opacity: 1;
-  background-color: ${({ $cardTheme }) =>
-    cardThemes[$cardTheme].bg || cardThemes.default.bg};
+  background-color: ${({ theme, $cardTheme }) =>
+    theme.cardThemes[$cardTheme].bg || theme.cardThemes.default.bg};
 
   &:not(:last-child) {
     margin-right: 7px;
@@ -239,8 +244,8 @@ export const SThemeBlock = styled.div`
     font-weight: 600;
     line-height: 14px;
     white-space: nowrap;
-    color: ${({ $cardTheme }) =>
-      cardThemes[$cardTheme].text || cardThemes.default.text};
+    color: ${({ theme, $cardTheme }) =>
+      theme.cardThemes[$cardTheme].text || theme.cardThemes.default.text};
   }
 `
 export const SBtnContainer = styled.div`
@@ -292,13 +297,13 @@ export const SBtnBg = styled.button`
 `
 export const SBtnBor = styled.button`
   border-radius: 4px;
-  border: 0.7px solid var(--palette-navy-60, rgb(86, 94, 239));
+  border: 0.7px solid ${({ theme }) => theme.buttonBg};
   outline: none;
   background: transparent;
-  color: rgb(86, 94, 239);
+  color: ${({ theme }) => theme.buttonBg};
 
   a {
-    color: rgb(86, 94, 239);
+    color: ${({ theme }) => theme.buttonBg};
   }
 
   &:hover {

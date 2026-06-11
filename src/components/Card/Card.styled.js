@@ -1,5 +1,4 @@
 import { styled } from 'styled-components'
-import { cardThemes } from '../../data'
 
 export const SContainer = styled.div`
   padding: 5px;
@@ -8,7 +7,7 @@ export const SContainer = styled.div`
 export const SCard = styled.div`
   width: 220px;
   height: 130px;
-  background-color: rgb(255, 255, 255);
+  background-color: ${({ theme }) => theme.secondaryBg};
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -55,15 +54,15 @@ export const SCardTheme = styled.div`
   height: 20px;
   padding: 5px 14px;
   border-radius: 18px;
-  background-color: ${({ $cardTheme }) =>
-    cardThemes[$cardTheme].bg || cardThemes.default.bg};
+  background-color: ${({ theme, $cardTheme }) =>
+    theme.cardThemes[$cardTheme].bg || theme.cardThemes.default.bg};
 
   p {
     font-size: 10px;
     font-weight: 600;
     line-height: 10px;
-    color: ${({ $cardTheme }) =>
-      cardThemes[$cardTheme].text || cardThemes.default.text};
+    color: ${({ theme, $cardTheme }) =>
+      theme.cardThemes[$cardTheme].text || theme.cardThemes.default.text};
   }
 `
 
@@ -95,7 +94,7 @@ export const STitle = styled.h3`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  color: rgb(0, 0, 0);
+  color: ${({ theme }) => theme.primaryText};
   margin-bottom: 10px;
 `
 

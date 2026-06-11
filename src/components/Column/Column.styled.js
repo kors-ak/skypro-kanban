@@ -12,10 +12,10 @@ export const SColumn = styled.div`
 
   border-radius: 8px;
 
-  ${({ $active }) =>
+  ${({theme, $active }) =>
     $active &&
     `
-    background-color: rgba(207, 213, 234, 0.3)
+    background-color: ${theme.columnDrop}
   `};
 `
 

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const SHeader = styled.header`
   width: 100%;
   margin: 0 auto;
-  background-color: rgb(255, 255, 255);
+  background-color: ${({ theme }) => theme.secondaryBg};
 
   @media screen and (max-width: 660px) {
     position: sticky;
@@ -101,7 +101,7 @@ export const SUser = styled.div`
     justify-content: center;
     font-size: 14px;
     line-height: 20px;
-    color: rgb(86, 94, 239);
+    color: ${({ theme }) => theme.buttonBg};
     cursor: pointer;
 
     &::after {
@@ -110,19 +110,19 @@ export const SUser = styled.div`
       width: 6px;
       height: 6px;
       border-radius: 1px;
-      border-left: 1.9px solid rgb(86, 94, 239);
-      border-bottom: 1.9px solid rgb(86, 94, 239);
+      border-left: 1.9px solid ${({ theme }) => theme.buttonBg};
+      border-bottom: 1.9px solid ${({ theme }) => theme.buttonBg};
       transform: rotate(-45deg);
       margin: -4px 0 0 5px;
       padding: 0;
     }
 
     &:hover {
-      color: rgb(51, 57, 155);
+      color: ${({ theme }) => theme.hover};
 
       &::after {
-        border-left-color: rgb(51, 57, 155);
-        border-bottom-color: rgb(51, 57, 155);
+        border-left-color: ${({ theme }) => theme.hover};
+        border-bottom-color: ${({ theme }) => theme.hover};
       }
     }
   }

@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { cardThemes } from '../../../data'
 
 export const SPopNewCard = styled.div`
   display: block;
@@ -35,7 +34,7 @@ export const SContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.4);
+  background: ${({ theme }) => theme.overlay};
 
   @media screen and (max-width: 660px) {
     padding: 0;
@@ -52,12 +51,12 @@ export const SContainer = styled.div`
 export const SBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: rgb(255, 255, 255);
+  background-color: ${({ theme }) => theme.secondaryBg};
   max-width: 630px;
   width: 100%;
   padding: 40px 30px 48px;
   border-radius: 10px;
-  border: 0.7px solid rgb(212, 219, 229);
+  border: 0.7px solid ${({ theme }) => theme.border};
   position: relative;
 
   @media screen and (max-width: 660px) {
@@ -73,7 +72,7 @@ export const SContent = styled.div`
   text-align: left;
 `
 export const STitle = styled.h3`
-  color: rgb(0, 0, 0);
+  color: ${({ theme }) => theme.primaryText};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -87,7 +86,7 @@ export const SLink = styled(Link)`
   cursor: pointer;
 
   &:hover {
-    color: rgb(0, 0, 0);
+    color: ${({ theme }) => theme.primaryText};
   }
 `
 export const SWrap = styled.div`
@@ -116,7 +115,7 @@ export const SFormBlock = styled.div`
   flex-direction: column;
 `
 export const SLabel = styled.label`
-  color: rgb(0, 0, 0);
+  color: ${({ theme }) => theme.primaryText};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -175,7 +174,7 @@ export const SCategories = styled.div`
 `
 export const SCatText = styled.p`
   margin-bottom: 14px;
-  color: rgb(0, 0, 0);
+  color: ${({ theme }) => theme.primaryText};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -200,8 +199,9 @@ export const STheme = styled.div`
   border-radius: 24px;
   opacity: 0.4;
   cursor: pointer;
-  background-color: ${({ $cardTheme }) =>
-    cardThemes[$cardTheme].bg || cardThemes.default.bg};
+  background-color: ${({ theme, $cardTheme }) =>
+    theme.cardThemes[$cardTheme].bg || theme.cardThemes.default.bg};
+
   ${({ $active }) => $active && `opacity: 1 !important;`};
 
   &:not(:last-child) {
@@ -213,8 +213,8 @@ export const STheme = styled.div`
     font-weight: 600;
     line-height: 14px;
     white-space: nowrap;
-    color: ${({ $cardTheme }) =>
-      cardThemes[$cardTheme].text || cardThemes.default.text};
+    color: ${({ theme, $cardTheme }) =>
+      theme.cardThemes[$cardTheme].text || theme.cardThemes.default.text};
   }
 `
 export const SButton = styled.button`

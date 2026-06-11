@@ -11,23 +11,28 @@ import {
 import { Link } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import PopUser from '../popups/PopUser/PopUser.jsx'
-import { AuthContext, TasksContext } from '../../context/ContextApi.js'
+import {
+  AuthContext,
+  TasksContext,
+  ThemeContext,
+} from '../../context/ContextApi.js'
 
 const Header = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   const { user } = useContext(AuthContext)
   const { setTask, setErrors } = useContext(TasksContext)
+  const { theme } = useContext(ThemeContext)
 
   return (
     <SHeader>
       <SContainer>
         <SBlock>
-          <SLogo $isVisible>
+          <SLogo $isVisible={theme.mode === 'light'}>
             <Link to="/">
               <img src="/images/logo.png" alt="logo" />
             </Link>
           </SLogo>
-          <SLogo>
+          <SLogo $isVisible={theme.mode === 'dark'}>
             <Link to="/">
               <img src="/images/logo_dark.png" alt="logo" />
             </Link>

@@ -22,18 +22,18 @@ export const SContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.4);
+  background: ${({ theme }) => theme.overlay};
 `
 
 export const SBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: rgb(255, 255, 255);
+  background-color: ${({ theme }) => theme.secondaryBg};
   max-width: 370px;
   width: 100%;
   padding: 50px 60px;
   border-radius: 10px;
-  border: 0.7px solid rgb(212, 219, 229);
+  border: 0.7px solid ${({ theme }) => theme.border};
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
   z-index: 6;
 
@@ -104,7 +104,7 @@ export const SButtonYes = styled.button`
 
 export const SButtonNo = styled(SButtonYes)`
   background-color: transparent;
-  border: 0.7px solid var(--palette-navy-60, rgb(86, 94, 239));
+  border: 0.7px solid ${({ theme }) => theme.buttonBg};
   margin-right: 0;
 
   &:hover {
@@ -116,7 +116,7 @@ export const SButtonNo = styled(SButtonYes)`
   }
 
   a {
-    color: rgb(86, 94, 239);
+    color: ${({ theme }) => theme.buttonBg};
   }
 
   @media only screen and (max-width: 375px) {

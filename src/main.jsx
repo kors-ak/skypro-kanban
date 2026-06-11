@@ -5,14 +5,17 @@ import GlobalStyles from './globalStyles.js'
 import App from './App.jsx'
 import AuthContextProvider from './context/AuthContextProvider.jsx'
 import TasksContextProvider from './context/TasksContextProvider.jsx'
+import ThemeContextProvider from './context/ThemeContextProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <AuthContextProvider>
         <TasksContextProvider>
-          <GlobalStyles />
-          <App />
+          <ThemeContextProvider>
+            <GlobalStyles />
+            <App />
+          </ThemeContextProvider>
         </TasksContextProvider>
       </AuthContextProvider>
     </BrowserRouter>

@@ -19,7 +19,7 @@ export const SCalendar = styled.div`
 export const STitle = styled.p`
   margin-bottom: 14px;
   padding: 0 7px;
-  color: rgb(0, 0, 0);
+  color: ${({ theme }) => theme.primaryText};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -127,7 +127,7 @@ export const SCell = styled.div`
 
   &:hover {
     color: rgb(148, 166, 190);
-    background-color: rgb(234, 238, 246);
+    background-color: ${({ theme }) => theme.primaryBg};
   }
 
   @media screen and (max-width: 660px) {
@@ -150,11 +150,11 @@ export const SCell = styled.div`
     font-weight: 700;
   `}
 
-  ${({ $isSelected }) =>
+  ${({ theme, $isSelected }) =>
     $isSelected &&
     `
     background-color: rgb(148, 166, 190);
-    color: rgb(255, 255, 255);
+    color: ${theme.secondaryBg};
   `}
 `
 
@@ -172,7 +172,7 @@ export const SText = styled.p`
   line-height: 1;
 
   span {
-    color: rgb(0, 0, 0);
+    color: ${({ theme }) => theme.primaryText};
   }
 
   @media screen and (max-width: 660px) {

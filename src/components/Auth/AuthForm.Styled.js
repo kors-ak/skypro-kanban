@@ -5,7 +5,7 @@ export const SAuth = styled.div`
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: rgb(234, 238, 246);
+  background-color: ${({ theme }) => theme.primaryBg};
 `
 export const SContainer = styled.div`
   display: block;
@@ -24,18 +24,18 @@ export const SModal = styled.div`
   justify-content: center;
 
   @media screen and (max-width: 375px) {
-    background-color: rgb(255, 255, 255);
+    background-color: ${({ theme }) => theme.secondaryBg};
   }
 `
 export const SBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: rgb(255, 255, 255);
+  background-color: ${({ theme }) => theme.secondaryBg};
   max-width: 368px;
   width: 100%;
   padding: 50px 60px;
   border-radius: 10px;
-  border: 0.7px solid rgb(212, 219, 229);
+  border: 0.7px solid ${({ theme }) => theme.border};
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
 
   @media screen and (max-width: 375px) {
