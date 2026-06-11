@@ -49,7 +49,7 @@ const SDateLoader = styled.div`
 const CardLoader = () => {
   return (
     <SContainer>
-      <SCard>
+      <SCard $isLoader>
         <SCardGroup>
           <SThemeLoader />
           <SButtonLoader />

@@ -23,9 +23,10 @@ export const SCard = styled.div`
     cursor: grabbing;
   `}
 
-  ${({ $isDragging, $isOverlay }) =>
+  ${({ $isDragging, $isOverlay, $isLoader }) =>
     !$isDragging &&
     !$isOverlay &&
+    !$isLoader &&
     `
       &:hover {
         cursor: grab;

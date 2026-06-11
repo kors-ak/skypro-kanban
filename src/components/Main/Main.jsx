@@ -48,12 +48,18 @@ const Main = () => {
                 onDragEnd={handleDragEnd}
               >
                 {columnsArr.map((column, i) => (
-                  <Column id={column.title} column={column} key={i} />
+                  <Column
+                    id={column.title}
+                    column={column}
+                    key={i}
+                    activeTask={activeTask}
+                  />
                 ))}
                 <DragOverlay>
                   {activeTask ? (
                     <Card
-                      task={tasks.find((task) => task._id === activeTask)} isOverlay
+                      task={tasks.find((task) => task._id === activeTask)}
+                      isOverlay
                     />
                   ) : null}
                 </DragOverlay>
