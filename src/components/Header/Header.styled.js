@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const SHeader = styled.header`
   width: 100%;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: rgb(255, 255, 255);
 
   @media screen and (max-width: 660px) {
     position: sticky;
@@ -63,8 +63,8 @@ export const SButton = styled.button`
   width: 178px;
   height: 30px;
   border-radius: 4px;
-  background-color: #565eef;
-  color: #ffffff;
+  background-color: rgb(86, 94, 239);
+  color: rgb(255, 255, 255);
   border: none;
   font-size: 14px;
   line-height: 1;
@@ -72,11 +72,11 @@ export const SButton = styled.button`
   margin-right: 20px;
 
   &:hover {
-    background-color: #33399b;
+    background-color: rgb(51, 57, 155);
   }
 
   a {
-    color: #ffffff;
+    color: rgb(255, 255, 255);
   }
 
   @media screen and (max-width: 495px) {
@@ -101,7 +101,7 @@ export const SUser = styled.div`
     justify-content: center;
     font-size: 14px;
     line-height: 20px;
-    color: #565eef;
+    color: rgb(86, 94, 239);
     cursor: pointer;
 
     &::after {
@@ -110,19 +110,19 @@ export const SUser = styled.div`
       width: 6px;
       height: 6px;
       border-radius: 1px;
-      border-left: 1.9px solid #565eef;
-      border-bottom: 1.9px solid #565eef;
+      border-left: 1.9px solid rgb(86, 94, 239);
+      border-bottom: 1.9px solid rgb(86, 94, 239);
       transform: rotate(-45deg);
       margin: -4px 0 0 5px;
       padding: 0;
     }
 
     &:hover {
-      color: #33399b;
+      color: rgb(51, 57, 155);
 
       &::after {
-        border-left-color: #33399b;
-        border-bottom-color: #33399b;
+        border-left-color: rgb(51, 57, 155);
+        border-bottom-color: rgb(51, 57, 155);
       }
     }
   }

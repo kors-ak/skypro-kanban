@@ -52,12 +52,12 @@ export const SContainer = styled.div`
 export const SBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: rgb(255, 255, 255);
   max-width: 630px;
   width: 100%;
   padding: 40px 30px 48px;
   border-radius: 10px;
-  border: 0.7px solid #d4dbe5;
+  border: 0.7px solid rgb(212, 219, 229);
   position: relative;
 
   @media screen and (max-width: 660px) {
@@ -73,7 +73,7 @@ export const SContent = styled.div`
   text-align: left;
 `
 export const STitle = styled.h3`
-  color: #000;
+  color: rgb(0, 0, 0);
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -83,11 +83,11 @@ export const SLink = styled(Link)`
   position: absolute;
   top: 20px;
   right: 30px;
-  color: #94a6be;
+  color: rgb(148, 166, 190);
   cursor: pointer;
 
   &:hover {
-    color: #000000;
+    color: rgb(0, 0, 0);
   }
 `
 export const SWrap = styled.div`
@@ -116,7 +116,7 @@ export const SFormBlock = styled.div`
   flex-direction: column;
 `
 export const SLabel = styled.label`
-  color: #000;
+  color: rgb(0, 0, 0);
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -138,7 +138,7 @@ export const SInput = styled.input`
     font-weight: 400;
     font-size: 14px;
     line-height: 1px;
-    color: #94a6be;
+    color: rgb(148, 166, 190);
     letter-spacing: -0.14px;
   }
 `
@@ -161,7 +161,7 @@ export const STextarea = styled.textarea`
     font-weight: 400;
     font-size: 14px;
     line-height: 1px;
-    color: #94a6be;
+    color: rgb(148, 166, 190);
     letter-spacing: -0.14px;
   }
 
@@ -175,7 +175,7 @@ export const SCategories = styled.div`
 `
 export const SCatText = styled.p`
   margin-bottom: 14px;
-  color: #000;
+  color: rgb(0, 0, 0);
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -220,18 +220,18 @@ export const STheme = styled.div`
 export const SButton = styled.button`
   width: 132px;
   height: 30px;
-  background-color: #565eef;
+  background-color: rgb(86, 94, 239);
   border-radius: 4px;
   border: 0;
   outline: none;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
-  color: #ffffff;
+  color: rgb(255, 255, 255);
   float: right;
 
   &:hover {
-    background-color: #33399b;
+    background-color: rgb(51, 57, 155);
   }
 
   @media screen and (max-width: 495px) {

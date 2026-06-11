@@ -24,7 +24,7 @@ export const STitle = styled.div`
   margin: 15px 0;
 
   p {
-    color: #94a6be;
+    color: rgb(148, 166, 190);
     font-size: 14px;
     font-weight: 600;
     line-height: 1;

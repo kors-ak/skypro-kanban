@@ -7,18 +7,25 @@ const ThemeContextProvider = ({ children }) => {
   )
 
   const LightTheme = {
-    primaryText: '#000000',
-    secondaryText: '#94a6be',
+    primaryText: 'rgb(0, 0, 0)',
+    secondaryText: 'rgb(148, 166, 190)',
     authFooterText: 'rgba(148, 166, 190, 0.4)',
 
-    primaryBg: '#eaeef6',
-    secondaryBg: '#ffffff',
+    border: 'rgb(212, 219, 229)',
+    shadow: 'rgba(0, 0, 0, 0.13)',
+    popupShadow: 'rgba(26, 56, 101, 0.21)',
 
-    buttonBg: '#565eef',
-    buttonHover: '#33399b',
+    primaryBg: 'rgb(234, 238, 246)',
+    secondaryBg: 'rgb(255, 255, 255)',
+
+    buttonBg: 'rgb(86, 94, 239)',
+    buttonHover: 'rgb(51, 57, 155)',
+
+    columnDrop: 'rgba(207, 213, 234, 0.3)',
+    overlay: 'rgba(0, 0, 0, 0.4)',
 
     error: 'rgb(248, 77, 77)',
-    error404Text: '#2f3542',
+    error404Text: 'rgb(47, 53, 66)',
   }
 
   const DarkTheme = {}

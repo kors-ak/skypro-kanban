@@ -8,7 +8,7 @@ const SPage = styled.div`
   width: 100vw;
   min-height: 100vh;
   flex-direction: column;
-  background-color: #eaeef6;
+  background-color: rgb(234, 238, 246);
 `
 
 function MainPage() {

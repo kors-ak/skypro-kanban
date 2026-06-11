@@ -5,10 +5,10 @@ const SPage = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #eaeef6;
+  background-color: rgb(234, 238, 246);
 `
 const SHeader = styled.header`
-  background-color: #ffffff;
+  background-color: rgb(255, 255, 255);
 `
 const SLogo = styled.div`
   height: 70px;
@@ -45,7 +45,7 @@ const SContent = styled.div`
 
   p {
     font-size: 24px;
-    color: #2f3542;
+    color: rgb(47, 53, 66);
   }
 
   a {
@@ -53,13 +53,13 @@ const SContent = styled.div`
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 18px;
-    color: #fff;
-    background-color: #565eef;
+    color: rgb(255, 255, 255);
+    background-color: rgb(86, 94, 239);
     border-radius: 5px;
   }
 
   a:hover {
-    background-color: #33399b;
+    background-color: rgb(51, 57, 155);
   }
 
   @keyframes fadeIn {

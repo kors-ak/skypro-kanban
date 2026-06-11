@@ -34,7 +34,7 @@ const GlobalStyles = createGlobalStyle`
   body {
   width: 100%;
   height: 100%;
-  color: #000000;
+  color: rgb(0, 0, 0);
   scroll-behavior: smooth;
   }
 `

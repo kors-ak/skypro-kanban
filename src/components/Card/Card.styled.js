@@ -8,7 +8,7 @@ export const SContainer = styled.div`
 export const SCard = styled.div`
   width: 220px;
   height: 130px;
-  background-color: #ffffff;
+  background-color: rgb(255, 255, 255);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -67,16 +67,6 @@ export const SCardTheme = styled.div`
   }
 `
 
-export const STextOrange = styled.p`
-  background-color: #ffe4c2;
-  color: #ff6d00;
-`
-
-export const STextGreen = styled.p`
-  background-color: #ffe4c2;
-  color: #ff6d00;
-`
-
 export const SButton = styled.div`
   width: 24px;
   height: 24px;
@@ -90,7 +80,7 @@ export const SDot = styled.div`
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background-color: #94a6be;
+  background-color: rgb(148, 166, 190);
 `
 
 export const SContent = styled.div`
@@ -105,7 +95,7 @@ export const STitle = styled.h3`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  color: #000000;
+  color: rgb(0, 0, 0);
   margin-bottom: 10px;
 `
 
@@ -122,7 +112,7 @@ export const SDate = styled.h3`
     font-size: 10px;
     line-height: 13px;
     font-weight: 400;
-    color: #94a6be;
+    color: rgb(148, 166, 190);
     letter-spacing: 0.2px;
   }
 `

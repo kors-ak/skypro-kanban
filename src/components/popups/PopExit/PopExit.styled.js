@@ -28,12 +28,12 @@ export const SContainer = styled.div`
 export const SBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: rgb(255, 255, 255);
   max-width: 370px;
   width: 100%;
   padding: 50px 60px;
   border-radius: 10px;
-  border: 0.7px solid #d4dbe5;
+  border: 0.7px solid rgb(212, 219, 229);
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
   z-index: 6;
 
@@ -67,7 +67,7 @@ export const SForm = styled.div`
 export const SButtonYes = styled.button`
   width: 153px;
   height: 30px;
-  background-color: #565eef;
+  background-color: rgb(86, 94, 239);
   border-radius: 4px;
   border: none;
   outline: none;
@@ -78,17 +78,17 @@ export const SButtonYes = styled.button`
   line-height: 21px;
   font-weight: 500;
   letter-spacing: -0.14px;
-  color: #ffffff;
+  color: rgb(255, 255, 255);
   margin-right: 10px;
 
   &:hover {
-    background-color: #33399b;
+    background-color: rgb(51, 57, 155);
   }
 
   a {
     width: 100%;
     height: 100%;
-    color: #ffffff;
+    color: rgb(255, 255, 255);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -104,19 +104,19 @@ export const SButtonYes = styled.button`
 
 export const SButtonNo = styled(SButtonYes)`
   background-color: transparent;
-  border: 0.7px solid var(--palette-navy-60, #565eef);
+  border: 0.7px solid var(--palette-navy-60, rgb(86, 94, 239));
   margin-right: 0;
 
   &:hover {
-    color: #ffffff;
+    color: rgb(255, 255, 255);
   }
 
   &:hover a {
-    color: #ffffff;
+    color: rgb(255, 255, 255);
   }
 
   a {
-    color: #565eef;
+    color: rgb(86, 94, 239);
   }
 
   @media only screen and (max-width: 375px) {

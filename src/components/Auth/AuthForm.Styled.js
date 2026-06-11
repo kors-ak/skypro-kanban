@@ -5,7 +5,7 @@ export const SAuth = styled.div`
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: #eaeef6;
+  background-color: rgb(234, 238, 246);
 `
 export const SContainer = styled.div`
   display: block;
@@ -24,18 +24,18 @@ export const SModal = styled.div`
   justify-content: center;
 
   @media screen and (max-width: 375px) {
-    background-color: #ffffff;
+    background-color: rgb(255, 255, 255);
   }
 `
 export const SBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: rgb(255, 255, 255);
   max-width: 368px;
   width: 100%;
   padding: 50px 60px;
   border-radius: 10px;
-  border: 0.7px solid #d4dbe5;
+  border: 0.7px solid rgb(212, 219, 229);
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
 
   @media screen and (max-width: 375px) {
@@ -81,7 +81,7 @@ export const SInput = styled.input`
     font-size: 14px;
     line-height: 21px;
     letter-spacing: -0.28px;
-    color: #94a6be;
+    color: rgb(148, 166, 190);
   }
 
   ${({ $error }) => $error && `border: 0.7px solid rgba(248, 77, 77, 1)`}
@@ -89,7 +89,7 @@ export const SInput = styled.input`
 export const SButton = styled.button`
   width: 100%;
   height: 30px;
-  background-color: #565eef;
+  background-color: rgb(86, 94, 239);
   border-radius: 4px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -102,25 +102,25 @@ export const SButton = styled.button`
   line-height: 21px;
   font-weight: 500;
   letter-spacing: -0.14px;
-  color: #ffffff;
+  color: rgb(255, 255, 255);
 
   ${({ disabled }) =>
     disabled &&
-    `background-color: #94a6be;
+    `background-color: rgb(148, 166, 190);
     cursor: not-allowed;
 `}
 
   a {
     width: 100%;
     height: 100%;
-    color: #ffffff;
+    color: rgb(255, 255, 255);
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   &:hover:not(:disabled) {
-    background-color: #33399b;
+    background-color: rgb(51, 57, 155);
   }
 
   @media screen and (max-width: 375px) {

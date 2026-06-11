@@ -49,12 +49,12 @@ export const SContainer = styled.div`
 export const SBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: rgb(255, 255, 255);
   max-width: 630px;
   width: 100%;
   padding: 40px 30px 38px;
   border-radius: 10px;
-  border: 0.7px solid #d4dbe5;
+  border: 0.7px solid rgb(212, 219, 229);
   position: relative;
 
   @media screen and (max-width: 660px) {
@@ -76,7 +76,7 @@ export const STopBlock = styled.div`
   margin-bottom: 18px;
 `
 export const STitle = styled.h3`
-  color: #000;
+  color: rgb(0, 0, 0);
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -113,7 +113,7 @@ export const SStatus = styled.div`
 `
 export const SStatusPar = styled.div`
   margin-bottom: 14px;
-  color: #000;
+  color: rgb(0, 0, 0);
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -127,7 +127,7 @@ export const SStatusThemes = styled.div`
 export const SStatusTheme = styled.div`
   border-radius: 24px;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
-  color: #94a6be;
+  color: rgb(148, 166, 190);
   padding: 11px 14px 10px;
   margin-right: 7px;
   margin-bottom: 7px;
@@ -137,12 +137,12 @@ export const SStatusTheme = styled.div`
     font-size: 14px;
     line-height: 1;
     letter-spacing: -0.14px;
-    ${({ $selected }) => $selected && `color: #ffffff;`};
+    ${({ $selected }) => $selected && `color: rgb(255, 255, 255);`};
   }
 
   ${({ $selected }) =>
     $selected &&
-    `background: #94a6be;
+    `background: rgb(148, 166, 190);
   `};
 `
 export const SWrap = styled.div`
@@ -169,7 +169,7 @@ export const SFormBlock = styled.div`
   flex-direction: column;
 `
 export const SFormLabel = styled.label`
-  color: #000;
+  color: rgb(0, 0, 0);
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -179,7 +179,7 @@ export const STextarea = styled.textarea`
   width: 100%;
   outline: none;
   padding: 14px;
-  background: #eaeef6;
+  background: rgb(234, 238, 246);
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
@@ -189,14 +189,14 @@ export const STextarea = styled.textarea`
   height: 200px;
 
   font-weight: 400;
-  color: #94a6be;
+  color: rgb(148, 166, 190);
 
   &::placeholder,
   &::-moz-placeholder {
     font-weight: 400;
     font-size: 14px;
     line-height: 1px;
-    color: #94a6be;
+    color: rgb(148, 166, 190);
     letter-spacing: -0.14px;
   }
 
@@ -215,7 +215,7 @@ export const SThemeDown = styled.div`
 `
 export const SThemePar = styled.p`
   margin-bottom: 14px;
-  color: #000;
+  color: rgb(0, 0, 0);
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -277,36 +277,36 @@ export const SBtnGroup = styled.div`
 `
 export const SBtnBg = styled.button`
   border-radius: 4px;
-  background: #565eef;
+  background: rgb(86, 94, 239);
   border: none;
   outline: none;
-  color: #ffffff;
+  color: rgb(255, 255, 255);
 
   a {
-    color: #ffffff;
+    color: rgb(255, 255, 255);
   }
 
   &:hover {
-    background-color: #33399b;
+    background-color: rgb(51, 57, 155);
   }
 `
 export const SBtnBor = styled.button`
   border-radius: 4px;
-  border: 0.7px solid var(--palette-navy-60, #565eef);
+  border: 0.7px solid var(--palette-navy-60, rgb(86, 94, 239));
   outline: none;
   background: transparent;
-  color: #565eef;
+  color: rgb(86, 94, 239);
 
   a {
-    color: #565eef;
+    color: rgb(86, 94, 239);
   }
 
   &:hover {
-    background-color: #33399b;
-    color: #ffffff;
+    background-color: rgb(51, 57, 155);
+    color: rgb(255, 255, 255);
 
     a {
-      color: #ffffff;
+      color: rgb(255, 255, 255);
     }
   }
 `

@@ -1,8 +1,8 @@
 export const cardThemes = {
-  'Web Design': { bg: '#ffe4c2', text: '#ff6d00' },
-  Research: { bg: '#b4fdd1', text: '#06b16e' },
-  Copywriting: { bg: '#e9d4ff', text: '#9a48f1' },
-  default: { bg: '#94a6be', text: '#ffffff' },
+  'Web Design': { bg: 'rgb(255, 228, 194)', text: 'rgb(255, 109, 0)' },
+  Research: { bg: 'rgb(180, 253, 209)', text: 'rgb(6, 177, 110)' },
+  Copywriting: { bg: 'rgb(233, 212, 255)', text: 'rgb(154, 72, 241)' },
+  default: { bg: 'rgb(148, 166, 190)', text: 'rgb(255, 255, 255)' },
 }
 
 export const columnsArr = [
