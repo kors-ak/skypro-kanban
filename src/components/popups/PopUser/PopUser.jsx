@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
 import { SButton, SMail, SName, SPopUser, STheme } from './PopUser.styled'
 import { useContext } from 'react'
-import { AuthContext } from '../../../context/ContextApi.js'
+import { AuthContext, ThemeContext } from '../../../context/ContextApi.js'
 
 const PopUser = ({ setIsPopupOpen }) => {
   const { user } = useContext(AuthContext)
+  const { theme, toggleTheme } = useContext(ThemeContext)
 
   return (
     <SPopUser onClick={(e) => e.stopPropagation()}>
@@ -12,7 +13,12 @@ const PopUser = ({ setIsPopupOpen }) => {
       <SMail>{user.login}</SMail>
       <STheme>
         <p>Темная тема</p>
-        <input type="checkbox" name="checkbox" />
+        <input
+          type="checkbox"
+          name="checkbox"
+          onChange={() => toggleTheme()}
+          checked={theme.mode === 'dark'}
+        />
       </STheme>
       <SButton onClick={() => setIsPopupOpen(false)}>
         <Link to="/exit">Выйти</Link>

@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components'
 
 const ThemeContextProvider = ({ children }) => {
   const [theme, setTheme] = useState(
-    localStorage.getItem('theme') ? localStorage.getItem('theme') : 'dark',
+    localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light',
   )
 
   const LightTheme = {

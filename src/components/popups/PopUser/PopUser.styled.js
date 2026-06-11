@@ -83,8 +83,13 @@ export const STheme = styled.div`
     }
   }
 
-  input:checked[type='checkbox']::before {
-    left: 12px;
+  input:checked[type='checkbox'] {
+    background: rgb(255, 255, 255);
+
+    &::before {
+      left: 12px;
+      background-color: rgb(86, 94, 239);
+    }
   }
 `
 
