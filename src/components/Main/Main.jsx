@@ -3,7 +3,13 @@ import { columnsArr } from '../../data'
 import { SMain, SContainer, SBlock, SContent } from './Main.styled'
 import { useContext, useEffect, useState } from 'react'
 import { TasksContext } from '../../context/ContextApi'
-import { DndContext, DragOverlay } from '@dnd-kit/core'
+import {
+  DndContext,
+  DragOverlay,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
 import Card from '../Card/Card'
 
 const Main = () => {
@@ -19,6 +25,13 @@ const Main = () => {
 
   //Реализация Drag-and-Drop
   const { moveTask } = useContext(TasksContext)
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 1,
+      },
+    }),
+  )
   const handleDragEnd = (e) => {
     const { active, over } = e
 
@@ -42,6 +55,7 @@ const Main = () => {
               <h2 style={{ whiteSpace: 'pre-wrap' }}>{loadingErr}</h2>
             ) : (
               <DndContext
+                sensors={sensors}
                 onDragStart={(e) => {
                   setActiveTask(e.active.id)
                 }}
