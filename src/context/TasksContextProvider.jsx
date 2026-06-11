@@ -174,10 +174,43 @@ const TasksContextProvider = ({ children }) => {
     }
   }
 
+  //Drag-and-Drop:
+  const moveTask = async (taskId, newStatus) => {
+    const currentTask = tasks.find((task) => task._id === taskId)
+
+    if (!currentTask) return
+
+    const updatedTask = {
+      ...currentTask,
+      status: newStatus,
+    }
+
+    // optimistic update
+    setTasks((prev) =>
+      prev.map((task) =>
+        task._id === taskId ? { ...task, status: newStatus } : task,
+      ),
+    )
+
+    try {
+      await editTask({
+        token: user.token,
+        id: taskId,
+        task: updatedTask,
+      })
+    } catch {
+      setTasks(tasks)
+      alert(
+        'Что-то пошло не так, попробуйте изменить статус задачи через редактирование карточки',
+      )
+    }
+  }
+
   return (
     <TasksContext.Provider
       value={{
         tasks,
+        setTasks,
         loading,
         posting,
         loadingErr,
@@ -191,6 +224,7 @@ const TasksContextProvider = ({ children }) => {
         validateForm,
         errors,
         setErrors,
+        moveTask,
       }}
     >
       {children}

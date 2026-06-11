@@ -4,10 +4,19 @@ export const SColumn = styled.div`
   width: 20%;
   margin: 0 auto;
   display: block;
+  transition: 0.2s;
 
   @media screen and (max-width: 1200px) {
     width: 100%;
   }
+
+  border-radius: 8px;
+
+  ${({ $active }) =>
+    $active &&
+    `
+    background-color: rgba(207, 213, 234, 0.3)
+  `};
 `
 
 export const STitle = styled.div`

@@ -1,22 +1,8 @@
-import { keyframes, styled } from 'styled-components'
+import { styled } from 'styled-components'
 import { cardThemes } from '../../data'
-
-const cardAnimation = keyframes`
-  0% {
-    height: 0;
-    opacity: 0;
-  }
-  100% {
-    height: auto;
-    opacity: 1;
-  }
-`
 
 export const SContainer = styled.div`
   padding: 5px;
-  animation-name: ${cardAnimation};
-  animation-duration: 500ms;
-  animation-timing-function: linear;
 `
 
 export const SCard = styled.div`
@@ -29,6 +15,29 @@ export const SCard = styled.div`
   align-items: flex-start;
   justify-content: stretch;
   padding: 15px 13px 19px;
+
+  ${({ $isDragging }) =>
+    $isDragging &&
+    `
+    opacity: 0;
+    cursor: grabbing;
+  `}
+
+  ${({ $isDragging, $isOverlay }) =>
+    !$isDragging &&
+    !$isOverlay &&
+    `
+      &:hover {
+        cursor: grab;
+      }
+    `}
+
+  ${({ $isOverlay }) =>
+    $isOverlay &&
+    `
+    box-shadow: 0px 10px 39px rgba(148,166,190,0.4);
+    cursor: grabbing;
+  `}
 `
 
 export const SCardGroup = styled.div`

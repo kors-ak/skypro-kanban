@@ -11,11 +11,26 @@ import {
   STitle,
 } from './Card.styled'
 import { formatDate } from '../../utils'
+import { useDraggable } from '@dnd-kit/core'
 
-const Card = ({ task }) => {
+const Card = ({ task, isOverlay = false }) => {
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: task._id,
+    })
+  const style = transform
+    ? {
+        transform: `translate3d(
+        ${transform.x}px,
+        ${transform.y}px,
+        0
+      )`,
+      }
+    : undefined
+
   return (
-    <SContainer>
-      <SCard>
+    <SContainer ref={setNodeRef} style={style} {...listeners} {...attributes}>
+      <SCard $isDragging={isDragging} $isOverlay={isOverlay}>
         <SCardGroup>
           <SCardTheme $cardTheme={task.topic}>
             <p>{task.topic}</p>
