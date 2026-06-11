@@ -192,12 +192,10 @@ export const STextarea = styled.textarea`
   letter-spacing: -0.14px;
   margin-top: 14px;
   height: 200px;
-
   font-weight: 400;
-  color: rgb(148, 166, 190);
+  color: ${({ theme }) => theme.primaryText};
 
-  &::placeholder,
-  &::-moz-placeholder {
+  &::placeholder {
     font-weight: 400;
     font-size: 14px;
     line-height: 1px;
@@ -209,6 +207,8 @@ export const STextarea = styled.textarea`
     max-width: 100%;
     height: 37px;
   }
+
+  ${({ readOnly }) => readOnly && `border: none`}
 `
 export const SThemeDown = styled.div`
   display: none;
@@ -307,7 +307,8 @@ export const SBtnBor = styled.button`
   }
 
   &:hover {
-    background-color: rgb(51, 57, 155);
+    border: 0.7px solid rgb(86, 94, 239);
+    background-color: rgb(86, 94, 239);
     color: rgb(255, 255, 255);
 
     a {

@@ -90,7 +90,8 @@ export const STheme = styled.div`
 
 export const SButton = styled.button`
   &:hover {
-    background-color: rgb(51, 57, 155);
+    border: 0.7px solid rgb(86, 94, 239);
+    background-color: rgb(86, 94, 239);
     color: rgb(255, 255, 255);
 
     a {

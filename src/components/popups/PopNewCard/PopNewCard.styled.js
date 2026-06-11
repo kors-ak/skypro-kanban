@@ -131,9 +131,9 @@ export const SInput = styled.input`
   line-height: 1;
   letter-spacing: -0.14px;
   margin: 20px 0;
+  color: ${({ theme }) => theme.primaryText};
 
-  &::placeholder,
-  &::-moz-placeholder {
+  &::placeholder {
     font-weight: 400;
     font-size: 14px;
     line-height: 1px;
@@ -154,9 +154,9 @@ export const STextarea = styled.textarea`
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
+  color: ${({ theme }) => theme.primaryText};
 
-  &::placeholder,
-  &::-moz-placeholder {
+  &::placeholder {
     font-weight: 400;
     font-size: 14px;
     line-height: 1px;

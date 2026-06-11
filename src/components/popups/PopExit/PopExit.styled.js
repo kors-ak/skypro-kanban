@@ -107,16 +107,18 @@ export const SButtonNo = styled(SButtonYes)`
   border: 0.7px solid ${({ theme }) => theme.buttonBg};
   margin-right: 0;
 
-  &:hover {
-    color: rgb(255, 255, 255);
-  }
-
-  &:hover a {
-    color: rgb(255, 255, 255);
-  }
-
   a {
     color: ${({ theme }) => theme.buttonBg};
+  }
+
+  &:hover {
+    border: 0.7px solid rgb(86, 94, 239);
+    background-color: rgb(86, 94, 239);
+    color: rgb(255, 255, 255);
+
+    a {
+      color: rgb(255, 255, 255);
+    }
   }
 
   @media only screen and (max-width: 375px) {

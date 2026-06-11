@@ -73,9 +73,10 @@ export const SInput = styled.input`
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   outline: none;
   padding: 10px 8px;
+  background: transparent;
+  color: ${({ theme }) => theme.primaryText};
 
-  &::placeholder,
-  &::-moz-placeholder {
+  &::placeholder {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 14px;
@@ -83,6 +84,18 @@ export const SInput = styled.input`
     letter-spacing: -0.28px;
     color: rgb(148, 166, 190);
   }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-text-fill-color: ${({ theme }) => theme.primaryText};
+    caret-color: ${({ theme }) => theme.primaryText};
+    -webkit-box-shadow: 0 0 0 1000px transparent inset;
+    box-shadow: 0 0 0 1000px transparent inset;
+    transition: background-color 9999s ease-in-out 0s;
+  }
+
 
   ${({ $error }) => $error && `border: 0.7px solid rgba(248, 77, 77, 1)`}
 `
