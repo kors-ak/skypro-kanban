@@ -11,6 +11,7 @@ import {
   useSensors,
 } from '@dnd-kit/core'
 import Card from '../Card/Card'
+import { STitle } from '../Auth/AuthForm.Styled'
 
 const Main = () => {
   const { getTasks, loadingErr, tasks } = useContext(TasksContext)
@@ -23,7 +24,6 @@ const Main = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  //Реализация Drag-and-Drop
   const { moveTask } = useContext(TasksContext)
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -46,13 +46,17 @@ const Main = () => {
 
   const [activeTask, setActiveTask] = useState(null)
 
+  const noTasks = tasks.length === 0
+
   return (
     <SMain>
       <SContainer>
         <SBlock>
           <SContent>
             {loadingErr ? (
-              <h2 style={{ whiteSpace: 'pre-wrap' }}>{loadingErr}</h2>
+              <STitle style={{ whiteSpace: 'pre-wrap' }}>{loadingErr}</STitle>
+            ) : noTasks ? (
+              <STitle>Список задач пуст</STitle>
             ) : (
               <DndContext
                 sensors={sensors}

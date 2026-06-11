@@ -91,7 +91,6 @@ const TasksContextProvider = ({ children }) => {
 
   const handlePostTask = async (e, task) => {
     e.preventDefault()
-    console.log(task)
     if (posting) return
     setPosting(true)
 
@@ -108,7 +107,7 @@ const TasksContextProvider = ({ children }) => {
       if (updatedTasks) {
         setTasks(updatedTasks.data.tasks)
         navigate('/')
-        
+
         return
       }
     } catch {
@@ -170,7 +169,6 @@ const TasksContextProvider = ({ children }) => {
     }
   }
 
-  //Drag-and-Drop:
   const moveTask = async (taskId, newStatus) => {
     const currentTask = tasks.find((task) => task._id === taskId)
 
@@ -181,7 +179,6 @@ const TasksContextProvider = ({ children }) => {
       status: newStatus,
     }
 
-    // optimistic update
     setTasks((prev) =>
       prev.map((task) =>
         task._id === taskId ? { ...task, status: newStatus } : task,
