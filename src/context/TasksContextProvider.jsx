@@ -2,6 +2,7 @@ import { useContext, useState } from 'react'
 import { AuthContext, TasksContext } from './ContextApi'
 import { deleteTask, editTask, fetchTasks, postTask } from '../services/api'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const TasksContextProvider = ({ children }) => {
   const navigate = useNavigate()
@@ -95,7 +96,7 @@ const TasksContextProvider = ({ children }) => {
     setPosting(true)
 
     if (!validateForm()) {
-      alert('Все поля должны быть заполнены')
+      toast('Все поля должны быть заполнены')
       setPosting(false)
       return
     }
@@ -111,7 +112,7 @@ const TasksContextProvider = ({ children }) => {
         return
       }
     } catch {
-      alert('Произошла непредвиденная ошибка. Попробуйте позже.')
+      toast.warn('Произошла непредвиденная ошибка. Попробуйте позже.')
     } finally {
       setPosting(false)
     }
@@ -163,7 +164,7 @@ const TasksContextProvider = ({ children }) => {
         })
       }
     } catch {
-      alert('Произошла непредвиденная ошибка. Попробуйте позже.')
+      toast.warn('Произошла непредвиденная ошибка. Попробуйте позже.')
     } finally {
       setPosting(false)
     }
@@ -193,7 +194,7 @@ const TasksContextProvider = ({ children }) => {
       })
     } catch {
       setTasks(tasks)
-      alert(
+      toast.info(
         'Что-то пошло не так, попробуйте изменить статус задачи через редактирование карточки',
       )
     }

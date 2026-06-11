@@ -2,7 +2,7 @@ import Column from '../Column/Column'
 import { columnsArr } from '../../data'
 import { SMain, SContainer, SBlock, SContent } from './Main.styled'
 import { useContext, useEffect, useState } from 'react'
-import { TasksContext } from '../../context/ContextApi'
+import { TasksContext, ThemeContext } from '../../context/ContextApi'
 import {
   DndContext,
   DragOverlay,
@@ -12,6 +12,7 @@ import {
 } from '@dnd-kit/core'
 import Card from '../Card/Card'
 import { STitle } from '../Auth/AuthForm.Styled'
+import { ToastContainer } from 'react-toastify'
 
 const Main = () => {
   const { getTasks, loadingErr, tasks } = useContext(TasksContext)
@@ -25,6 +26,7 @@ const Main = () => {
   }, [])
 
   const { moveTask } = useContext(TasksContext)
+  const { theme } = useContext(ThemeContext)
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -86,6 +88,12 @@ const Main = () => {
           </SContent>
         </SBlock>
       </SContainer>
+      <ToastContainer
+        position="top-left"
+        autoClose={4000}
+        newestOnTop
+        theme={theme.mode}
+      />
     </SMain>
   )
 }
