@@ -11,11 +11,12 @@ import {
 import { Link } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import PopUser from '../popups/PopUser/PopUser.jsx'
-import { AuthContext } from '../../context/ContextApi.js'
+import { AuthContext, TasksContext } from '../../context/ContextApi.js'
 
 const Header = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   const { user } = useContext(AuthContext)
+  const { setTask, setErrors } = useContext(TasksContext)
 
   return (
     <SHeader>
@@ -33,7 +34,25 @@ const Header = () => {
           </SLogo>
           <SNav>
             <SButton id="btnMainNew">
-              <Link to="/task/add">Создать новую задачу</Link>
+              <Link
+                to="/task/add"
+                onClick={() => {
+                  setTask({
+                    title: '',
+                    description: '',
+                    topic: '',
+                    date: '',
+                  })
+                  setErrors({
+                    title: '',
+                    description: '',
+                    topic: '',
+                    date: '',
+                  })
+                }}
+              >
+                Создать новую задачу
+              </Link>
             </SButton>
             <SUser onClick={() => setIsPopupOpen(true)} role="button">
               <p>{user.name}</p>

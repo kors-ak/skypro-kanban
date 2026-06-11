@@ -90,8 +90,14 @@ const TasksContextProvider = ({ children }) => {
   }
 
   const handlePostTask = async (e, task) => {
+    e.preventDefault()
+    console.log(task)
+    if (posting) return
+    setPosting(true)
+
     if (!validateForm()) {
       alert('Все поля должны быть заполнены')
+      setPosting(false)
       return
     }
 
@@ -102,18 +108,8 @@ const TasksContextProvider = ({ children }) => {
       if (updatedTasks) {
         setTasks(updatedTasks.data.tasks)
         navigate('/')
-        setTask({
-          title: '',
-          description: '',
-          topic: '',
-          date: '',
-        })
-        setErrors({
-          title: '',
-          description: '',
-          topic: '',
-          date: '',
-        })
+        
+        return
       }
     } catch {
       alert('Произошла непредвиденная ошибка. Попробуйте позже.')

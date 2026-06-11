@@ -140,11 +140,13 @@ const PopNewCard = () => {
               </SThemes>
             </SCategories>
             <SButton
+              type="button"
+              disabled={posting}
               onClick={(e) => {
                 handlePostTask(e, task)
               }}
             >
-              Создать задачу
+              {posting ? 'Создание...' : 'Создать задачу'}
             </SButton>
           </SContent>
         </SBlock>

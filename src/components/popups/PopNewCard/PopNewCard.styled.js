@@ -238,4 +238,9 @@ export const SButton = styled.button`
     width: 100%;
     height: 40px;
   }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 `
