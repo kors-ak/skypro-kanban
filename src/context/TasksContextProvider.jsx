@@ -112,7 +112,7 @@ const TasksContextProvider = ({ children }) => {
         return
       }
     } catch {
-      toast.warn('Произошла непредвиденная ошибка. Попробуйте позже.')
+      toast.error('Произошла непредвиденная ошибка. Попробуйте позже.')
     } finally {
       setPosting(false)
     }
@@ -164,7 +164,7 @@ const TasksContextProvider = ({ children }) => {
         })
       }
     } catch {
-      toast.warn('Произошла непредвиденная ошибка. Попробуйте позже.')
+      toast.error('Произошла непредвиденная ошибка. Попробуйте позже.')
     } finally {
       setPosting(false)
     }
@@ -194,7 +194,7 @@ const TasksContextProvider = ({ children }) => {
       })
     } catch {
       setTasks(tasks)
-      toast.info(
+      toast.error(
         'Что-то пошло не так, попробуйте изменить статус задачи через редактирование карточки',
       )
     }
