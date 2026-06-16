@@ -25,7 +25,7 @@ const PopExit = () => {
             <STitle>
               <h2>Выйти из аккаунта?</h2>
             </STitle>
-            <form id="formExit" action="#">
+            <form id="formExit">
               <SForm>
                 <SButtonYes
                   onClick={(e) => {

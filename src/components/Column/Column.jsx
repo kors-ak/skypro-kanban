@@ -3,11 +3,19 @@ import Card from '../Card/Card.jsx'
 import CardLoader from '../CardLoader.jsx'
 import { SCards, SColumn, STitle } from './Column.styled'
 import { TasksContext } from '../../context/ContextApi.js'
+import { useDroppable } from '@dnd-kit/core'
+import DropPlaceholder from '../DropPlaceholder.jsx'
 
-const Column = ({ column }) => {
+const Column = ({ column, activeTask }) => {
   const { tasks, loading } = useContext(TasksContext)
+
+  const { setNodeRef, isOver } = useDroppable({
+    id: column.title,
+  })
+  const draggedTask = tasks.find((task) => task._id === activeTask)
+
   return (
-    <SColumn>
+    <SColumn ref={setNodeRef} $active={isOver}>
       <STitle>
         <p>{column.title}</p>
       </STitle>
@@ -18,7 +26,16 @@ const Column = ({ column }) => {
             ))
           : tasks
               .filter((task) => task.status === column.title)
-              .map((task) => <Card task={task} key={task._id} />)}
+              .map((task) =>
+                task._id === activeTask ? (
+                  <DropPlaceholder key={task._id} />
+                ) : (
+                  <Card task={task} key={task._id} id={task._id} />
+                ),
+              )}
+        {activeTask && draggedTask?.status !== column.title && (
+          <DropPlaceholder />
+        )}
       </SCards>
     </SColumn>
   )

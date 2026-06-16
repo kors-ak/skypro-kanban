@@ -2,6 +2,7 @@ import { useContext, useState } from 'react'
 import { AuthContext, TasksContext } from './ContextApi'
 import { deleteTask, editTask, fetchTasks, postTask } from '../services/api'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const TasksContextProvider = ({ children }) => {
   const navigate = useNavigate()
@@ -90,8 +91,13 @@ const TasksContextProvider = ({ children }) => {
   }
 
   const handlePostTask = async (e, task) => {
+    e.preventDefault()
+    if (posting) return
+    setPosting(true)
+
     if (!validateForm()) {
-      alert('Все поля должны быть заполнены')
+      toast('Все поля должны быть заполнены')
+      setPosting(false)
       return
     }
 
@@ -102,21 +108,11 @@ const TasksContextProvider = ({ children }) => {
       if (updatedTasks) {
         setTasks(updatedTasks.data.tasks)
         navigate('/')
-        setTask({
-          title: '',
-          description: '',
-          topic: '',
-          date: '',
-        })
-        setErrors({
-          title: '',
-          description: '',
-          topic: '',
-          date: '',
-        })
+
+        return
       }
     } catch {
-      alert('Произошла непредвиденная ошибка. Попробуйте позже.')
+      toast.error('Произошла непредвиденная ошибка. Попробуйте позже.')
     } finally {
       setPosting(false)
     }
@@ -168,9 +164,39 @@ const TasksContextProvider = ({ children }) => {
         })
       }
     } catch {
-      alert('Произошла непредвиденная ошибка. Попробуйте позже.')
+      toast.error('Произошла непредвиденная ошибка. Попробуйте позже.')
     } finally {
       setPosting(false)
+    }
+  }
+
+  const moveTask = async (taskId, newStatus) => {
+    const currentTask = tasks.find((task) => task._id === taskId)
+
+    if (!currentTask) return
+
+    const updatedTask = {
+      ...currentTask,
+      status: newStatus,
+    }
+
+    setTasks((prev) =>
+      prev.map((task) =>
+        task._id === taskId ? { ...task, status: newStatus } : task,
+      ),
+    )
+
+    try {
+      await editTask({
+        token: user.token,
+        id: taskId,
+        task: updatedTask,
+      })
+    } catch {
+      setTasks(tasks)
+      toast.error(
+        'Что-то пошло не так, попробуйте изменить статус задачи через редактирование карточки',
+      )
     }
   }
 
@@ -178,6 +204,7 @@ const TasksContextProvider = ({ children }) => {
     <TasksContext.Provider
       value={{
         tasks,
+        setTasks,
         loading,
         posting,
         loadingErr,
@@ -191,6 +218,7 @@ const TasksContextProvider = ({ children }) => {
         validateForm,
         errors,
         setErrors,
+        moveTask,
       }}
     >
       {children}

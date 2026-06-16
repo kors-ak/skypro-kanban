@@ -1,31 +1,19 @@
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { ThemeContext } from '../context/ContextApi'
+import {
+  SBlock,
+  SContainer,
+  SHeader,
+  SLogo,
+} from '../components/Header/Header.styled'
 
 const SPage = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #eaeef6;
-`
-const SHeader = styled.header`
-  background-color: #ffffff;
-`
-const SLogo = styled.div`
-  height: 70px;
-  max-width: 1260px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  margin: 0 auto;
-  padding: 0 40px;
-
-  img {
-    width: 85px;
-  }
-
-  @media screen and (max-width: 495px) {
-    padding: 0 16px;
-  }
+  background-color: ${({ theme }) => theme.primaryBg};
 `
 
 const SContent = styled.div`
@@ -45,7 +33,7 @@ const SContent = styled.div`
 
   p {
     font-size: 24px;
-    color: #2f3542;
+    color: ${({ theme }) => theme.error404Text};
   }
 
   a {
@@ -53,13 +41,13 @@ const SContent = styled.div`
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 18px;
-    color: #fff;
-    background-color: #565eef;
+    color: rgb(255, 255, 255);
+    background-color: rgb(86, 94, 239);
     border-radius: 5px;
   }
 
   a:hover {
-    background-color: #33399b;
+    background-color: rgb(51, 57, 155);
   }
 
   @keyframes fadeIn {
@@ -82,14 +70,25 @@ const SContent = styled.div`
 `
 
 const NotFoundPage = () => {
+  const { theme } = useContext(ThemeContext)
+
   return (
     <SPage>
       <SHeader>
-        <SLogo>
-          <Link to="/">
-            <img src="/images/logo.png" alt="logo" />
-          </Link>
-        </SLogo>
+        <SContainer>
+          <SBlock>
+            <SLogo $isVisible={theme.mode === 'light'}>
+              <Link to="/">
+                <img src="/images/logo.png" alt="logo" />
+              </Link>
+            </SLogo>
+            <SLogo $isVisible={theme.mode === 'dark'}>
+              <Link to="/">
+                <img src="/images/logo_dark.png" alt="logo" />
+              </Link>
+            </SLogo>
+          </SBlock>
+        </SContainer>
       </SHeader>
 
       <SContent>

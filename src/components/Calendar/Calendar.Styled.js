@@ -19,7 +19,7 @@ export const SCalendar = styled.div`
 export const STitle = styled.p`
   margin-bottom: 14px;
   padding: 0 7px;
-  color: #000;
+  color: ${({ theme }) => theme.primaryText};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -46,7 +46,7 @@ export const SNav = styled.div`
 `
 
 export const SMonth = styled.div`
-  color: #94a6be;
+  color: rgb(148, 166, 190);
   font-size: 14px;
   line-height: 25px;
   font-weight: 600;
@@ -67,7 +67,7 @@ export const SNavAction = styled.div`
   justify-content: center;
 
   svg {
-    fill: #94a6be;
+    fill: rgb(148, 166, 190);
   }
 `
 
@@ -85,7 +85,7 @@ export const SDaysNames = styled.div`
 `
 
 export const SDayName = styled.div`
-  color: #94a6be;
+  color: rgb(148, 166, 190);
   font-size: 10px;
   font-weight: 500;
   line-height: normal;
@@ -119,15 +119,15 @@ export const SCell = styled.div`
   flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
-  color: #94a6be;
+  color: rgb(148, 166, 190);
   font-size: 10px;
   line-height: 1;
   letter-spacing: -0.2px;
   cursor: pointer;
 
   &:hover {
-    color: #94a6be;
-    background-color: #eaeef6;
+    color: rgb(148, 166, 190);
+    background-color: ${({ theme }) => theme.primaryBg};
   }
 
   @media screen and (max-width: 660px) {
@@ -150,11 +150,11 @@ export const SCell = styled.div`
     font-weight: 700;
   `}
 
-  ${({ $isSelected }) =>
+  ${({ theme, $isSelected }) =>
     $isSelected &&
     `
-    background-color: #94a6be;
-    color: #ffffff;
+    background-color: rgb(148, 166, 190);
+    color: ${theme.secondaryBg};
   `}
 `
 
@@ -167,22 +167,21 @@ export const SPeriod = styled.div`
 `
 
 export const SText = styled.p`
-  color: #94a6be;
+  color: rgb(148, 166, 190);
   font-size: 10px;
   line-height: 1;
 
   span {
-    color: #000000;
+    color: ${({ theme }) => theme.primaryText};
   }
-
-    ${({ $error }) =>
-    $error &&
-    `
-    border-bottom: 0.7px solid rgba(248, 77, 77, 1);
-  `}
-
 
   @media screen and (max-width: 660px) {
     font-size: 14px;
   }
+
+  ${({ $error }) =>
+    $error &&
+    `
+      color: rgb(248, 77, 77); 
+    `};
 `

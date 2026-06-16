@@ -1,34 +1,43 @@
-import { keyframes, styled } from 'styled-components'
-import { cardThemes } from '../../data'
-
-const cardAnimation = keyframes`
-  0% {
-    height: 0;
-    opacity: 0;
-  }
-  100% {
-    height: auto;
-    opacity: 1;
-  }
-`
+import { styled } from 'styled-components'
 
 export const SContainer = styled.div`
   padding: 5px;
-  animation-name: ${cardAnimation};
-  animation-duration: 500ms;
-  animation-timing-function: linear;
 `
 
 export const SCard = styled.div`
   width: 220px;
   height: 130px;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.secondaryBg};
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: stretch;
   padding: 15px 13px 19px;
+
+  ${({ $isDragging }) =>
+    $isDragging &&
+    `
+    opacity: 0;
+    cursor: grabbing;
+  `}
+
+  ${({ $isDragging, $isOverlay, $isLoader }) =>
+    !$isDragging &&
+    !$isOverlay &&
+    !$isLoader &&
+    `
+      &:hover {
+        cursor: grab;
+      }
+    `}
+
+  ${({ $isOverlay }) =>
+    $isOverlay &&
+    `
+    box-shadow: 0px 10px 39px rgba(148,166,190,0.4);
+    cursor: grabbing;
+  `}
 `
 
 export const SCardGroup = styled.div`
@@ -45,26 +54,16 @@ export const SCardTheme = styled.div`
   height: 20px;
   padding: 5px 14px;
   border-radius: 18px;
-  background-color: ${({ $cardTheme }) =>
-    cardThemes[$cardTheme].bg || cardThemes.default.bg};
+  background-color: ${({ theme, $cardTheme }) =>
+    theme.cardThemes[$cardTheme].bg || theme.cardThemes.default.bg};
 
   p {
     font-size: 10px;
     font-weight: 600;
     line-height: 10px;
-    color: ${({ $cardTheme }) =>
-      cardThemes[$cardTheme].text || cardThemes.default.text};
+    color: ${({ theme, $cardTheme }) =>
+      theme.cardThemes[$cardTheme].text || theme.cardThemes.default.text};
   }
-`
-
-export const STextOrange = styled.p`
-  background-color: #ffe4c2;
-  color: #ff6d00;
-`
-
-export const STextGreen = styled.p`
-  background-color: #ffe4c2;
-  color: #ff6d00;
 `
 
 export const SButton = styled.div`
@@ -80,7 +79,7 @@ export const SDot = styled.div`
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background-color: #94a6be;
+  background-color: rgb(148, 166, 190);
 `
 
 export const SContent = styled.div`
@@ -95,7 +94,7 @@ export const STitle = styled.h3`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  color: #000000;
+  color: ${({ theme }) => theme.primaryText};
   margin-bottom: 10px;
 `
 
@@ -112,7 +111,7 @@ export const SDate = styled.h3`
     font-size: 10px;
     line-height: 13px;
     font-weight: 400;
-    color: #94a6be;
+    color: rgb(148, 166, 190);
     letter-spacing: 0.2px;
   }
 `

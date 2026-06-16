@@ -56,7 +56,6 @@ const AuthForm = ({ IsSignUp }) => {
                 $error={errors.login}
               />
               <SInput
-                className="modal__input"
                 type="password"
                 name="password"
                 id="formpassword"

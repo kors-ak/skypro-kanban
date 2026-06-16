@@ -5,7 +5,7 @@ export const SAuth = styled.div`
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: #eaeef6;
+  background-color: ${({ theme }) => theme.primaryBg};
 `
 export const SContainer = styled.div`
   display: block;
@@ -24,18 +24,18 @@ export const SModal = styled.div`
   justify-content: center;
 
   @media screen and (max-width: 375px) {
-    background-color: #ffffff;
+    background-color: ${({ theme }) => theme.secondaryBg};
   }
 `
 export const SBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.secondaryBg};
   max-width: 368px;
   width: 100%;
   padding: 50px 60px;
   border-radius: 10px;
-  border: 0.7px solid #d4dbe5;
+  border: 0.7px solid ${({ theme }) => theme.border};
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
 
   @media screen and (max-width: 375px) {
@@ -73,23 +73,36 @@ export const SInput = styled.input`
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   outline: none;
   padding: 10px 8px;
+  background: transparent;
+  color: ${({ theme }) => theme.primaryText};
 
-  &::placeholder,
-  &::-moz-placeholder {
+  &::placeholder {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
     letter-spacing: -0.28px;
-    color: #94a6be;
+    color: rgb(148, 166, 190);
   }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-text-fill-color: ${({ theme }) => theme.primaryText};
+    caret-color: ${({ theme }) => theme.primaryText};
+    -webkit-box-shadow: 0 0 0 1000px transparent inset;
+    box-shadow: 0 0 0 1000px transparent inset;
+    transition: background-color 9999s ease-in-out 0s;
+  }
+
 
   ${({ $error }) => $error && `border: 0.7px solid rgba(248, 77, 77, 1)`}
 `
 export const SButton = styled.button`
   width: 100%;
   height: 30px;
-  background-color: #565eef;
+  background-color: rgb(86, 94, 239);
   border-radius: 4px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -102,25 +115,25 @@ export const SButton = styled.button`
   line-height: 21px;
   font-weight: 500;
   letter-spacing: -0.14px;
-  color: #ffffff;
+  color: rgb(255, 255, 255);
 
   ${({ disabled }) =>
     disabled &&
-    `background-color: #94a6be;
+    `background-color: rgb(148, 166, 190);
     cursor: not-allowed;
 `}
 
   a {
     width: 100%;
     height: 100%;
-    color: #ffffff;
+    color: rgb(255, 255, 255);
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   &:hover:not(:disabled) {
-    background-color: #33399b;
+    background-color: rgb(51, 57, 155);
   }
 
   @media screen and (max-width: 375px) {
