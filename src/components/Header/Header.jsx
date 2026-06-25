@@ -29,12 +29,12 @@ const Header = () => {
         <SBlock>
           <SLogo $isVisible={theme.mode === 'light'}>
             <Link to="/">
-              <img src="/images/logo.png" alt="logo" />
+              <img src={`${import.meta.env.BASE_URL}images/logo.png`} alt="logo" />
             </Link>
           </SLogo>
           <SLogo $isVisible={theme.mode === 'dark'}>
             <Link to="/">
-              <img src="/images/logo_dark.png" alt="logo" />
+              <img src={`${import.meta.env.BASE_URL}images/logo_dark.png`} alt="logo" />
             </Link>
           </SLogo>
           <SNav>
