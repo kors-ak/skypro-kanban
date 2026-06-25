@@ -17,9 +17,9 @@ function AppRoutes() {
     <Routes>
       <Route element={<PrivateRoute isAuth={!!user} />}>
         <Route path="/" element={<MainPage />}>
-          <Route path="/exit" element={<ExitPage />} />
-          <Route path="/task/add" element={<NewCardPage />} />
-          <Route path="/task/:id" element={<CardPage />} />
+          <Route path="exit" element={<ExitPage />} />
+          <Route path="task/add" element={<NewCardPage />} />
+          <Route path="task/:id" element={<CardPage />} />
         </Route>
       </Route>
 
