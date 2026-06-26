@@ -60,6 +60,7 @@ export const STheme = styled.div`
   }
 
   input[type='checkbox'] {
+    cursor: pointer;
     position: relative;
     width: 24px;
     height: 13px;
