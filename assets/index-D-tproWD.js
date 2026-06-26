@@ -16,11 +16,15 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   padding: 0;
   box-sizing: border-box;
   font-family: "Roboto", sans-serif, Arial, Helvetica;
+  transition: background-color 0.2s ease, color 0.4s ease;
+
   }
 
   *:before,
   *:after {
   box-sizing: border-box;
+  transition: background-color 0.2s ease, color 0.4s ease;
+
   }
 
   a,
@@ -220,6 +224,7 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
   }
 
   input[type='checkbox'] {
+    cursor: pointer;
     position: relative;
     width: 24px;
     height: 13px;
