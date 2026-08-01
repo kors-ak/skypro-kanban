@@ -88,7 +88,7 @@ export const SThemeTop = styled.div`
   border-radius: 24px;
   opacity: 1;
   background-color: ${({ theme, $cardTheme }) =>
-    theme.cardThemes[$cardTheme].bg || theme.cardThemes.default.bg};
+    theme.cardThemes[$cardTheme]?.bg ?? theme.cardThemes.default.bg};
 
   &:not(:last-child) {
     margin-right: 7px;
@@ -100,7 +100,7 @@ export const SThemeTop = styled.div`
     line-height: 14px;
     white-space: nowrap;
     color: ${({ theme, $cardTheme }) =>
-      theme.cardThemes[$cardTheme].text || theme.cardThemes.default.text};
+      theme.cardThemes[$cardTheme]?.text ?? theme.cardThemes.default.text};
   }
 
   @media screen and (max-width: 495px) {
@@ -233,7 +233,7 @@ export const SThemeBlock = styled.div`
   border-radius: 24px;
   opacity: 1;
   background-color: ${({ theme, $cardTheme }) =>
-    theme.cardThemes[$cardTheme].bg || theme.cardThemes.default.bg};
+    theme.cardThemes[$cardTheme]?.bg ?? theme.cardThemes.default.bg};
 
   &:not(:last-child) {
     margin-right: 7px;
@@ -245,7 +245,7 @@ export const SThemeBlock = styled.div`
     line-height: 14px;
     white-space: nowrap;
     color: ${({ theme, $cardTheme }) =>
-      theme.cardThemes[$cardTheme].text || theme.cardThemes.default.text};
+      theme.cardThemes[$cardTheme]?.text ?? theme.cardThemes.default.text};
   }
 `
 export const SBtnContainer = styled.div`

@@ -1,5 +1,5 @@
-import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 export const SPopNewCard = styled.div`
   display: block;
@@ -200,7 +200,7 @@ export const STheme = styled.div`
   opacity: 0.4;
   cursor: pointer;
   background-color: ${({ theme, $cardTheme }) =>
-    theme.cardThemes[$cardTheme].bg || theme.cardThemes.default.bg};
+    theme.cardThemes[$cardTheme]?.bg ?? theme.cardThemes.default.bg};
 
   ${({ $active }) => $active && `opacity: 1 !important;`};
 
@@ -214,7 +214,7 @@ export const STheme = styled.div`
     line-height: 14px;
     white-space: nowrap;
     color: ${({ theme, $cardTheme }) =>
-      theme.cardThemes[$cardTheme].text || theme.cardThemes.default.text};
+      theme.cardThemes[$cardTheme]?.text ?? theme.cardThemes.default.text};
   }
 `
 export const SButton = styled.button`

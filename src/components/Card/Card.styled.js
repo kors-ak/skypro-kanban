@@ -55,14 +55,14 @@ export const SCardTheme = styled.div`
   padding: 5px 14px;
   border-radius: 18px;
   background-color: ${({ theme, $cardTheme }) =>
-    theme.cardThemes[$cardTheme].bg || theme.cardThemes.default.bg};
+    theme.cardThemes[$cardTheme]?.bg ?? theme.cardThemes.default.bg};
 
   p {
     font-size: 10px;
     font-weight: 600;
     line-height: 10px;
     color: ${({ theme, $cardTheme }) =>
-      theme.cardThemes[$cardTheme].text || theme.cardThemes.default.text};
+      theme.cardThemes[$cardTheme]?.text ?? theme.cardThemes.default.text};
   }
 `
 
