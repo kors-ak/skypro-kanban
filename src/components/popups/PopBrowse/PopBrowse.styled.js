@@ -76,9 +76,19 @@ export const STopBlock = styled.div`
 `
 export const STitle = styled.h3`
   color: ${({ theme }) => theme.primaryText};
+  max-width: 400px;
+  overflow-wrap: break-word;
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
+
+  @media screen and (max-width: 660px) {
+    max-width: 320px;
+  }
+
+  @media screen and (max-width: 495px) {
+    max-width: 90vw;
+  }
 `
 export const SThemeTop = styled.div`
   display: block;

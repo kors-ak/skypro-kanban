@@ -89,6 +89,11 @@ export const SContent = styled.div`
   align-items: flex-start;
   justify-content: space-between;
 `
+export const STitleDiv = styled.div`
+  display: block;
+  width: 160px;
+  height: 37px;
+`
 
 export const STitle = styled.h3`
   font-size: 14px;

@@ -1,4 +1,6 @@
+import { useDraggable } from '@dnd-kit/core'
 import { Link } from 'react-router-dom'
+import { formatDate } from '../../utils'
 import {
   SButton,
   SCard,
@@ -9,9 +11,8 @@ import {
   SDate,
   SDot,
   STitle,
+  STitleDiv,
 } from './Card.styled'
-import { formatDate } from '../../utils'
-import { useDraggable } from '@dnd-kit/core'
 
 const Card = ({ task, isOverlay = false }) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
@@ -45,7 +46,13 @@ const Card = ({ task, isOverlay = false }) => {
         </SCardGroup>
         <SContent>
           <Link to={'/task/' + task?._id}>
-            <STitle>{task.title}</STitle>
+            <STitleDiv>
+              <STitle title={task.title.length > 20 ? task.title : undefined}>
+                {task.title.length > 20
+                  ? `${task.title.slice(0, 18)}...`
+                  : task.title}
+              </STitle>
+            </STitleDiv>
           </Link>
           <SDate>
             <svg
