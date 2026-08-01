@@ -1,8 +1,3 @@
-import Column from '../Column/Column'
-import { columnsArr } from '../../data'
-import { SMain, SContainer, SBlock, SContent } from './Main.styled'
-import { useContext, useEffect, useState } from 'react'
-import { TasksContext, ThemeContext } from '../../context/ContextApi'
 import {
   DndContext,
   DragOverlay,
@@ -10,12 +5,18 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core'
-import Card from '../Card/Card'
-import { STitle } from '../Auth/AuthForm.Styled'
+import { useContext, useEffect, useState } from 'react'
 import { ToastContainer } from 'react-toastify'
+import { TasksContext, ThemeContext } from '../../context/ContextApi'
+import { columnsArr } from '../../data'
+import { STitle } from '../Auth/AuthForm.Styled'
+import Card from '../Card/Card'
+import Column from '../Column/Column'
+import { SBlock, SContainer, SContent, SMain } from './Main.styled'
 
 const Main = () => {
-  const { getTasks, loadingErr, tasks } = useContext(TasksContext)
+  const { getTasks, loadingErr, tasks, moveTask, loading } =
+    useContext(TasksContext)
 
   useEffect(() => {
     async function fetchData() {
@@ -25,7 +26,6 @@ const Main = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const { moveTask } = useContext(TasksContext)
   const { theme } = useContext(ThemeContext)
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -57,7 +57,7 @@ const Main = () => {
           <SContent>
             {loadingErr ? (
               <STitle style={{ whiteSpace: 'pre-wrap' }}>{loadingErr}</STitle>
-            ) : noTasks ? (
+            ) : !loading && noTasks ? (
               <STitle>Список задач пуст</STitle>
             ) : (
               <DndContext
